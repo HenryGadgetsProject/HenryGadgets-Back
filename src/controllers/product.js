@@ -37,7 +37,6 @@ const getPopularProducts = async () => {
 const getProductById = async (id) => {
     try {
         const product = await Product.findOne({
-
             where: {
                 id: id
             },
@@ -57,7 +56,6 @@ const getProductsByName = async (name) => {
             },
             include: [{ model: Category, attributes: ['id', 'name'] }]
         });
-        console.log(products)
         return products
     } catch (error) {
         return error.message;
