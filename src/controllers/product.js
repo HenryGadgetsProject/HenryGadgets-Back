@@ -65,32 +65,15 @@ const getProductsByName = async (name) => {
 }
 
 
-const createProduct = async (name, price, stock, description, rating, is_active, big_image, categories) => {
+async function createProduct(productInfo, id, next) {
+
+    const productData = {...productInfo, id}
 
     try {
-        const categoriesDB = await Category.findAll({
-            where: {
-                id: {
-                    [Sequelize.Op.in]: categories,
-                }
-            }
-        })
-        const product = await Product.create({
-            name,
-            price,
-            stock,
-            description,
-            rating,
-            is_active,
-            big_image
-        })
-        await product.addProduct(categoriesDB)
-        const categoriesNew = categoriesDB.map(t => t.dataValues)
-
-        return ({ ...product.dataValues, categories: categoriesNew })
-
-    } catch (error) {
-        return error.message;
+        const newProduct = await Product.create(productData)
+        return `El producto ${newProduct.name} ha sido creado`
+    } catch (err) {
+        next(err)
     }
 }
 
