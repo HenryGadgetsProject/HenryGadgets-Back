@@ -17,7 +17,21 @@ const getCategoryById = async (id) => {
     }
 }
 
+const createCategory = async (name, photo) => {
+
+    try {
+        const category = await Category.create({
+            name,
+            photo
+        })
+        return category;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 module.exports = {
     getAllCategories,
-    getCategoryById
+    getCategoryById,
+    createCategory
 };
