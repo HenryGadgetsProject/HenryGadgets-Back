@@ -24,11 +24,12 @@ const { products } = require('./src/data/dummyProduct')
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-    Category.bulkCreate(categories).then(() => {
-        Product.bulkCreate(products).then(() => {
-            // Handler_category.bulkCreate(hc)
-        })
-    })
+    Product.bulkCreate(products)
+    // Category.bulkCreate(categories).then(() => {
+    // Product.bulkCreate(products).then(() => {
+    //     // Handler_category.bulkCreate(hc)
+    // })
+    // })
 })
 
 app.listen(3001, () => {
