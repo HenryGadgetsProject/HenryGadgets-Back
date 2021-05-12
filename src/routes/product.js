@@ -1,8 +1,5 @@
-
 const { Product } = require('../models/Product')
-
 const { Router } = require("express");
-const uuid = require('uuid');
 const { getAllProducts, getProductById, getProductsByName, createProduct, getPopularProducts } = require("../controllers/product");
 const { v4: uuidv4 } = require('uuid');
 
@@ -34,19 +31,21 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
+
+    const id = uuidv4()
+
+    const productInfo = req.body
+
+    if(!productInfo) {
+        res.status(400).send('No hay información suficiente para crear su nuevo producto')
+    }
+
     try {
-        const id = uuidv4();
-        const { name, price, stock, description, rating, is_active, big_image, categories } = req.body;
-        if (!name || !price || !stock || !description || !rating || !is_active || !big_image) {
-            return res.status(400).json({ message: 'all the parametters are require' })
-        }
-
-
-        const product = await createProduct(name.toLowerCase(), name, price, stock, description, rating, is_active, big_image, categories)
-        return res.status(201).json(await product)
-    } catch (e) {
-        return res.status(400).json({ message: e })
+        const createdProduct = await createProduct(productInfo, id, next)
+        res.status(201).send(createdProduct)
+    } catch (err) {
+        next(err)
     }
 })
 

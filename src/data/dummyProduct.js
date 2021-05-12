@@ -1,6 +1,8 @@
+const { v4: uuidv4 } = require('uuid');
+
 const products = [
   {
-    id: 1,
+    id: uuidv4(),
     name: "Zapatillas",
     price: "9800",
     rating: 4,
@@ -11,7 +13,7 @@ const products = [
     stock: 30,
   },
   {
-    id: 2,
+    id: uuidv4(),
     name: "Zapatillas Adidas",
     price: "6000",
     rating: 5,
@@ -22,7 +24,7 @@ const products = [
     stock: 20,
   },
   {
-    id: 3,
+    id: uuidv4(),
     name: "Zapatillas",
     price: "16000",
     rating: 4,
@@ -33,7 +35,7 @@ const products = [
     stock: 10,
   },
   {
-    id: 4,
+    id: uuidv4(),
     name: "Anillo con sello",
     price: "88000",
     rating: 4,
@@ -44,7 +46,7 @@ const products = [
     stock: 0,
   },
   {
-    id: 5,
+    id: uuidv4(),
     name: "Zapatillas ADIDAS",
     price: "6800",
     rating: 5,
@@ -55,7 +57,7 @@ const products = [
     stock: 0,
   },
   {
-    id: 6,
+    id: uuidv4(),
     name: "SmartPhone SAMSUNG",
     price: "46000",
     rating: 3,
@@ -66,7 +68,7 @@ const products = [
     stock: 120,
   },
   {
-    id: 7,
+    id: uuidv4(),
     name: "Zapatillas Unisex",
     price: "8500",
     rating: 2,
