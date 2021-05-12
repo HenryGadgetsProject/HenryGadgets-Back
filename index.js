@@ -18,11 +18,19 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
-const { conn } = require("./db");
+const { conn, Category, Product } = require("./db");
+const { categories } = require('./src/data/dummyCategories')
+const { products } = require('./src/data/dummyProduct')
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
-    app.listen(3001, () => {
-        console.log('%s listening at 3001'); // eslint-disable-line no-console
-    });
+conn.sync({ force: true }).then(() => {
+    Category.bulkCreate(categories).then(() => {
+        Product.bulkCreate(products).then(() => {
+            // Handler_category.bulkCreate(hc)
+        })
+    })
+})
+
+app.listen(3001, () => {
+    console.log("%s listening at 3001"); // eslint-disable-line no-console
 });
