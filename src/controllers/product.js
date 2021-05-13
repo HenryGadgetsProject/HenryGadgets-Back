@@ -66,14 +66,16 @@ const getProductsByName = async (name) => {
 async function createProduct(productInfo, id, next) {
 
     const productData = {...productInfo, id}
-
     try {
         const newProduct = await Product.create(productData)
+        console.log(newProduct);
         return `El producto ${newProduct.name} ha sido creado`
     } catch (err) {
         next(err)
     }
 }
+
+//update
 
 
 
