@@ -3,7 +3,6 @@ const DT = DataTypes;
 
 module.exports = (sequelize) => {
 
-
     const orderProduct = sequelize.define('orders_products', {
         id: {
             type: DT.INTEGER,
