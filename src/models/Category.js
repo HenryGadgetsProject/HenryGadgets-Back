@@ -14,6 +14,9 @@ module.exports = (sequelize) => {
             unique: true,
             allowNull: false
         },
+        description: {
+            type: DT.STRING,
+        },
         photo: {
             type: DT.STRING,
             allowNull: false

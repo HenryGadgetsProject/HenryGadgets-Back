@@ -7,7 +7,7 @@ const getAllProducts = async () => {
     try {
         return await Product.findAll(
             {
-                include: [{ model: Category, attributes: ['id', 'name'] }]
+                include: [{ model: Category, attributes: ['id', 'name'] }],
             }
         );
     } catch (error) {
@@ -39,6 +39,7 @@ const getProductById = async (id) => {
                 id: id
             },
             include: [{ model: Category, attributes: ['id', 'name'] }]
+
         });
         return product
     } catch (error) {
@@ -128,23 +129,23 @@ const updateProduct = async (
         // productUpdated.categories.forEach(category => category.destory({ transaction: t}));
         // console.log('el producto encontrado fue', productUpdated);
         // productUpdated.categories.forEach(category => category.add({ transaction: t}));
-    //     productUpdated.update(
-    //         {
-    //             name,
-    //             price,
-    //             rating,
-    //             big_image,
-    //             description,
-    //             is_active,
-    //             stock,
-    //             categories
-    //         },
-    //         { transaction: t }
-    //     );
-    //     await t.commit();
-    // } catch {
-    //     await t.rollback();
-    // }
+        //     productUpdated.update(
+        //         {
+        //             name,
+        //             price,
+        //             rating,
+        //             big_image,
+        //             description,
+        //             is_active,
+        //             stock,
+        //             categories
+        //         },
+        //         { transaction: t }
+        //     );
+        //     await t.commit();
+        // } catch {
+        //     await t.rollback();
+        // }
 
 
         return productUpdated;

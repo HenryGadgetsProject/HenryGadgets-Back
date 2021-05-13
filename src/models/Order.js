@@ -1,30 +1,25 @@
 const { DataTypes } = require('sequelize');
-const D = DataTypes;
+const DT = DataTypes;
 
 module.exports = (sequelize) => {
     sequelize.define('order', {
-        email: {
-            type: D.STRING,
+        id: {
+            type: DT.INTEGER,
+            primaryKey: true,
             allowNull: false,
-            validate: {
-                isEmail: true
-            }
+            autoIncrement: true
         },
         total_amount: {
-            type: D.DOUBLE,
+            type: DT.DOUBLE,
             allowNull: false,
             validate: {
                 isNumeric: true
             }
-        },
-        state: {
-            type: D.ENUM('created', 'processing', 'completed', 'canceled'),
-            defaultValue: 'created',
-            allowNull: false
         }
+
     },
         {
-            timestamps: false,
+            timestamps: true,
             underscored: true
         });
 }

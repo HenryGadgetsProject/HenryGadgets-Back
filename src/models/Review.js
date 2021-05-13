@@ -6,6 +6,12 @@ module.exports = (sequelize) => {
 
 
     const Review = sequelize.define('review', {
+        id: {
+            type: DT.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            autoIncrement: true
+        },
         rating: {
             type: DT.INTEGER,
             allowNull: false,

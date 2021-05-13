@@ -19,12 +19,23 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
 const { conn, Category, Product } = require("./db");
-const { categories } = require('./src/data/dummyCategories')
-const { products } = require('./src/data/dummyProduct')
+const categories = require('./src/data/categories')
+const products = require('./src/data/products')
+const { createCategory } = require('./src/controllers/category')
+const { createProduct } = require('./src/controllers/product')
+
+
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-    Product.bulkCreate(products)
+    // Product.bulkCreate(products)
+
+
+
+    categories.forEach(cat => Category.create(cat));
+
+    products.forEach(product => Product.create(product))
+
     // Category.bulkCreate(categories).then(() => {
     // Product.bulkCreate(products).then(() => {
     //     // Handler_category.bulkCreate(hc)

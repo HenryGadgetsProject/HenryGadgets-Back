@@ -8,6 +8,12 @@ const {
     getPopularProducts,
     deleteProduct,
     updateProduct } = require("../controllers/product");
+const {
+    getAllCategories,
+    getCategoryById,
+    createCategory,
+    updateCategory,
+    deleteCategory } = require("../controllers/category");
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -39,21 +45,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-// router.post('/', async (req, res, next) => {
-//     const id = uuidv4()
-//     const productInfo = req.body
 
-//     if (!productInfo) {
-//         res.status(400).send('No hay información suficiente para crear su nuevo producto')
-//     }
-
-//     try {
-//         const createdProduct = await createProduct(productInfo, id, next)
-//         res.status(201).send(createdProduct)
-//     } catch (err) {
-//         next(err)
-//     }
-// })
 router.post('/', async (req, res, next) => {
     const id = uuidv4()
 
@@ -119,6 +111,50 @@ router.put('/:id', async (req, res, next) => {
         res.send(error)
     }
 })
+
+// ********************************************************
+//                      Categories
+// ********************************************************
+
+router.post('/category', async (req, res) => {
+    try {
+        const { name, photo, description } = req.body;
+        if (!name || !photo || !description) res.send('no hay nada')
+        const category = await createCategory(name, photo, description);
+        res.send(await category)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+router.put('/category/:id', async (req, res, next) => {
+
+    const { name, photo, description } = req.body;
+    const { id } = req.params;
+
+    try {
+        const updatedCategory = await updateCategory(id, name, photo, description)
+        return res.send(updatedCategory)
+    } catch (error) {
+        console.log(error);
+        res.send(error)
+    }
+})
+
+router.delete('/category/:id', async (req, res, next) => {
+
+    const { id } = req.params;
+
+    try {
+        const deletedCategory = await deleteCategory(parseInt(id))
+        return res.sendStatus(200)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+
+
 
 
 router.get('/popular/products', async (req, res) => {

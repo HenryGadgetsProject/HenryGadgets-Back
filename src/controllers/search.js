@@ -5,7 +5,10 @@ const searchProducts = async (query) => {
     try {
         const products = await Product.findAll({
             where: {
-                name: { [Sequelize.Op.iLike]: `%${query}%` }
+                [Sequelize.Op.or]: [
+                    { name: { [Sequelize.Op.iLike]: `%${query}%` } },
+                    { description: { [Sequelize.Op.iLike]: `%${query}%` } }
+                ],
             },
             include: [{ model: Category, attributes: ['id', 'name'] }]
         });

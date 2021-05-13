@@ -12,12 +12,12 @@ router.get('/', async (req, res) => {
 
     // res.send(result)
 
-    if(query) {
+    if (query) {
         try {
             const result = await searchProducts(query)
 
-            if(!result) {
-                res.status(400).send(`Por favor ingrese un nombre valido`)
+            if (!result) {
+                res.status(400).send(`No se ha encontrado nada`)
             }
 
             res.send(result)
