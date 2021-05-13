@@ -62,6 +62,34 @@ const getProductsByName = async (name) => {
     }
 }
 
+const assignCategories = async (prodId, catId) => {
+  let prod = Product.findOne({
+      where: { id: prodId }
+  })
+  let cat = Category.findOne({
+      where: { id: catId }
+  })
+  Promise.all([prod, cat])
+      .then(([prod, cat]) => {
+          prod.addCategories(cat)
+          return prod;
+      })
+};
+
+const deleteCategories = async (prodId, catId) => {
+  let prod = Product.findOne({
+      where: { id: prodId }
+  })
+  let cat = Category.findOne({
+      where: { id: catId }
+  })
+  Promise.all([prod, cat])
+      .then(([prod, cat]) => {
+          prod.removeCategories(cat)
+          res.status(200).json({ message: "Category deleted." })
+      })
+};
+
 
 async function createProduct(productInfo, id, next) {
 
@@ -84,5 +112,7 @@ module.exports = {
     getProductById,
     getProductsByName,
     createProduct,
-    getPopularProducts
+    assignCategories,
+    getPopularProducts,
+    deleteCategories
 };

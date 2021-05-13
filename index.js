@@ -24,7 +24,7 @@ const { products } = require('./src/data/dummyProduct')
 const PORT = process.env.PORT || 3001;
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
     Category.bulkCreate(categories).then(() => {
         Product.bulkCreate(products).then(() => {
             // Handler_category.bulkCreate(hc)
