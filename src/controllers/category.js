@@ -24,7 +24,7 @@ const createCategory = async (name, photo) => {
             photo
         })
 
-        console.log(category)
+
         return category;
     } catch (error) {
         return error.message;

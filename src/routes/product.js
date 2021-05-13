@@ -7,7 +7,7 @@ const {
     createProduct,
     getPopularProducts,
     deleteProduct,
-    createProductB } = require("../controllers/product");
+    updateProduct } = require("../controllers/product");
 
 const { v4: uuidv4 } = require('uuid');
 
@@ -72,7 +72,7 @@ router.post('/', async (req, res, next) => {
     }
 
     try {
-        const createdProduct = await createProductB(
+        const createdProduct = await createProduct(
             id,
             name,
             price,
@@ -84,6 +84,19 @@ router.post('/', async (req, res, next) => {
             categories)
         res.status(201).send(createdProduct)
     } catch (err) {
+        res.send(error)
+    }
+})
+
+router.put('/:id', async (req, res, next) => {
+
+    const { name, price, rating, big_image, description, is_active, stock, categories } = req.body;
+    const { id } = req.params;
+
+    try {
+        const updatedProduct = await updateProduct(id, name, price, rating, big_image, description, is_active, stock, categories)
+        return res.send(updatedProduct)
+    } catch (error) {
         res.send(error)
     }
 })

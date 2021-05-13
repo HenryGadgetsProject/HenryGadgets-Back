@@ -48,34 +48,23 @@ const getProductById = async (id) => {
     }
 }
 
-const getProductsByName = async (name) => {
-    try {
-        const products = await Product.findAll({
-            where: {
-                name: { [Sequelize.Op.iLike]: `%${name}%` }
-            },
-            include: [{ model: Category, attributes: ['id', 'name'] }]
-        });
-        return products
-    } catch (error) {
-        return error.message;
-    }
-}
+// const searchProducts = async (query) => {
+//     try {
+//         const products = await Product.findAll({
+//             where: {
+//                 name: { [Sequelize.Op.iLike]: `%${query}%` }
+//             },
+//             include: [{ model: Category, attributes: ['id', 'name'] }]
+//         });
+//         return products
+//     } catch (error) {
+//         return error.message;
+//     }
+// }
 
 
-const createProduct = async (productInfo, id, next) => {
 
-    const productData = { ...productInfo, id }
-
-    try {
-        const newProduct = await Product.create(productData)
-        return `El producto ${newProduct.name} ha sido creado`
-    } catch (err) {
-        next(err)
-    }
-}
-
-const createProductB = async (id, name, price, rating, big_image, description, is_active, stock, categories) => {
+const createProduct = async (id, name, price, rating, big_image, description, is_active, stock, categories) => {
 
 
     if (!name) {
@@ -99,6 +88,50 @@ const createProductB = async (id, name, price, rating, big_image, description, i
     }
 }
 
+const updateProduct = async (id, name, price, rating, big_image, description, is_active, stock, categories) => {
+
+    try {
+        const productUpdated = await Product.update(
+            {
+                name,
+                price,
+                rating,
+                big_image,
+                description,
+                is_active,
+                stock,
+                categories
+            },
+            { where: { id: id } }
+        )
+
+
+        return productUpdated;
+    } catch (e) {
+        return e.message;
+    }
+}
+
+// const  updateProduct = async (id)=> {
+//     const { id } = req.params;
+//     const { name, price, rating, big_image, description, is_active, stock, categories } = req.body
+//     const product = await Task.findOne({
+//       attributes: ['name','projectid','done','id'],
+//       where: {id}
+//     })
+//     const updatedTask = await Task.update({
+//       name,
+//       done,
+//       projectid
+//     },{
+//       where: {id}
+//     })
+//     res.json({
+//       message: 'Task Updated',
+//       updatedTask
+//     })
+//   }
+
 const deleteProduct = async (id) => {
     try {
         let productDeleted = await Product.destroy({ where: { id: id } });
@@ -113,9 +146,8 @@ const deleteProduct = async (id) => {
 module.exports = {
     getAllProducts,
     getProductById,
-    getProductsByName,
     createProduct,
     getPopularProducts,
     deleteProduct,
-    createProductB,
+    updateProduct,
 };
