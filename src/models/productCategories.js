@@ -2,21 +2,17 @@ const { DataTypes } = require('sequelize');
 const DT = DataTypes;
 
 module.exports = (sequelize) => {
-    sequelize.define('brand', {
+
+    const productCategory = sequelize.define('products_categories', {
         id: {
             type: DT.INTEGER,
             primaryKey: true,
             allowNull: false,
-            autoIncrement: true,
+            autoIncrement: true
         },
-        name: {
-            type: DT.STRING,
-            unique: true,
-            allowNull: false
-        }
     },
         {
             timestamps: false,
             underscored: true
         });
-}
+};

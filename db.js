@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
+const { DataTypes } = require('sequelize');
+const DT = DataTypes;
 const path = require('path');
 const {
     DB_USER, DB_PASSWORD, DB_HOST, DB_NAME
@@ -30,20 +32,21 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Category, Image, Order, Product, Review, User, Brand } = sequelize.models;
+const { Brand, Category, Image, Order, OrderProduct, Product, Review, User, } = sequelize.models;
 
 
 // Aca vendrian las relaciones
 Product.hasMany(Image, { foreignKey: { allowNull: false } });
 Product.hasMany(Review, { foreignKey: { allowNull: false } });
-Category.belongsToMany(Product, { through: 'products_categories' });
+Product.belongsTo(Brand, { foreignKey: { allowNull: true, type: DT.INTEGER } })
 Product.belongsToMany(Category, { through: 'products_categories' });
+Category.belongsToMany(Product, { through: 'products_categories' });
+Brand.hasMany(Product, { foreignKey: { allowNull: false }})
 Product.belongsToMany(Order, { through: 'orders_products' })
 Order.belongsToMany(Product, { through: 'orders_products' })
 User.hasMany(Order, { foreignKey: { allowNull: false } });
 User.hasMany(Review, { foreignKey: { allowNull: false } });
 Review.belongsTo(User, { foreignKey: { allowNull: false } });
-Brand.hasMany(Product, { foreignKey: { allowNull: false } });
 
 // verifico conexion a la base de datos
 sequelize.authenticate()
