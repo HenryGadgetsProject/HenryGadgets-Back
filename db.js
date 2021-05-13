@@ -30,7 +30,7 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Category, Image, Order, Product, Review, User } = sequelize.models;
+const { Category, Image, Order, Product, Review, User, Brand } = sequelize.models;
 
 
 // Aca vendrian las relaciones
@@ -43,6 +43,7 @@ Order.belongsToMany(Product, { through: 'orders_products' })
 User.hasMany(Order, { foreignKey: { allowNull: false } });
 User.hasMany(Review, { foreignKey: { allowNull: false } });
 Review.belongsTo(User, { foreignKey: { allowNull: false } });
+Brand.hasMany(Product, { foreignKey: { allowNull: false } });
 
 // verifico conexion a la base de datos
 sequelize.authenticate()

@@ -2,8 +2,6 @@ const { DataTypes } = require('sequelize');
 const DT = DataTypes;
 
 module.exports = (sequelize) => {
-    // defino el modelo
-
 
     const Review = sequelize.define('review', {
         id: {
