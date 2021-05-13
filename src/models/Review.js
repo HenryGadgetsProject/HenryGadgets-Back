@@ -2,10 +2,14 @@ const { DataTypes } = require('sequelize');
 const DT = DataTypes;
 
 module.exports = (sequelize) => {
-    // defino el modelo
-
 
     const Review = sequelize.define('review', {
+        id: {
+            type: DT.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            autoIncrement: true
+        },
         rating: {
             type: DT.INTEGER,
             allowNull: false,

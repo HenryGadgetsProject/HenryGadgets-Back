@@ -41,9 +41,9 @@ module.exports = (sequelize) => {
         },
         big_image: {
             type: DT.STRING,
-            validate: {
-                isUrl: true
-            }
+            // validate: {
+            //     isUrl: true
+            // }
         }
     },
         {
