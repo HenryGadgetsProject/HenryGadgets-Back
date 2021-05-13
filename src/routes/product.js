@@ -90,11 +90,30 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
 
-    const { name, price, rating, big_image, description, is_active, stock, categories } = req.body;
     const { id } = req.params;
+    const {
+        name,
+        price,
+        rating,
+        big_image,
+        description,
+        is_active,
+        stock,
+        categories
+    } = req.body;
 
     try {
-        const updatedProduct = await updateProduct(id, name, price, rating, big_image, description, is_active, stock, categories)
+        const updatedProduct = await updateProduct(
+            id,
+            name,
+            price,
+            rating,
+            big_image,
+            description,
+            is_active,
+            stock,
+            categories
+        )
         return res.send(updatedProduct)
     } catch (error) {
         res.send(error)

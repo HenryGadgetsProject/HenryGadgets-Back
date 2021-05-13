@@ -27,8 +27,6 @@ const getPopularProducts = async () => {
                 include: [{ model: Category, attributes: ['id', 'name'] }]
             }
         )
-
-
     } catch (e) {
 
     }
@@ -63,9 +61,17 @@ const getProductById = async (id) => {
 // }
 
 
-
-const createProduct = async (id, name, price, rating, big_image, description, is_active, stock, categories) => {
-
+const createProduct = async (
+    id,
+    name,
+    price,
+    rating,
+    big_image,
+    description,
+    is_active,
+    stock,
+    categories
+) => {
 
     if (!name) {
         return res.status(500).json("Not enough Data in Body")
@@ -88,7 +94,20 @@ const createProduct = async (id, name, price, rating, big_image, description, is
     }
 }
 
-const updateProduct = async (id, name, price, rating, big_image, description, is_active, stock, categories) => {
+
+const updateProduct = async (
+    id,
+    name,
+    price,
+    rating,
+    big_image,
+    description,
+    is_active,
+    stock,
+    categories
+) => {
+
+    // const t = await sequelize.transaction();
 
     try {
         const productUpdated = await Product.update(
@@ -102,8 +121,30 @@ const updateProduct = async (id, name, price, rating, big_image, description, is
                 stock,
                 categories
             },
-            { where: { id: id } }
+            { where: { id } }
         )
+
+        // const productUpdated = await Product.findByPk(id);
+        // productUpdated.categories.forEach(category => category.destory({ transaction: t}));
+        // console.log('el producto encontrado fue', productUpdated);
+        // productUpdated.categories.forEach(category => category.add({ transaction: t}));
+    //     productUpdated.update(
+    //         {
+    //             name,
+    //             price,
+    //             rating,
+    //             big_image,
+    //             description,
+    //             is_active,
+    //             stock,
+    //             categories
+    //         },
+    //         { transaction: t }
+    //     );
+    //     await t.commit();
+    // } catch {
+    //     await t.rollback();
+    // }
 
 
         return productUpdated;
@@ -131,6 +172,7 @@ const updateProduct = async (id, name, price, rating, big_image, description, is
 //       updatedTask
 //     })
 //   }
+
 
 const deleteProduct = async (id) => {
     try {

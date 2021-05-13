@@ -1,8 +1,7 @@
-const { Product, Category } = require("../../db.js");
+const { Product, Category } = require('../../db');
 const { Sequelize } = require('sequelize')
 
 const searchProducts = async (query) => {
-    console.log('***********************************************', query)
     try {
         const products = await Product.findAll({
             where: {
@@ -12,7 +11,7 @@ const searchProducts = async (query) => {
         });
         return products
     } catch (error) {
-        return error.message;
+        console.log(error);
     }
 }
 
