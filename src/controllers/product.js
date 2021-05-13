@@ -47,6 +47,75 @@ const getProductById = async (id) => {
     }
 }
 
+
+
+const getProductsByCatName = async (catName) => {
+    try {
+        const prdByCatName = await Product.findAll({
+            include: [{
+                model: Category,
+                where: {
+                    name: {
+                        [Sequelize.Op.eq]: `${catName}`
+                    }
+                }
+            }]
+        })
+
+        return prdByCatName
+    } catch (error) {
+        return error.message;
+    }
+
+
+    // router.get('/categories/:nameCat', async (req, res) => {
+//     const { nameCat } = req.params
+//     const products = await Product.findAll({
+//         include: [
+//             {
+//                 model: Category,
+//                 where: {
+//                     [Op.or]: [
+//                         { name: nameCat }
+//                     ]
+//                 }
+//             }
+//         ]
+//     })
+//     return res(products)
+// })
+	// catName = catName.toLowerCase();
+	// let count = 0;
+	// Product.count({
+	// 	include: [
+	// 		{
+	// 			model: Category,
+	// 			where: {
+	// 				[Op.or]: [
+	// 					{ name: catName }
+	// 				]
+	// 			}
+	// 		}
+	// 	]
+	// })
+	// 	.then(data => {
+	// 		count = data;
+	// 	})
+	// Product.findAll({
+	// 	include: [
+	// 		{
+	// 			model: Category,
+	// 			where: {
+	// 				[Op.or]: [
+	// 					{ name: catName }
+	// 				]
+	// 			}
+	// 		}
+	// 	]
+	// })
+	// 	.then(data => res.json({ count, results: data }))
+}
+
 // const searchProducts = async (query) => {
 //     try {
 //         const products = await Product.findAll({
@@ -189,6 +258,7 @@ const deleteProduct = async (id) => {
 module.exports = {
     getAllProducts,
     getProductById,
+    getProductsByCatName,
     createProduct,
     getPopularProducts,
     deleteProduct,
