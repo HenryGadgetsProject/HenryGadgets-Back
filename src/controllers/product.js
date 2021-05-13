@@ -48,30 +48,96 @@ const getProductById = async (id) => {
     }
 }
 
-const getProductsByName = async (name) => {
+// const searchProducts = async (query) => {
+//     try {
+//         const products = await Product.findAll({
+//             where: {
+//                 name: { [Sequelize.Op.iLike]: `%${query}%` }
+//             },
+//             include: [{ model: Category, attributes: ['id', 'name'] }]
+//         });
+//         return products
+//     } catch (error) {
+//         return error.message;
+//     }
+// }
+
+
+
+const createProduct = async (id, name, price, rating, big_image, description, is_active, stock, categories) => {
+
+
+    if (!name) {
+        return res.status(500).json("Not enough Data in Body")
+    }
     try {
-        const products = await Product.findAll({
-            where: {
-                name: { [Sequelize.Op.iLike]: `%${name}%` }
-            },
-            include: [{ model: Category, attributes: ['id', 'name'] }]
+        const newProduct = await Product.create({
+            id,
+            name,
+            price,
+            rating,
+            big_image,
+            description,
+            is_active,
+            stock
         });
-        return products
+        const newProdCat = await newProduct.addCategory(categories)
+        return newProdCat;
     } catch (error) {
-        return error.message;
+        return error.message
     }
 }
 
-
-async function createProduct(productInfo, id, next) {
-
-    const productData = {...productInfo, id}
+const updateProduct = async (id, name, price, rating, big_image, description, is_active, stock, categories) => {
 
     try {
-        const newProduct = await Product.create(productData)
-        return `El producto ${newProduct.name} ha sido creado`
-    } catch (err) {
-        next(err)
+        const productUpdated = await Product.update(
+            {
+                name,
+                price,
+                rating,
+                big_image,
+                description,
+                is_active,
+                stock,
+                categories
+            },
+            { where: { id: id } }
+        )
+
+
+        return productUpdated;
+    } catch (e) {
+        return e.message;
+    }
+}
+
+// const  updateProduct = async (id)=> {
+//     const { id } = req.params;
+//     const { name, price, rating, big_image, description, is_active, stock, categories } = req.body
+//     const product = await Task.findOne({
+//       attributes: ['name','projectid','done','id'],
+//       where: {id}
+//     })
+//     const updatedTask = await Task.update({
+//       name,
+//       done,
+//       projectid
+//     },{
+//       where: {id}
+//     })
+//     res.json({
+//       message: 'Task Updated',
+//       updatedTask
+//     })
+//   }
+
+const deleteProduct = async (id) => {
+    try {
+        let productDeleted = await Product.destroy({ where: { id: id } });
+        return productDeleted;
+    } catch (e) {
+        return e.message;
     }
 }
 
@@ -80,7 +146,8 @@ async function createProduct(productInfo, id, next) {
 module.exports = {
     getAllProducts,
     getProductById,
-    getProductsByName,
     createProduct,
-    getPopularProducts
+    getPopularProducts,
+    deleteProduct,
+    updateProduct,
 };
