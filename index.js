@@ -19,30 +19,19 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
 const { conn, Category, Product } = require("./db");
-const categories = require('./src/data/categories')
-const products = require('./src/data/products')
-const { createCategory } = require('./src/controllers/category')
-const { createProduct } = require('./src/controllers/product')
-
-
+const { categories } = require('./src/data/dummyCategories')
+const { products } = require('./src/data/dummyProduct')
+const PORT = process.env.PORT || 3001;
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-    // Product.bulkCreate(products)
-
-
-
-    categories.forEach(cat => Category.create(cat));
-
-    products.forEach(product => Product.create(product))
-
-    // Category.bulkCreate(categories).then(() => {
-    // Product.bulkCreate(products).then(() => {
-    //     // Handler_category.bulkCreate(hc)
-    // })
-    // })
+conn.sync({ force: false }).then(() => {
+    Category.bulkCreate(categories).then(() => {
+        Product.bulkCreate(products).then(() => {
+            // Handler_category.bulkCreate(hc)
+        })
+    })
 })
 
-app.listen(3001, () => {
-    console.log("%s listening at 3001"); // eslint-disable-line no-console
+app.listen(PORT, () => {
+    console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
 });
