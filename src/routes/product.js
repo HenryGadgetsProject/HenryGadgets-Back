@@ -3,6 +3,7 @@ const { Router } = require("express");
 const {
     getAllProducts,
     getProductById,
+    getProductsByCatName,
     getProductsByName,
     createProduct,
     getPopularProducts,
@@ -154,6 +155,21 @@ router.delete('/category/:id', async (req, res, next) => {
 })
 
 
+// *******
+
+router.get('/categories/:catName', async (req, res) => {
+    const { catName } = req.params
+
+    try {
+        const productsByCatName = await getProductsByCatName(catName)
+
+        return res.send(productsByCatName)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+// *******
 
 
 
