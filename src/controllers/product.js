@@ -111,7 +111,7 @@ const deleteCategories = async (prodId, catId) => {
     where: { id: catId },
   });
   Promise.all([prod, cat]).then(([prod, cat]) => {
-    prod.setCategories();
+    prod.removeCategories(cat);
     res.status(200).json({ message: "Category deleted." });
   });
 };
