@@ -8,6 +8,7 @@ const {
 
 const router = Router();
 
+//GET ALL CATEGORIES
 router.get('/', async (req, res) => {
     try {
         const categories = await getAllCategories()
@@ -17,6 +18,7 @@ router.get('/', async (req, res) => {
     }
 })
 
+//GET CATEGORY BY ID
 router.get('/:id', async (req, res) => {
     try {
         const { id } = req.params;
@@ -27,17 +29,19 @@ router.get('/:id', async (req, res) => {
     }
 })
 
+//CREATE A NEW CATEGORY
 router.post('/', async (req, res) => {
     try {
-        const { name, photo } = req.body;
+        const { id, name, photo, description } = req.body;
         if (!name || !photo) res.send('no hay nada')
-        const category = await createCategory(name, photo);
+        const category = await createCategory(id, name, photo, description);
         res.send(await category)
     } catch (error) {
         res.send(error)
     }
 })
 
+//UPDATE AN EXISTANT CATEGORY
 router.put('/:id', async (req, res, next) => {
 
     const { name, photo } = req.body;
@@ -52,6 +56,7 @@ router.put('/:id', async (req, res, next) => {
     }
 })
 
+//DELETE AN EXISTANT CATEGORY
 router.delete('/:id', async (req, res, next) => {
 
     const { id } = req.params;
