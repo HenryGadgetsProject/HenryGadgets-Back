@@ -8,14 +8,7 @@ const products = [
         description: " Experimenta cargas superrápidas gracias a una unidad de estado sólido (SSD) de alta velocidad, una inmersión más profunda con retroalimentación háptica, gatillos adaptables y audio 3D.",
         is_active: true,
         stock: 30,
-        categories: [{
-            id: 1,
-            name: "Computacion"
-        },
-        {
-            id: 2,
-            name: "Celulares",
-        }]
+        categories: [1]
     },
     {
         id: "d7fe65a2-7aa4-4cbc-827e-f1a4e750d1f6",
@@ -24,7 +17,7 @@ const products = [
         rating: 5,
         big_image: "https://cdn-4.nikon-cdn.com/e/Q5NM96RZZo-YRYNeYvAi9beHK4x3L-8kHbA0MlEAVn2W1yKXB-B_2zEtiAgzBX5TShX8lUMVnxSs0ATXqRnkGA==/Views/25492_D3200_front.png",
         description: "Captura mejor tus momentos con su cámara de 50mm",
-        category: [3],
+        categories: [3],
         is_active: true,
         stock: 20,
     },
@@ -35,7 +28,7 @@ const products = [
         rating: 4,
         big_image: "https://www.tiomusa.com.ar/imagenes/archivos/2020-10/26815-auricularvinchaphilipstah4205bk.jpg",
         description: "Escuchar música nunca fué tan placentero.",
-        category: [5],
+        categories: [5],
         is_active: true,
         stock: 10,
     },
@@ -46,7 +39,7 @@ const products = [
         rating: 4,
         big_image: "https://www.fullh4rd.com.ar/img/productos/Pics_Prod/mouse-logitech-g203-0.jpg",
         description: "Con sus 3000 DPI aumenta tu presición tanto en diseño gráfico como en videojuegos.",
-        category: [1],
+        categories: [1],
         is_active: false,
         stock: 0,
     },
@@ -57,7 +50,7 @@ const products = [
         rating: 5,
         big_image: "https://media.kingston.com/hyperx/product/hx-product-keyboard-alloy-origins-core-no-3-zm-lg.jpg",
         description: "Teclado Mecánico",
-        category: [1],
+        categories: [1],
         is_active: false,
         stock: 0,
     },
@@ -68,7 +61,7 @@ const products = [
         rating: 3,
         big_image: "https://http2.mlstatic.com/D_NQ_NP_879201-MLA44443256851_122020-O.webp",
         description: "Samsung Galaxy A51 128 GB.Liberado",
-        category: [2],
+        categories: [2],
         is_active: true,
         stock: 120,
     },

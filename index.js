@@ -19,19 +19,24 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
 const { conn, Category, Product } = require("./db");
-const categories = require('./src/data/categories')
-const products = require('./src/data/products')
+const { assignCategories } = require("./src/controllers/product");
+const categories = require("./src/data/categories");
+const products = require("./src/data/products");
 const PORT = process.env.PORT || 3001;
+
+function catsBulk(products) {
+  products.map((x) => assignCategories(x.id, x.categories[0]));
+}
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-    Category.bulkCreate(categories).then(() => {
-        Product.bulkCreate(products).then(() => {
-            // Handler_category.bulkCreate(hc)
-        })
-    })
-})
+  Category.bulkCreate(categories).then(() => {
+    Product.bulkCreate(products).then(() => {
+      catsBulk(products);
+    });
+  });
+});
 
 app.listen(PORT, () => {
-    console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+  console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
 });
