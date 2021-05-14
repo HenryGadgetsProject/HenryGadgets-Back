@@ -29,9 +29,6 @@ function catsBulk(products) {
   products.map((x) => assignCategories(x.id, x.categories[0]));
 }
 
-console.log(users)
-console.log('MODELO' + User)
-
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   User.bulkCreate(users).then(() => {
