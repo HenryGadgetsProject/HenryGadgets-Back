@@ -18,9 +18,6 @@ module.exports = (sequelize) => {
             type: DT.STRING,
             allowNull: false
         },
-        photo: {
-            type: DT.TEXT,
-        },
         email: {
             type: DT.STRING,
             allowNull: false,
@@ -32,6 +29,26 @@ module.exports = (sequelize) => {
         password: {
             type: DT.STRING,
             allowNull: false
+        },
+        country:    {
+            allowNull: true,
+            type: DT.STRING,
+        },
+        city: {
+            allowNull: true,
+            type: DT.STRING,
+        },
+        street: {
+            allowNull: true,
+            type: DT.STRING,
+        },
+        addressnumber: {
+            allowNull: true,
+            type: DT.INTEGER,
+        },
+        postcode: {
+            allowNull: true,
+            type: DT.INTEGER,
         },
         is_admin: {
             type: DT.BOOLEAN,

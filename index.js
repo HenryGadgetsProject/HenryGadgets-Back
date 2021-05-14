@@ -18,24 +18,30 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
-const { conn, Category, Product } = require("./db");
+const { conn, Category, Product, User } = require("./db");
 const { assignCategories } = require("./src/controllers/product");
 const categories = require("./src/data/categories");
 const products = require("./src/data/products");
+const users = require("./src/data/users")
 const PORT = process.env.PORT || 3001;
 
 function catsBulk(products) {
   products.map((x) => assignCategories(x.id, x.categories[0]));
 }
 
+console.log(users)
+console.log('MODELO' + User)
+
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  Category.bulkCreate(categories).then(() => {
-    Product.bulkCreate(products).then(() => {
-      catsBulk(products);
+  User.bulkCreate(users).then(() => {
+    Category.bulkCreate(categories).then(() => {
+      Product.bulkCreate(products).then(() => {
+        catsBulk(products);
+      });
     });
-  });
-});
+  })
+})  
 
 app.listen(PORT, () => {
   console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
