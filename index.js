@@ -19,12 +19,12 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
 const { conn, Category, Product } = require("./db");
-const { categories } = require('./src/data/dummyCategories')
-const { products } = require('./src/data/dummyProduct')
+const categories = require('./src/data/categories')
+const products = require('./src/data/products')
 const PORT = process.env.PORT || 3001;
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
     Category.bulkCreate(categories).then(() => {
         Product.bulkCreate(products).then(() => {
             // Handler_category.bulkCreate(hc)
