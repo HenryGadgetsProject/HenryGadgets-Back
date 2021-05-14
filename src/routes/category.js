@@ -47,6 +47,7 @@ router.put('/:id', async (req, res, next) => {
         const updatedCategory = await updateCategory(id, name, photo)
         return res.send(updatedCategory)
     } catch (error) {
+        console.log(error);
         res.send(error)
     }
 })

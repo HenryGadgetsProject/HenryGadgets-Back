@@ -17,11 +17,12 @@ const getCategoryById = async (id) => {
     }
 }
 
-const createCategory = async (name, photo) => {
+const createCategory = async (name, photo, description) => {
     try {
         const category = await Category.create({
             name,
-            photo
+            photo,
+            description
         })
 
 
@@ -31,12 +32,13 @@ const createCategory = async (name, photo) => {
     }
 }
 
-const updateCategory = async (id, name, photo) => {
+const updateCategory = async (id, name, photo, description) => {
     try {
         const categoryUpdated = await Category.update(
             {
                 name,
-                photo
+                photo,
+                description
             },
             { where: { id: id } }
         )

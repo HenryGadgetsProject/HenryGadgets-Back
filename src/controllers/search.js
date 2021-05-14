@@ -1,18 +1,20 @@
-const { Product, Category } = require("../../db.js");
+const { Product, Category } = require('../../db');
 const { Sequelize } = require('sequelize')
 
 const searchProducts = async (query) => {
-    console.log('***********************************************', query)
     try {
         const products = await Product.findAll({
             where: {
-                name: { [Sequelize.Op.iLike]: `%${query}%` }
+                [Sequelize.Op.or]: [
+                    { name: { [Sequelize.Op.iLike]: `%${query}%` } },
+                    { description: { [Sequelize.Op.iLike]: `%${query}%` } }
+                ],
             },
             include: [{ model: Category, attributes: ['id', 'name'] }]
         });
         return products
     } catch (error) {
-        return error.message;
+        console.log(error);
     }
 }
 
