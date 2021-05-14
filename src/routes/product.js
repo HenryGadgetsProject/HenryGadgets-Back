@@ -8,6 +8,7 @@ const {
   getPopularProducts,
   assignCategories,
   deleteCategories,
+  updateProduct,
 } = require("../controllers/product");
 const { v4: uuidv4 } = require("uuid");
 
@@ -80,12 +81,12 @@ router.put("/:id", async (req, res, next) => {
   const {
     name,
     price,
-    rating,
-    big_image,
-    description,
-    is_active,
     stock,
-    categories,
+    description,
+    rating,
+    is_active,
+    big_image,
+    categories
   } = req.body;
 
   try {

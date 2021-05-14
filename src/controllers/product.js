@@ -127,13 +127,49 @@ const updateProduct = async (
   stock,
   categories
 ) => {
-  const productData = { ...productInfo, id };
   try {
-    const newProduct = await Product.create(productData);
-    console.log(newProduct);
-    return `El producto ${newProduct.name} ha sido creado`;
-  } catch (err) {
-    next(err);
+    const productUpdated = await Product.update(
+      {
+        name,
+        price,
+        rating,
+        big_image,
+        description,
+        is_active,
+        stock,
+      },
+      { where: { id } }
+    );
+    let prod = Product.findOne({
+      where: { id: id },
+    });
+
+    if (categories.length > 1){
+      let cat = [];
+      for (var i = 0; i < categories.length; i++) {
+        let aux = await Category.findOne({
+          where: { id: categories[i] },
+        });
+        Promise.all([aux]).then(([aux])=>{
+          cat.push(aux)
+        })
+      }
+      Promise.all([prod, cat]).then(([prod, cat]) => {
+        prod.setCategories(cat);
+        return prod;
+      });
+    } else {
+      cat = Category.findOne({
+        where: { id: categories[0] },
+      });
+      Promise.all([prod, cat]).then(([prod, cat]) => {
+        prod.setCategories(cat);
+        return prod;
+      });
+    }
+
+  } catch (e) {
+    return e.message;
   }
 };
 
@@ -144,6 +180,7 @@ module.exports = {
   getProductById,
   getProductsByCatName,
   createProduct,
+  updateProduct,
   assignCategories,
   getPopularProducts,
   deleteCategories,
