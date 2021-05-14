@@ -8,7 +8,7 @@ const cors = require('cors')
 
 const REQUESTS =
   process.env.DATABASE_URL !== undefined
-    ? "https://henry-gadgets-front.vercel.app"
+    ? "https://henrygadgets.vercel.app"
     : "http://localhost:3000";
 
 const app = express();
