@@ -57,7 +57,7 @@ let entries = Object.entries(sequelize.models);
 let capsEntries = entries.map((entry) => [entry[0][0].toUpperCase() + entry[0].slice(1), entry[1]]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-const { Brand, Category, Image, Order, OrderProduct, Product, Review, User, } = sequelize.models;
+const { Brand, Category, Image, Order, OrderProduct, Product, Review, User, OrderLine } = sequelize.models;
 
 
 // Aca vendrian las relaciones
