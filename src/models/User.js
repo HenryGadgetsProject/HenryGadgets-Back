@@ -4,6 +4,12 @@ const DT = DataTypes;
 
 module.exports = (sequelize) => {
     const User = sequelize.define('user', {
+        id: {
+            type: DT.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            autoIncrement: true
+        },
         first_name: {
             type: DT.STRING,
             allowNull: false

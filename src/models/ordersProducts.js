@@ -2,24 +2,31 @@ const { DataTypes } = require('sequelize');
 const DT = DataTypes;
 
 module.exports = (sequelize) => {
-    sequelize.define('order', {
+
+    const orderProduct = sequelize.define('orders_products', {
         id: {
             type: DT.INTEGER,
             primaryKey: true,
             allowNull: false,
             autoIncrement: true
         },
-        total_amount: {
+        unit_price: {
             type: DT.DOUBLE,
             allowNull: false,
             validate: {
                 isNumeric: true
             }
+        },
+        quantity: {
+            type: DT.INTEGER,
+            allowNull: false,
+            validate: {
+                isInt: true
+            }
         }
-
     },
         {
-            timestamps: true,
+            timestamps: false,
             underscored: true
         });
-}
+};
