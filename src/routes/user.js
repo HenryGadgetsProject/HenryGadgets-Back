@@ -24,52 +24,52 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-  try {
-    const {
-      id,
-      first_name,
-      last_name,
-      is_admin,
-      email,
-      password,
-      country,
-      city,
-      street,
-      addressnumber,
-      postcode,
-    } = req.body;
-    if (
-    !id ||
-      !first_name ||
-      !last_name ||
-      !is_admin ||
-      !email ||
-      !password ||
-      !country ||
-      !city ||
-      !street ||
-      !addressnumber ||
-      !postcode
-    )
-    res.send("usuario invalido");
-    const userCreated = await createUser(
-      id,
-      first_name,
-      last_name,
-      is_admin,
-      email,
-      password,
-      country,
-      city,
-      street,
-      addressnumber,
-      postcode
-    );
-    res.send(userCreated);
-  } catch (error) {
-    res.send(error);
-  }
-});
+    try {
+      const {
+        id,
+        first_name,
+        last_name,
+        is_admin,
+        email,
+        password,
+        country,
+        city,
+        street,
+        addressnumber,
+        postcode,
+      } = req.body;
+      if (
+        !id ||
+        !first_name || 
+        !last_name ||
+        !is_admin ||
+        !email ||
+        !password || 
+        !country ||
+        !city ||
+        !street ||
+        !addressnumber || 
+        !postcode 
+      ) res.send("usuario invalido");
+  
+      const userCreated = await createUser(
+        id,
+        first_name,
+        last_name,
+        is_admin,
+        email,
+        password,
+        country,
+        city,
+        street,
+        addressnumber,
+        postcode
+      );
+      res.send(userCreated);
+    } catch (error) {
+      res.send(error);
+    }
+  });
 
 router.put('/:id', async (req, res, next) => {
 
@@ -99,11 +99,8 @@ router.put('/:id', async (req, res, next) => {
             postcode)
         return res.send(updatedUser)
     } catch (error) {
-      
         res.send(error)
     }
-
-    
 })
 
 router.delete('/:id', async (req, res, next) => {
