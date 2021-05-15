@@ -23,12 +23,14 @@ module.exports = (sequelize) => {
             allowNull: false,
             unique: true,
             validate: {
-                isEmail: true
+                isEmail: {
+                    msg: "Must be a valid email"
+                }
             }
         },
         password: {
             type: DT.STRING,
-            allowNull: false
+            allowNull: false,
         },
         country:    {
             allowNull: true,
