@@ -7,6 +7,8 @@ const ProductRouter = require('./product');
 const ReviewRouter = require('./review');
 const UserRouter = require('./user');
 const SearchRouter = require('./search');
+const LoginRouter = require('./login')
+const RegisterRouter = require('./register')
 
 
 const router = Router();
@@ -18,5 +20,7 @@ router.use('/products', ProductRouter);
 router.use('/reviews', ReviewRouter);
 router.use('/users', UserRouter);
 router.use('/search', SearchRouter);
+router.use('/login', LoginRouter)
+router.use('/register', RegisterRouter)
 
 module.exports = router;
