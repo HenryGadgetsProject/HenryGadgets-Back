@@ -39,12 +39,48 @@ const addOrder = async (product_id, unit_price, quantity, userId) => {
 };
 
 const deleteAllOrders = async () => {
-  try{
-
+  try {
+    await Order.destroy({
+      where: {},
+    });
   } catch (error) {
     return error.message;
   }
-}
+};
+
+const deleteOneOrder = async (id) => {
+  try {
+    let result = await Order.destroy({
+      where: { id },
+    });
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+const deleteUserOrders = async (userId) => {
+  try {
+    let result = await Order.destroy({
+      where: { userId },
+    });
+    return result
+  } catch (error) {
+    return error.message;
+  }
+};
+
+const updateOrder = async (id, product_id, unit_price, quantity, userId) => {
+  try {
+    const result = await Order.update(
+      { product_id, unit_price, quantity, userId },
+      { where: { id } }
+    );
+    return result;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 module.exports = {
   getAllOrders,
@@ -52,4 +88,7 @@ module.exports = {
   getOrderByUserId,
   addOrder,
   deleteAllOrders,
+  deleteOneOrder,
+  deleteUserOrders,
+  updateOrder,
 };

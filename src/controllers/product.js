@@ -75,11 +75,11 @@ const createProduct = async (
   try {
     const categoriesDB = await Category.findAll({
       where: {
-          id: {
-              [Sequelize.Op.in]: categories,
-          }
-      }
-    })
+        id: {
+          [Sequelize.Op.in]: categories,
+        },
+      },
+    });
     let newProduct = await Product.create({
       id,
       name,
@@ -91,15 +91,15 @@ const createProduct = async (
       stock,
     });
     const newProdCat = await newProduct.addCategory(categoriesDB);
-    const catNew = categoriesDB.map(c => c.dataValues)
-    newProduct = {...newProduct.dataValues, categories: catNew}
+    const catNew = categoriesDB.map((c) => c.dataValues);
+    newProduct = { ...newProduct.dataValues, categories: catNew };
     return newProduct;
   } catch (error) {
     return error.message;
   }
 };
 
-const assignCategories = async (prodId, catId) => {
+const assignCategories = async (prodId, catId, firstLoad = false) => {
   let prod = Product.findOne({
     where: { id: prodId },
   });
@@ -108,6 +108,11 @@ const assignCategories = async (prodId, catId) => {
   });
   Promise.all([prod, cat]).then(([prod, cat]) => {
     prod.addCategories(cat);
+    if (firstLoad) {
+      setTimeout(() => {
+        console.log("FIN DE CARGA DE DUMMY DATA");
+      }, 2000);
+    }
     return prod;
   });
 };
@@ -153,15 +158,15 @@ const updateProduct = async (
       where: { id: id },
     });
 
-    if (categories.length > 1){
+    if (categories.length > 1) {
       let cat = [];
       for (var i = 0; i < categories.length; i++) {
         let aux = await Category.findOne({
           where: { id: categories[i] },
         });
-        Promise.all([aux]).then(([aux])=>{
-          cat.push(aux)
-        })
+        Promise.all([aux]).then(([aux]) => {
+          cat.push(aux);
+        });
       }
       Promise.all([prod, cat]).then(([prod, cat]) => {
         prod.setCategories(cat);
@@ -176,7 +181,6 @@ const updateProduct = async (
         return prod;
       });
     }
-
   } catch (e) {
     return e.message;
   }
