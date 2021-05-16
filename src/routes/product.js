@@ -9,6 +9,7 @@ const {
   assignCategories,
   deleteCategories,
   updateProduct,
+  getProductsByCatName
 } = require("../controllers/product");
 const { v4: uuidv4 } = require("uuid");
 
