@@ -9,17 +9,21 @@ module.exports = (sequelize) => {
             allowNull: false,
             autoIncrement: true
         },
-        total_amount: {
-            type: DT.DOUBLE,
+        product_id: {
+            type: DT.STRING,
             allowNull: false,
-            validate: {
-                isNumeric: true
-            }
-        }
-
+        },
+        unit_price: {
+            type: DT.INTEGER,
+            allowNull: false,
+        },
+        quantity: {
+            type: DT.INTEGER,
+            allowNull: false,
+        },
     },
         {
-            timestamps: true,
+            timestamps: false,
             underscored: true
         });
 }
