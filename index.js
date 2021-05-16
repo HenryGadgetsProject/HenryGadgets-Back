@@ -26,7 +26,7 @@ const users = require("./src/data/users")
 const PORT = process.env.PORT || 3001;
 
 function catsBulk(products) {
-  products.map((x) => assignCategories(x.id, x.categories[0]));
+  products.map((x) => assignCategories(x.id, x.categories[0], true));
 }
 
 // Syncing all the models at once.
@@ -38,7 +38,7 @@ conn.sync({ force: true }).then(() => {
       });
     });
   })
-})  
+})
 
 app.listen(PORT, () => {
   console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
