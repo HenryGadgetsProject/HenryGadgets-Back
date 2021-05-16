@@ -5,6 +5,7 @@ const {
   getOrderById,
   getOrderByUserId,
   addOrder,
+  deleteAllOrders,
 } = require("../controllers/order");
 
 const router = Router();
@@ -51,5 +52,22 @@ router.post("/", async (req, res) => {
     res.send(error);
   }
 });
+
+//DELETE ALL ORDERS
+router.get("/", async (req, res) => {
+  try {
+    const result = await deleteAllOrders();
+    res.send(await result);
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+//DELETE AN ORDER
+
+//DELETE ALL ORDERS OF AN USER
+
+
+//PUT AN ORDER
 
 module.exports = router;

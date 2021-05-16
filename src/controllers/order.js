@@ -38,9 +38,18 @@ const addOrder = async (product_id, unit_price, quantity, userId) => {
   }
 };
 
+const deleteAllOrders = async () => {
+  try{
+
+  } catch (error) {
+    return error.message;
+  }
+}
+
 module.exports = {
   getAllOrders,
   getOrderById,
   getOrderByUserId,
   addOrder,
+  deleteAllOrders,
 };
