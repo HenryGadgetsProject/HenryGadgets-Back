@@ -73,7 +73,14 @@ const createProduct = async (
     return res.status(500).json("Not enough Data in Body");
   }
   try {
-    const newProduct = await Product.create({
+    const categoriesDB = await Category.findAll({
+      where: {
+          id: {
+              [Sequelize.Op.in]: categories,
+          }
+      }
+    })
+    let newProduct = await Product.create({
       id,
       name,
       price,
@@ -83,8 +90,10 @@ const createProduct = async (
       is_active,
       stock,
     });
-    const newProdCat = await newProduct.addCategory(categories);
-    return newProdCat;
+    const newProdCat = await newProduct.addCategory(categoriesDB);
+    const catNew = categoriesDB.map(c => c.dataValues)
+    newProduct = {...newProduct.dataValues, categories: catNew}
+    return newProduct;
   } catch (error) {
     return error.message;
   }
