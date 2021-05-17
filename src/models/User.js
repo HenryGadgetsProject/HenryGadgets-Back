@@ -54,7 +54,7 @@ module.exports = (sequelize) => {
         // },
         is_admin: {
             type: DT.BOOLEAN,
-            allowNull: false
+            defaultValue: false
         }
     },
         {

@@ -19,12 +19,12 @@ router.post('/', (req, res) => {
         // street,
         // addressnumber,
         // postcode,
-        is_admin
+        // is_admin
     } = req.body;
     //Encriptamos la pass
     let passwordHash = bcrypt.hashSync(password, Number.parseInt(authConfig.rounds));
     User.create({ 
-        id, first_name, last_name, email, password: passwordHash, is_admin
+        id, first_name, last_name, email, password: passwordHash
     }).then(user => {
         let token = jwt.sign({ user: user }, authConfig.secret, {
             expiresIn: authConfig.expires
