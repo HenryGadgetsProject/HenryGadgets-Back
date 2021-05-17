@@ -1,5 +1,4 @@
 const { Router } = require("express");
-// const { signIn } = require("../controllers/authentication");
 const { User } = require("../../db");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');

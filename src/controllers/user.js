@@ -17,11 +17,11 @@ const createUser = async (id, first_name, last_name, is_admin, email, password, 
         is_admin,
         email,
         password,
-        country,
-        city,
-        street,
-        addressnumber,
-        postcode
+        // country,
+        // city,
+        // street,
+        // addressnumber,
+        // postcode
       });
       return user;
     } catch (error) {
@@ -38,11 +38,11 @@ const createUser = async (id, first_name, last_name, is_admin, email, password, 
             is_admin,
             email,
             password,
-            country,
-            city,
-            street,
-            addressnumber,
-            postcode
+            // country,
+            // city,
+            // street,
+            // addressnumber,
+            // postcode
         },
         { where: { id: id } }
       );
