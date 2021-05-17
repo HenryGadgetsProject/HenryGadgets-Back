@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const { signUp } = require("../controllers/authentication");
 const { User } = require("../../db");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -9,11 +8,23 @@ const router = Router();
 
 router.post('/', (req, res) => {
     //Crear usuario
-    const { id, first_name, last_name, email, password, country, city, street, addressnumber, postcode, is_admin } = req.body;
+    const { 
+        id,
+        first_name,
+        last_name,
+        email,
+        password,
+        // country,
+        // city,
+        // street,
+        // addressnumber,
+        // postcode,
+        is_admin
+    } = req.body;
     //Encriptamos la pass
     let passwordHash = bcrypt.hashSync(password, Number.parseInt(authConfig.rounds));
     User.create({ 
-        id, first_name, last_name, email, password: passwordHash, country, city, street, addressnumber,postcode, is_admin 
+        id, first_name, last_name, email, password: passwordHash, is_admin
     }).then(user => {
         let token = jwt.sign({ user: user }, authConfig.secret, { 
             expiresIn: authConfig.expires 
