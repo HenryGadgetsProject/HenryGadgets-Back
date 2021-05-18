@@ -10,6 +10,10 @@ module.exports = (sequelize) => {
             allowNull: false,
             autoIncrement: true
         },
+        title: {
+            type: DT.STRING,
+            allowNull: false
+        },
         rating: {
             type: DT.INTEGER,
             allowNull: false,
@@ -26,7 +30,6 @@ module.exports = (sequelize) => {
         }
     },
         {
-            timestamps: false,
             underscored: true
         });
-}
+}       

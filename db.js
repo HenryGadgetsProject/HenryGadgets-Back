@@ -73,20 +73,23 @@ const {
 
 // Aca vendrian las relaciones
 Product.hasMany(Image, { foreignKey: { allowNull: false } });
-Product.hasMany(Review, { foreignKey: { allowNull: false } });
+Product.hasMany(Review);
 Product.belongsTo(Brand, { foreignKey: { allowNull: true, type: DT.INTEGER } });
-
 Product.belongsToMany(Category, { through: "products_categories" });
+Product.belongsToMany(Order, { through: "orders_products" });
+Product.belongsToMany(Brand, { through: 'product_brand' });
+
 Category.belongsToMany(Product, { through: "products_categories" });
 
-Brand.hasMany(Product, { foreignKey: { allowNull: false } });
+Brand.belongsToMany(Product, { through: 'product_brand' });
 
-Product.belongsToMany(Order, { through: "orders_products" });
 Order.belongsToMany(Product, { through: "orders_products" });
 
-User.hasMany(Order, { foreignKey: { allowNull: false } });
-User.hasMany(Review, { foreignKey: { allowNull: false } });
-Review.belongsTo(User, { foreignKey: { allowNull: false } });
+User.hasMany(Order);
+User.hasMany(Review);
+
+Review.belongsTo(User);
+Review.belongsTo(Product)
 
 
 // verifico conexion a la base de datos
