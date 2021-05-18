@@ -11,6 +11,12 @@ const {
   updateProduct,
   getProductsByCatName
 } = require("../controllers/product");
+const {
+  getReviews,
+  createReview,
+  editReview,
+  deleteReview
+} = require("../controllers/review");
 const { v4: uuidv4 } = require("uuid");
 
 const router = Router();
@@ -189,5 +195,17 @@ router.delete("/:id", async (req, res, next) => {
     res.send(error);
   }
 });
+
+// ********************************************************
+//                      Review
+// ********************************************************
+
+router.get('/:prodId/review', getReviews)
+
+router.post('/:prodId/review', createReview)
+
+router.put('/:prodId/review', editReview)
+
+router.delete('/:prodId', deleteReview)
 
 module.exports = router;
