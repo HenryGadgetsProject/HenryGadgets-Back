@@ -30,6 +30,12 @@ const categories = [
         photo: "https://i.imgur.com/r3jcVLF.jpg",
         description: "esta es la descripción de Audio"
     },
+    {
+        id: 6,
+        name: "Televisores",
+        photo: "https://i2.wp.com/gadgetur.com/wp-content/uploads/2021/04/630386.jpg?fit=1920%2C1080&ssl=1",
+        description: "esta es la descripción de Televisores"
+    },
 ]
 
 module.exports = categories
