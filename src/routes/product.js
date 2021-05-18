@@ -200,12 +200,12 @@ router.delete("/:id", async (req, res, next) => {
 //                      Review
 // ********************************************************
 
-router.get('/:prodId/review', getReviews)
+router.get('/:id/review', getReviews)
 
-router.post('/:prodId/review', createReview)
+router.post('/:id/review', createReview)
 
-router.put('/:prodId/review', editReview)
+router.put('/:id/review', editReview)
 
-router.delete('/:prodId', deleteReview)
+router.delete('/:id', deleteReview)
 
 module.exports = router;

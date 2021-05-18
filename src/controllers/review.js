@@ -9,10 +9,9 @@ const getReviews = async (req, res) => {
             let data = await Review.findAll({
                 where:  {
                     product_id: id
-                },
-                limit: 2,
-                order: ['createdAt', 'DESC'],
+                }
             });    
+            console.log(data)
             if(!data)   {
                 return res.json({error: "there are not reviews for this product"})  
             } else {
@@ -22,11 +21,11 @@ const getReviews = async (req, res) => {
             res.json(err);
             console.log(err);
         }
-    }   
+    }
 }
 
 const createReview = async (req, res) => {
-    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+    //if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     const product_id = req.params.id  
     const { description, rating, user_id, title } = req.body;
