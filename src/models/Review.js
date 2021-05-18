@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
             type: DT.TEXT,
             allowNull: true,
             defaultValue: '',
-        }
+        },
     },
         {
             underscored: true
