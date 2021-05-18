@@ -8,15 +8,15 @@ const getAllUsers = async () => {
 }
 };
 
-const createUser = async (id, first_name, last_name, is_admin, email, password, country, city, street, addressnumber, postcode) => {
+const createUser = async (id, first_name, last_name, email, password, is_admin, country, city, street, addressnumber, postcode) => {
     try {
       const user = await User.create({
         id,
         first_name,
         last_name,
-        is_admin,
         email,
         password,
+        // is_admin,
         // country,
         // city,
         // street,
@@ -29,15 +29,15 @@ const createUser = async (id, first_name, last_name, is_admin, email, password, 
     }
   };
   
-  const updateUser = async (id, first_name, last_name, is_admin, email, password, country, city, street, addressnumber, postcode) => {
+  const updateUser = async (id, first_name, last_name,  email, password, is_admin, country, city, street, addressnumber, postcode) => {
     try {
       const userUpdated = await User.update(
         {
             first_name,
             last_name,
-            is_admin,
             email,
             password,
+            is_admin,
             // country,
             // city,
             // street,
