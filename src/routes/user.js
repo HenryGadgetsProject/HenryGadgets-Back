@@ -35,9 +35,9 @@ router.post("/", async (req, res) => {
       id,
       first_name,
       last_name,
-      is_admin,
       email,
       password,
+      // is_admin,
       // country,
       // city,
       // street,
@@ -47,9 +47,9 @@ router.post("/", async (req, res) => {
     if (
       !first_name ||
       !last_name ||
-      !is_admin ||
       !email ||
       !password 
+       // !is_admin ||
       // !country ||
       // !city ||
       // !street ||
@@ -62,21 +62,24 @@ router.post("/", async (req, res) => {
         id,
         first_name,
         last_name,
-        is_admin,
         email,
         password,
+        //  is_admin,
         // country,
         // city,
         // street,
         // addressnumber,
         // postcode
       );
-      if (typeof userCreated === "string")
-        res.send("Este usuario ya existe en la base de datos");
-      else res.send("Usuario creado con éxito");
+      if (typeof userCreated === "string"){
+        res.status(400).send("Este usuario ya existe en la base de datos");
+      } else {
+        res.status(201).send("Usuario creado con éxito");
+      }
+      
     }
   } catch (error) {
-    res.send(error, "!!!!!!!!!!!!!");
+    res.status(400).send(error, "Se ha producido un error");
   }
 });
 
@@ -84,9 +87,9 @@ router.put("/:id", async (req, res, next) => {
   const {
     first_name,
     last_name,
-    is_admin,
     email,
     password,
+    is_admin,
     // country,
     // city,
     // street,
@@ -100,18 +103,20 @@ router.put("/:id", async (req, res, next) => {
       id,
       first_name,
       last_name,
-      is_admin,
       email,
       password,
+      is_admin,
       // country,
       // city,
       // street,
       // addressnumber,
       // postcode
     );
-    return res.send(updatedUser);
+    if (updatedUser[0] === 0) res.send("No se ha actualizado el usuario");
+    else if (updatedUser[0] === 1)  res.send("Se actualizo el usuario");
+    else res.send(updatedUser);
   } catch (error) {
-    res.send(error);
+    res.status(400).send(error, "Se ha producido un error");
   }
 });
 
@@ -123,7 +128,7 @@ router.delete("/:id", async (req, res, next) => {
     if(!deletedUser){
       return res.status(400).send("El usuario que intenta eliminar, no existe")}
       else{
-        return res.status(200).send("El usuario ha sido eliminado con exito");
+        return res.status(201).send("El usuario ha sido eliminado con exito");
       }
   } catch (error) {
     res.status(400).send("No se pudo borrar el usuario")
