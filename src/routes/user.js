@@ -117,13 +117,17 @@ router.put("/:id", async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
-
   try {
-    const deletedUser = await deleteUser(parseInt(id));
-    return res.sendStatus(200).send("Deleted user", deletedUser);
+    const deletedUser = await deleteUser(id);
+
+    if(!deletedUser){
+      return res.status(400).send("El usuario que intenta eliminar, no existe")}
+      else{
+        return res.status(200).send("El usuario ha sido eliminado con exito");
+      }
   } catch (error) {
-    res.send(error);
+    res.status(400).send("No se pudo borrar el usuario")
   }
-});
+})
 
 module.exports = router;
