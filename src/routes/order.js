@@ -8,9 +8,9 @@ const {
 
 const router = Router();
 
-router.delete("/user/:id", deleteOrder);
-router.post("/orders/", addOrder);
-router.put("/orders/:id", editOrder);
-router.get("/users/orders", allOrders);
+router.delete("/user/:id", deleteOrder); //orders/user/id? borrar carrito u orden
+router.post("/orders/", addOrder); //orders/orders creacion del carrito 
+router.put("/orders/:id", editOrder); //orders/orders/id? editar estado email y totalprice
+router.get("/users/orders", allOrders); //orders/users/orders buscar todas las ordenes de todos los usuarios que esten en el estado cart
 
 module.exports = router;

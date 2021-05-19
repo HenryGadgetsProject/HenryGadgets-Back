@@ -102,9 +102,9 @@ const deleteCart = async (req, res) => {
             orderId: order.id,
         },
     });
-    res.json(orderDetail);
-    res.send({ msg: "Item succesfully deleted" })
     orderDetail.destroy();
+    //res.json(orderDetail);
+    res.send({ msg: "Item succesfully deleted" })
     } catch (error) {
         console.log(error);
     }
