@@ -1,94 +1,80 @@
 const { Order, User } = require("../../db");
 
-const getAllOrders = async () => {
-  try {
-    return await Order.findAll();
-  } catch (error) {
-    return error.message;
-  }
+const allOrders = async (req, res) => {
+  const data = await Order.findAll({where: {state: "cart"}});
+  return res.json(data);
 };
 
-const getOrderById = async (id) => {
+const editOrder = async (req, res) => {
   try {
-    return await Order.findOne({ where: { id } });
-  } catch (error) {
-    return error.message;
-  }
-};
+    const {
+      state,
+      total_price,
+      email
+    } = req.body;
 
-const getOrderByUserId = async (userId) => {
-  try {
-    return await Order.findAll({ where: { userId } });
-  } catch (error) {
-    return error.message;
-  }
-};
-
-const addOrder = async (product_id, unit_price, quantity, userId) => {
-  try {
-    const newItem = await Order.create({
-      product_id,
-      unit_price,
-      quantity,
-      userId,
+    let order = await Order.findOne({
+      where: {
+        user_id: req.params.id,
+        state: "cart",
+      },
     });
-    return newItem;
-  } catch (error) {
-    return error.message;
-  }
-};
 
-const deleteAllOrders = async () => {
+    order.state = state;
+    order.totalPrice = total_price;
+    await order.save();
+
+    res.send(order);
+  } catch (error) {
+    console.log("error", error);
+    res.json(error.error);
+  }
+}
+
+const addOrder = async (req, res) => {
+  const {
+    state,
+    total_price,
+    email
+  } = req.body
   try {
-    await Order.destroy({
-      where: {},
+    const user = await User.findOne({where:{email}})
+
+    const orderCreate = await Order.findOrCreate({
+      where: {
+      state,
+      total_price,
+      email
+    },
+  })
+
+  res.send(orderCreate).status(200);
+
+  } catch (error) {
+    console.log(error)
+    res.json(error)
+  }
+}
+
+const deleteOrder = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const order = await Order.findOne({
+      where: {
+        id: id,
+      },
     });
+    res.json(order);
+    order.destroy();
   } catch (error) {
-    return error.message;
-  }
-};
-
-const deleteOneOrder = async (id) => {
-  try {
-    let result = await Order.destroy({
-      where: { id },
-    });
-    return result;
-  } catch (error) {
-    return error.message;
-  }
-};
-
-const deleteUserOrders = async (userId) => {
-  try {
-    let result = await Order.destroy({
-      where: { userId },
-    });
-    return result
-  } catch (error) {
-    return error.message;
-  }
-};
-
-const updateOrder = async (id, product_id, unit_price, quantity, userId) => {
-  try {
-    const result = await Order.update(
-      { product_id, unit_price, quantity, userId },
-      { where: { id } }
-    );
-    return result;
-  } catch (error) {
-    return error.message;
+    console.log(error);
   }
 };
 
 module.exports = {
-  getAllOrders,
-  getOrderById,
-  getOrderByUserId,
+  deleteOrder,
   addOrder,
-  deleteAllOrders,
-  deleteOneOrder,
-  deleteUserOrders,
-  updateOrder,
+  editOrder,
+  allOrders,
 };
