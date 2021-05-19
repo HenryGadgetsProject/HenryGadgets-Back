@@ -11,13 +11,14 @@ if (process.env.DATABASE_URL !== undefined) {
   console.log("WEB ENVIROMENT");
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: "postgres",
+    logging: false,
     protocol: "postgres",
     dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false,
       },
-    },
+    },  
   });
 } else {
   console.log("LOCAL ENVIROMENT");
@@ -25,6 +26,7 @@ if (process.env.DATABASE_URL !== undefined) {
     `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
     {
       dialect: "postgres",
+      logging: false,
       protocol: "postgres",
       dialectOptions: {
         ssl: {
@@ -68,28 +70,33 @@ const {
   Product,
   Review,
   User,
-  OrderLine,
+  OrderDetail,
 } = sequelize.models;
 
 // Aca vendrian las relaciones
-Product.hasMany(Image, { foreignKey: { allowNull: false } });
+Product.hasMany(Image);
 Product.hasMany(Review);
-Product.belongsTo(Brand, { foreignKey: { allowNull: true, type: DT.INTEGER } });
+Product.hasMany(OrderDetail);
 Product.belongsToMany(Category, { through: "products_categories" });
-Product.belongsToMany(Order, { through: "orders_products" });
-Product.belongsToMany(Brand, { through: 'product_brand' });
+//Product.belongsToMany(Brand, { through: 'product_brand' });
 
 Category.belongsToMany(Product, { through: "products_categories" });
 
-Brand.belongsToMany(Product, { through: 'product_brand' });
+//Brand.belongsToMany(Product, { through: 'product_brand' });
 
-Order.belongsToMany(Product, { through: "orders_products" });
+Order.hasMany(OrderDetail);
+Order.belongsTo(User);
+
+OrderDetail.belongsTo(Order);
+OrderDetail.belongsTo(Product);
+OrderDetail.hasOne(Review);
 
 User.hasMany(Order);
 User.hasMany(Review);
 
 Review.belongsTo(User);
-Review.belongsTo(Product)
+Review.belongsTo(Product);
+Review.belongsTo(OrderDetail);
 
 
 // verifico conexion a la base de datos

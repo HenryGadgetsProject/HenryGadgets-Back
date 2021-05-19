@@ -9,21 +9,17 @@ module.exports = (sequelize) => {
             allowNull: false,
             autoIncrement: true
         },
-        product_id: {
-            type: DT.STRING,
-            allowNull: false,
+        state: {
+            type: DT.ENUM({
+                values: ["cart", "created", "processing", "cancelled", "completed"],
+                allowNull: false,
+            }),
         },
-        unit_price: {
-            type: DT.INTEGER,
-            allowNull: false,
-        },
-        quantity: {
-            type: DT.INTEGER,
-            allowNull: false,
+        total_price: {
+            type: DT.FLOAT,
         },
     },
         {
-            timestamps: false,
             underscored: true
         });
 }
