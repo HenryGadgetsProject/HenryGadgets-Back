@@ -21,6 +21,8 @@ const { v4: uuidv4 } = require("uuid");
 
 const router = Router();
 
+
+// GET ALL PRODUCTS
 router.get("/", async (req, res) => {
   const { name } = req.query;
   try {
@@ -45,6 +47,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+// CREATE A PRODUCT
 router.post("/", async (req, res, next) => {
   const id = uuidv4();
 
@@ -83,6 +86,7 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+// UPDATE A PRODUCT
 router.put("/:id", async (req, res, next) => {
   const { id } = req.params;
   const {
@@ -114,78 +118,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-// ********************************************************
-//                      Categories
-// ********************************************************
-
-router.post("/category", async (req, res) => {
-  try {
-    const { name, photo, description } = req.body;
-    if (!name || !photo || !description) res.send("no hay nada");
-    const category = await createCategory(name, photo, description);
-    res.send(await category);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-router.put("/category/:id", async (req, res, next) => {
-  const { name, photo, description } = req.body;
-  const { id } = req.params;
-
-  try {
-    const updatedCategory = await updateCategory(id, name, photo, description);
-    return res.send(updatedCategory);
-  } catch (error) {
-    console.log(error);
-    res.send(error);
-  }
-});
-
-router.delete("/category/:id", async (req, res, next) => {
-  const { id } = req.params;
-
-  try {
-    const deletedCategory = await deleteCategory(parseInt(id));
-    return res.sendStatus(200);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-// *******
-
-router.get("/categories/:catName", async (req, res) => {
-  const { catName } = req.params;
-
-  try {
-    const productsByCatName = await getProductsByCatName(catName);
-
-    return res.send(productsByCatName);
-  } catch (error) {
-    res.send(error);
-  }
-});
-
-// *******
-
-router.get("/popular/products", async (req, res) => {
-  const popularProducts = await getPopularProducts();
-  return res.json(await popularProducts);
-});
-
-router.post("/:prodId/category/:catId", async (req, res) => {
-  let { prodId, catId } = req.params;
-  const assignCat = await assignCategories(prodId, catId);
-  return res.send({ message: "Asigación completa!" });
-});
-
-router.delete("/:prodId/category/:catId", async (req, res) => {
-  let { prodId, catId } = req.params;
-  const assignCat = await deleteCategories(prodId, catId);
-  return res.send({ message: "Desasigación completa!" });
-});
-
+// REMOVE A PRODUCT
 router.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
@@ -195,6 +128,27 @@ router.delete("/:id", async (req, res, next) => {
     res.send(error);
   }
 });
+
+// GET POPULAR PRODUCTS
+router.get("/popular/products", async (req, res) => {
+  const popularProducts = await getPopularProducts();
+  return res.json(await popularProducts);
+});
+
+// ASSIGN CATEGORIES TO PRODUCT
+router.post("/:prodId/category/:catId", async (req, res) => {
+  let { prodId, catId } = req.params;
+  const assignCat = await assignCategories(prodId, catId);
+  return res.send({ message: "Asigación completa!" });
+});
+
+// REMOVE CATEGORIES FROM PRODUCT
+router.delete("/:prodId/category/:catId", async (req, res) => {
+  let { prodId, catId } = req.params;
+  const assignCat = await deleteCategories(prodId, catId);
+  return res.send({ message: "Desasigación completa!" });
+});
+
 
 // ********************************************************
 //                      Review
