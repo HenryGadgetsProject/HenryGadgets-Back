@@ -111,8 +111,7 @@ const deleteCart = async (req, res) => {
 }
 
 const editCart = async (req, res) => {
-    const { user_id, id } = req.params;
-    const { quantity } = req.body
+    const { user_id, id, quantity } = req.params;
     console.log(quantity)
     try {
         const order = await Order.findOne({

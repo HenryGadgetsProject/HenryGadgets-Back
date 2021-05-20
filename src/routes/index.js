@@ -10,12 +10,14 @@ const SearchRouter = require('./search');
 const LoginRouter = require('./login')
 const RegisterRouter = require('./register')
 const Payment = require('./payment')
+const MeRouter = require('./me');
 
 
 const router = Router();
 
 // Configurar los routers
 router.use('/categories', CategoryRouter);
+router.use('/me', MeRouter)
 router.use('/cart', CartRouter)
 router.use('/orders', OrderRouter);
 router.use('/products', ProductRouter);
