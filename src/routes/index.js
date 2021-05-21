@@ -12,13 +12,14 @@ const LoginRouter = require('./login')
 const RegisterRouter = require('./register')
 const Payment = require('./payment')
 const MeRouter = require('./me');
-
+const PromoteRouter = require('./promote');
 
 const router = Router();
 
 // Configurar los routers
 router.use('/', AuthenticationRouter)
 router.use('/categories', CategoryRouter);
+router.use('/promote', PromoteRouter)
 router.use('/me', MeRouter)
 router.use('/cart', CartRouter)
 router.use('/orders', OrderRouter);
