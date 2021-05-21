@@ -79,7 +79,7 @@ const deleteAll = async (req, res) => {
     for (let i = 0; i < orderDetails.length; i++) {
       await orderDetails[i].destroy();
     }
-    res.send({ msg: "All itmes have been deleted" });
+    res.send({ msg: "All items have been deleted" });
   } catch (error) {
     console.log(error);
   }

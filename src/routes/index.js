@@ -1,6 +1,7 @@
 const { Router } = require('express');
 
 // Importar todos los routers;
+const AuthenticationRouter = require('../middlewares/auth');
 const CategoryRouter = require('./category');
 const OrderRouter = require('./order');
 const CartRouter = require('./cart');
@@ -16,6 +17,7 @@ const MeRouter = require('./me');
 const router = Router();
 
 // Configurar los routers
+router.use('/', AuthenticationRouter)
 router.use('/categories', CategoryRouter);
 router.use('/me', MeRouter)
 router.use('/cart', CartRouter)
