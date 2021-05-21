@@ -1,7 +1,7 @@
 const { Order, OrderDetail, Product } = require("../../db");
 
 const addCart = async (req, res) => {
-    const { user_id, id } = req.params;
+    const { user_id, id, quantity } = req.params;
     try {
         const order = await Order.findOrCreate({
             where: {
@@ -23,7 +23,7 @@ const addCart = async (req, res) => {
         } else {
             const detailCreate = await OrderDetail.create({
                 productId: id,
-                quantity: 1,
+                quantity: quantity,
                 unit_price: product.price,
         });
         await detailCreate.setOrder(order[0].id);
