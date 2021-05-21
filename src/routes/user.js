@@ -10,7 +10,7 @@ const {
 const isAuthorize = require("../middlewares/isAuthorize")
 const router = Router();
 
-router.get("/", isAuthorize, async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     const users = await getAllUsers();
     res.send(users);

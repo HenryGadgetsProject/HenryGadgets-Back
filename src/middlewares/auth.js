@@ -2,7 +2,9 @@ const jwt = require("jsonwebtoken");
 const authConfig = require("../auth");
 
 const Authentication = async (req, res, next) => {
+  
   if (req.url === "/login" || req.url === "/register" || req.method === "GET") {
+ 
     if (req.headers.authorization) {
       //Comprobar validez del token
       let token = req.headers.authorization.split(" ")[1];
