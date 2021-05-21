@@ -7,10 +7,10 @@ const {
   updateUser,
   deleteUser,
 } = require("../controllers/user");
-
+const isAuthorize = require("../middlewares/isAuthorize")
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/", isAuthorize, async (req, res) => {
   try {
     const users = await getAllUsers();
     res.send(users);
@@ -19,7 +19,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isAuthorize, async (req, res) => {
   try {
     const { id } = req.params;
     const userID = await getUserById(id);
@@ -29,7 +29,7 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", isAuthorize, async (req, res) => {
   try {
     const {
       id,
@@ -120,7 +120,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
+router.delete("/:id", isAuthorize, async (req, res, next) => {
   const { id } = req.params;
   try {
     const deletedUser = await deleteUser(id);

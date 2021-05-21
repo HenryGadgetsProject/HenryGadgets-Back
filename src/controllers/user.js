@@ -51,6 +51,8 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
       return e.message;
     }
   };
+
+  
   
   const deleteUser = async (id) => {
     try {
@@ -70,11 +72,26 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
     }
   };
 
+  const promoteUser = async (id) => {
+    try {
+      const userPromoted = await User.update(
+        {
+            is_admin : true,
+        },
+        { where: { id: id } }
+      );
+      return userPromoted;
+    } catch (e) {
+      return e.message;
+    }
+  };
+
 
 module.exports = {
     getAllUsers,
     createUser,
     deleteUser,
     updateUser,
-    getUserById
+    getUserById,
+    promoteUser
 }
