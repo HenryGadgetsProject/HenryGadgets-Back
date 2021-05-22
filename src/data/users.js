@@ -52,8 +52,8 @@ const users = [
       // postcode: "1000",
     },
     {
-      first_name: "Marco", 
-      last_name: "Camparone",
+      first_name: "Enzo", 
+      last_name: "Perez",
       is_admin: false,
       email: "marcocamparone@gmail.com",
       password:
