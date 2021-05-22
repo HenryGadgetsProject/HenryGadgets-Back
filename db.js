@@ -63,7 +63,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 const {
-  Brand,
+ // Brand,
   Category,
   Image,
   Order,
