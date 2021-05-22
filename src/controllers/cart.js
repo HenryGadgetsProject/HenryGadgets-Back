@@ -1,7 +1,31 @@
 const { Order, OrderDetail, Product } = require("../../db");
 
+const createGuestCart = async (req, res) => {
+    const { user_id } = req.params
+    try {
+        const order = await Order.findOrCreate({
+            where: {
+                userId: user_id,
+                state: "cart",
+            },
+        });
+
+        for(let i = 0; i < req.body.length;i++){
+            let detailCreate = await OrderDetail.create({
+                productId: req.body[i].id,
+                quantity: req.body[i].quantity,
+                unit_price: req.body[i].unit_price,
+            });
+            await detailCreate.setOrder(order[0].id)
+        }
+        res.json(order[0]);
+    } catch (error) {
+        res.json(error);
+    }
+}
+
 const addCart = async (req, res) => {
-    const { user_id, id } = req.params;
+    const { user_id, id, quantity } = req.params;
     try {
         const order = await Order.findOrCreate({
             where: {
@@ -23,7 +47,7 @@ const addCart = async (req, res) => {
         } else {
             const detailCreate = await OrderDetail.create({
                 productId: id,
-                quantity: 1,
+                quantity: quantity,
                 unit_price: product.price,
         });
         await detailCreate.setOrder(order[0].id);
@@ -142,5 +166,6 @@ module.exports = {
     getAllCarts,
     deleteAll,
     deleteCart,
-    editCart
+    editCart,
+    createGuestCart,
 }
