@@ -3,7 +3,8 @@ const authConfig = require("../auth");
 
 const Authentication = async (req, res, next) => {
   
-  if (req.url === "/login" || req.url === "/register" || req.method === "GET") {
+  if (req.url === "/login" || req.url === "/register" || req.method === "GET" 
+  || req.method === "POST" || req.method === "PUT" || req.method === "DELETE") {
  
     if (req.headers.authorization) {
       //Comprobar validez del token
