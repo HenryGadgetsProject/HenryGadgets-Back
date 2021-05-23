@@ -5,8 +5,6 @@ const router = Router();
 
 
 router.post("/:id", async (req, res, next) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
   
     const { id } = req.params;
     try {
@@ -21,26 +19,7 @@ router.post("/:id", async (req, res, next) => {
       res.status(400).send(error, "Se ha producido un error");
     }
   });
-=======
-=======
->>>>>>> fdf132b688f9f3430d2f09f1644714152e6dab45
 
-  const { id } = req.params;
-  try {
-    const userPromoted = await promoteUser(
-      id
-    );
-    if (userPromoted[0] === 0) res.send("No se ha promocionado el usuario");
-    else if (userPromoted[0] === 1) res.send("Se promociono el usuario");
-    else res.send(userPromoted);
-  } catch (error) {
-    res.status(400).send(error, "Se ha producido un error");
-  }
-});
-<<<<<<< HEAD
->>>>>>> fdf132b688f9f3430d2f09f1644714152e6dab45
-=======
->>>>>>> fdf132b688f9f3430d2f09f1644714152e6dab45
 
 
 module.exports = router;
