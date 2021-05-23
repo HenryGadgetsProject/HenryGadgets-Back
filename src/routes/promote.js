@@ -6,6 +6,7 @@ const router = Router();
 
 router.post("/:id", async (req, res, next) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
   
     const { id } = req.params;
     try {
@@ -21,6 +22,8 @@ router.post("/:id", async (req, res, next) => {
     }
   });
 =======
+=======
+>>>>>>> fdf132b688f9f3430d2f09f1644714152e6dab45
 
   const { id } = req.params;
   try {
@@ -34,6 +37,9 @@ router.post("/:id", async (req, res, next) => {
     res.status(400).send(error, "Se ha producido un error");
   }
 });
+<<<<<<< HEAD
+>>>>>>> fdf132b688f9f3430d2f09f1644714152e6dab45
+=======
 >>>>>>> fdf132b688f9f3430d2f09f1644714152e6dab45
 
 
