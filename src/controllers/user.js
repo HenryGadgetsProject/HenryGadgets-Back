@@ -73,14 +73,36 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
   };
 
   const promoteUser = async (id) => {
+    
     try {
-      const userPromoted = await User.update(
+      
+      const userPromoted = await User.update( 
+       
         {
-            is_admin : true,
+            is_admin : true
         },
         { where: { id: id } }
+        
       );
+      console.log(userPromoted);
       return userPromoted;
+    } catch (e) {
+      return e.message;
+    }
+  };
+
+  const degradateUser = async (id) => {
+    
+    try {
+      
+      const userDegradated = await User.update( 
+        {
+            is_admin : false,
+        },
+        { where: { id: id } }
+        
+      );
+      return userDegradated;
     } catch (e) {
       return e.message;
     }
@@ -93,5 +115,6 @@ module.exports = {
     deleteUser,
     updateUser,
     getUserById,
-    promoteUser
+    promoteUser,
+    degradateUser
 }
