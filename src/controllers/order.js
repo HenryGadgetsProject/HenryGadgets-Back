@@ -10,7 +10,10 @@ const editOrder = async (req, res) => {
     const {
       state,
       total_price,
-      email
+      country,
+      street,
+      city,
+      phone_number,
     } = req.body;
 
     let order = await Order.findOne({
@@ -22,6 +25,10 @@ const editOrder = async (req, res) => {
 
     order.state = state;
     order.totalPrice = total_price;
+    order.country = country;
+    order.street = street;
+    order.city = city;
+    order.phone_number = phone_number
     await order.save();
 
     res.send(order);
@@ -35,7 +42,10 @@ const addOrder = async (req, res) => {
   const {
     state,
     total_price,
-    email
+    country,
+    street,
+    city,
+    phone_number
   } = req.body
   try {
     const user = await User.findOne({where:{email}})
@@ -44,7 +54,10 @@ const addOrder = async (req, res) => {
       where: {
       state,
       total_price,
-      email
+      country,
+      street,
+      city,
+      phone_number,
     },
   })
 

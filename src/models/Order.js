@@ -18,6 +18,18 @@ module.exports = (sequelize) => {
         total_price: {
             type: DT.FLOAT,
         },
+        city: {
+            type: DT.STRING,
+        },
+        street: {
+            type: DT.STRING,
+        },
+        phone_number: {
+            type: DT.STRING,
+        },
+        country: {
+            type: DT.STRING,
+        },
     },
         {
             underscored: true
