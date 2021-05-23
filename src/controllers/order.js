@@ -1,4 +1,4 @@
-const { Order, User } = require("../../db");
+const { Order, User, OrderDetail } = require("../../db");
 
 const allOrders = async (req, res) => {
   const data = await Order.findAll({where: {state: "cart"}});
@@ -72,9 +72,38 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const ordersAdmin = async () => {
+  const data = await Order.findAll({
+    attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+    include: [{
+        model: OrderDetail,
+        attributes: ['id','quantity', 'unit_price'],
+        include: [{
+            model: Product,
+            attributes: ['id', 'name', 'big_image', 'unit_price'],
+        }]
+    },{
+        model: User,
+        attributes: ['first_name', 'last_name']
+    }]
+  });
+  return res.json(data);
+}
+
+const editOrderAdmin = async () => {
+  const id = req.params.id
+  const newState = req.query.state
+  const data = await Order.findByPk(id)
+  data.state = newState
+  await data.save()
+  return res.json(data);
+}
+
 module.exports = {
   deleteOrder,
   addOrder,
   editOrder,
   allOrders,
+  ordersAdmin,
+  editOrderAdmin,
 };

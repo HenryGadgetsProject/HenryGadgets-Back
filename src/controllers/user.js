@@ -1,4 +1,4 @@
-const { User } = require("../../db");
+const { User, Order, OrderDetail, Product } = require("../../db");
 
 const getAllUsers = async () => {
     try {
@@ -86,6 +86,31 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
     }
   };
 
+  const getOrderHistory = async () => {
+    let id = req.params.id; 
+    try{
+        let data = await User.findOne({ 
+            where: { 
+                id: id 
+            },
+        include:[{
+            model: Order,
+            attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+            include: [{
+                model: OrderDetail,
+                attributes: ['id','quantity', 'unit_price'],
+                include: [{
+                    model: Product,
+                    attributes: ['id', 'name', 'big_image', 'price'],
+                }]
+            }]
+        }]})
+        return res.json(data.orders);
+    } catch (err) {        
+        return res.json(err);
+    }    
+  }
+
 
 module.exports = {
     getAllUsers,
@@ -93,5 +118,6 @@ module.exports = {
     deleteUser,
     updateUser,
     getUserById,
-    promoteUser
+    promoteUser,
+    getOrderHistory,
 }

@@ -6,6 +6,7 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  getOrderHistory,
 } = require("../controllers/user");
 const isAuthorize = require("../middlewares/isAuthorize")
 const router = Router();
@@ -28,6 +29,9 @@ router.get("/:id", isAuthorize, async (req, res) => {
     res.send(error);
   }
 });
+
+router.get(":id/orders", getOrderHistory)
+
 
 router.post("/", isAuthorize, async (req, res) => {
   try {

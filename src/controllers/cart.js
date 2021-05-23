@@ -18,7 +18,7 @@ const createGuestCart = async (req, res) => {
             });
             await detailCreate.setOrder(order[0].id)
         }
-        res.json(order[0]);
+        res.json(req.body);
     } catch (error) {
         res.json(error);
     }
@@ -41,6 +41,7 @@ const addCart = async (req, res) => {
                 productId: id,
                 orderId: order[0].id,
             },
+            include: [{ model: Product }]
         });
         if (findDuplicate.length !== 0) {
             res.send("Ya existe ese producto");
