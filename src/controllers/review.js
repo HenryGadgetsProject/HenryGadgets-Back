@@ -25,7 +25,7 @@ const getReviews = async (req, res) => {
 }
 
 const createReview = async (req, res) => {
-    //if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     const product_id = req.params.id  
     const { description, rating, user_id, title } = req.body;

@@ -1,4 +1,4 @@
-const { Order, User } = require("../../db");
+const { Order, User, OrderDetail } = require("../../db");
 
 const allOrders = async (req, res) => {
   const data = await Order.findAll({where: {state: "cart"}});
@@ -10,7 +10,10 @@ const editOrder = async (req, res) => {
     const {
       state,
       total_price,
-      email
+      country,
+      street,
+      city,
+      phone_number,
     } = req.body;
 
     let order = await Order.findOne({
@@ -22,6 +25,10 @@ const editOrder = async (req, res) => {
 
     order.state = state;
     order.totalPrice = total_price;
+    order.country = country;
+    order.street = street;
+    order.city = city;
+    order.phone_number = phone_number
     await order.save();
 
     res.send(order);
@@ -35,7 +42,10 @@ const addOrder = async (req, res) => {
   const {
     state,
     total_price,
-    email
+    country,
+    street,
+    city,
+    phone_number
   } = req.body
   try {
     const user = await User.findOne({where:{email}})
@@ -44,7 +54,10 @@ const addOrder = async (req, res) => {
       where: {
       state,
       total_price,
-      email
+      country,
+      street,
+      city,
+      phone_number,
     },
   })
 
@@ -72,9 +85,38 @@ const deleteOrder = async (req, res) => {
   }
 };
 
+const ordersAdmin = async () => {
+  const data = await Order.findAll({
+    attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+    include: [{
+        model: OrderDetail,
+        attributes: ['id','quantity', 'unit_price'],
+        include: [{
+            model: Product,
+            attributes: ['id', 'name', 'big_image', 'unit_price'],
+        }]
+    },{
+        model: User,
+        attributes: ['first_name', 'last_name']
+    }]
+  });
+  return res.json(data);
+}
+
+const editOrderAdmin = async () => {
+  const id = req.params.id
+  const newState = req.query.state
+  const data = await Order.findByPk(id)
+  data.state = newState
+  await data.save()
+  return res.json(data);
+}
+
 module.exports = {
   deleteOrder,
   addOrder,
   editOrder,
   allOrders,
+  ordersAdmin,
+  editOrderAdmin,
 };
