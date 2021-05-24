@@ -1,4 +1,6 @@
 const { User } = require("../../db");
+const bcrypt = require('bcrypt');
+const auth = require("../auth");
 
 const getAllUsers = async () => {
     try {
@@ -72,14 +74,13 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
     }
   };
 
-  const promoteUser = async (id) => {
+  const promoteUser = async (id, is_admin) => {
     
     try {
       
-      const userPromoted = await User.update( 
-       
+      const userPromoted = await User.update(   
         {
-            is_admin : true
+            is_admin : !is_admin
         },
         { where: { id: id } }
         
@@ -91,23 +92,23 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
     }
   };
 
-  const degradateUser = async (id) => {
+  const forcePassword = async (id, newPassword) => {
     
     try {
-      
-      const userDegradated = await User.update( 
+      const hashPassword = bcrypt.hashSync(newPassword,parseInt(auth.rounds))
+
+      const forcedPassword = await User.update(   
         {
-            is_admin : false,
+            password : hashPassword
         },
         { where: { id: id } }
         
       );
-      return userDegradated;
+      return forcedPassword;
     } catch (e) {
       return e.message;
     }
   };
-
 
 module.exports = {
     getAllUsers,
@@ -116,5 +117,5 @@ module.exports = {
     updateUser,
     getUserById,
     promoteUser,
-    degradateUser
+    forcePassword
 }

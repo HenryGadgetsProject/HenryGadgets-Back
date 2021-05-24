@@ -13,6 +13,7 @@ const RegisterRouter = require('./register')
 const Payment = require('./payment')
 const MeRouter = require('./me');
 const PromoteRouter = require('./promote');
+const forcePassword = require('./forcePassword');
 
 const router = Router();
 
@@ -29,5 +30,6 @@ router.use('/search', SearchRouter);
 router.use('/login', LoginRouter)
 router.use('/register', RegisterRouter)
 router.use('/payment', Payment)
+router.use('/forcepassword', forcePassword)
 
 module.exports = router;
