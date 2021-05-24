@@ -9,7 +9,7 @@ const categories = [
     {
         id: 2,
         name: "Celulares",
-        photo: "https://i.imgur.com/67pw6FV.jpg",
+        photo: "https://i.imgur.com/gYq38Js.jpg",
         description: "Esta es la descripción de Celulares"
     },
     {
