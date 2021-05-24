@@ -10,7 +10,7 @@ const categories = [
         id: 2,
         name: "Celulares",
         photo: "https://i.imgur.com/67pw6FV.jpg",
-        description: "esta es la descripción de Celulares"
+        description: "Esta es la descripción de Celulares"
     },
     {
         id: 3,
@@ -29,6 +29,12 @@ const categories = [
         name: "Audio",
         photo: "https://i.imgur.com/r3jcVLF.jpg",
         description: "esta es la descripción de Audio"
+    },
+    {
+        id: 6,
+        name: "Televisores",
+        photo: "https://i2.wp.com/gadgetur.com/wp-content/uploads/2021/04/630386.jpg?fit=1920%2C1080&ssl=1",
+        description: "esta es la descripción de Televisores"
     },
 ]
 
