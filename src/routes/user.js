@@ -20,7 +20,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", isAuthorize, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const userID = await getUserById(id);
@@ -33,7 +33,7 @@ router.get("/:id", isAuthorize, async (req, res) => {
 router.get(":id/orders", getOrderHistory)
 
 
-router.post("/", isAuthorize, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const {
       id,
