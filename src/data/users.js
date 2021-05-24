@@ -70,7 +70,7 @@ const users = [
       is_admin: false,
       email: "juanfelici@gmail.com",
       password:
-        "$2a$05$bL1E5YTZ7xZbKdczSCIA5ejlNm1NJnSrSPF77vvr18PBGHl.cQ1p6",
+        "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
       // country: "Argentina",
       // city: "Buenos Aires",
       // street: "avenida de Mayo",
@@ -83,7 +83,7 @@ const users = [
       is_admin: false,
       email: "leorosales@gmail.com",
       password:
-        "$2a$05$bL1E5YTZ7xZbKdczSCIA5ejlNm1NJnSrSPF77vvr18PBGHl.cQ1p6",
+        "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
       // country: "Argentina",
       // city: "Buenos Aires",
       // street: "avenida de Mayo",

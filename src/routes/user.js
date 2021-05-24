@@ -124,7 +124,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", isAuthorize, async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   const { id } = req.params;
   try {
     const deletedUser = await deleteUser(id);
