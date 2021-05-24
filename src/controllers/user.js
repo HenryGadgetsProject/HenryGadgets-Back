@@ -1,4 +1,4 @@
-const { User } = require("../../db");
+const { User, Order, OrderDetail, Product } = require("../../db");
 
 const getAllUsers = async () => {
     try {
@@ -8,15 +8,15 @@ const getAllUsers = async () => {
 }
 };
 
-const createUser = async (id, first_name, last_name, is_admin, email, password, country, city, street, addressnumber, postcode) => {
+const createUser = async (id, first_name, last_name, email, password, is_admin, country, city, street, addressnumber, postcode) => {
     try {
       const user = await User.create({
         id,
         first_name,
         last_name,
-        is_admin,
         email,
         password,
+        // is_admin,
         // country,
         // city,
         // street,
@@ -29,15 +29,15 @@ const createUser = async (id, first_name, last_name, is_admin, email, password, 
     }
   };
   
-  const updateUser = async (id, first_name, last_name, is_admin, email, password, country, city, street, addressnumber, postcode) => {
+  const updateUser = async (id, first_name, last_name,  email, password, is_admin, country, city, street, addressnumber, postcode) => {
     try {
       const userUpdated = await User.update(
         {
             first_name,
             last_name,
-            is_admin,
             email,
             password,
+            is_admin,
             // country,
             // city,
             // street,
@@ -51,6 +51,8 @@ const createUser = async (id, first_name, last_name, is_admin, email, password, 
       return e.message;
     }
   };
+
+  
   
   const deleteUser = async (id) => {
     try {
@@ -70,11 +72,52 @@ const createUser = async (id, first_name, last_name, is_admin, email, password, 
     }
   };
 
+  const promoteUser = async (id) => {
+    try {
+      const userPromoted = await User.update(
+        {
+            is_admin : true,
+        },
+        { where: { id: id } }
+      );
+      return userPromoted;
+    } catch (e) {
+      return e.message;
+    }
+  };
+
+  const getOrderHistory = async () => {
+    let id = req.params.id; 
+    try{
+        let data = await User.findOne({ 
+            where: { 
+                id: id 
+            },
+        include:[{
+            model: Order,
+            attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+            include: [{
+                model: OrderDetail,
+                attributes: ['id','quantity', 'unit_price'],
+                include: [{
+                    model: Product,
+                    attributes: ['id', 'name', 'big_image', 'price'],
+                }]
+            }]
+        }]})
+        return res.json(data.orders);
+    } catch (err) {        
+        return res.json(err);
+    }    
+  }
+
 
 module.exports = {
     getAllUsers,
     createUser,
     deleteUser,
     updateUser,
-    getUserById
+    getUserById,
+    promoteUser,
+    getOrderHistory,
 }

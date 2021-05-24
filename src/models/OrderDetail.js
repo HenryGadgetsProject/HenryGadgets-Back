@@ -3,9 +3,15 @@ const DT = DataTypes;
 
 module.exports = (sequelize) => {
     // defino el modelo
-    sequelize.define('orderline', {
-        qty: {
+    sequelize.define('orderDetail', {
+        quantity: {
             type: DT.INTEGER,
+        },
+        unit_price: {
+            type: DT.FLOAT
+        },
+        product_id: {
+            type: DT.UUID,
         }
     },
         {
@@ -13,3 +19,4 @@ module.exports = (sequelize) => {
             underscored: true
         });
 };
+

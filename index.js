@@ -18,11 +18,12 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
-const { conn, Category, Product, User } = require("./db");
+const { conn, Category, Product, User, Review } = require("./db");
 const { assignCategories } = require("./src/controllers/product");
 const categories = require("./src/data/categories");
 const products = require("./src/data/products");
-const users = require("./src/data/users")
+const users = require("./src/data/users");
+const reviews = require("./src/data/reviews")
 const PORT = process.env.PORT || 3001;
 
 function catsBulk(products) {
@@ -32,10 +33,12 @@ function catsBulk(products) {
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   User.bulkCreate(users).then(() => {
-    Category.bulkCreate(categories).then(() => {
-      Product.bulkCreate(products).then(() => {
-        catsBulk(products);
-      });
+    Review.bulkCreate(reviews).then(() => {
+      Category.bulkCreate(categories).then(() => {
+        Product.bulkCreate(products).then(() => {
+          catsBulk(products);
+        });
+      })
     });
   })
 })
