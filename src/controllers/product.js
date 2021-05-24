@@ -134,7 +134,6 @@ const updateProduct = async (
   id,
   name,
   price,
-  rating,
   big_image,
   description,
   is_active,
@@ -146,7 +145,6 @@ const updateProduct = async (
       {
         name,
         price,
-        rating,
         big_image,
         description,
         is_active,
@@ -185,8 +183,6 @@ const updateProduct = async (
     return e.message;
   }
 };
-
-//update
 
 module.exports = {
   getAllProducts,

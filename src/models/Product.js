@@ -32,8 +32,6 @@ module.exports = (sequelize) => {
         },
         rating: {
             type: DT.DOUBLE,
-            defaultValue: 0,
-            allowNull: false
         },
         is_active: {
             type: DT.BOOLEAN,
