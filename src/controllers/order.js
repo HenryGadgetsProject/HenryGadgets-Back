@@ -86,9 +86,8 @@ const deleteOrder = async (req, res) => {
 };
 
 const ordersAdmin = async (req, res) => {
-  const state = req.params
-  if(!state) {
-    try {
+  try {
+      console.log(state)
       const data = await Order.findAll({
         attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
         include: [{
@@ -104,35 +103,38 @@ const ordersAdmin = async (req, res) => {
         }]
       });
       return res.json(data);
-    } catch (error) {
-      return res.send(error)
-    }
-  } else {
-    try {
-      const stateFiltered = await Order.findAll({
-        where: {
-          state: state
-        },
-        attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
-          include: [{
-              model: OrderDetail,
-              attributes: ['id','quantity', 'unit_price'],
-              include: [{
-                  model: Product,
-                  attributes: ['id', 'name', 'big_image', 'price'],
-              }]
-          },{
-              model: User,
-              attributes: ['first_name', 'last_name']
-            }
-          ]
-      });
-      return res.json(stateFiltered)
-    } catch (error) {
-      res.send(error)
-    }
+  } catch (error) {
+    res.send(error)
   }
 }
+
+const ordersByState = async (req, res) => {
+  const state = req.params
+  try {
+    const data = await Order.findAll({
+      where: {
+        state: state.state
+      },
+      attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+        include: [{
+            model: OrderDetail,
+            attributes: ['id','quantity', 'unit_price'],
+            include: [{
+                model: Product,
+                attributes: ['id', 'name', 'big_image', 'price'],
+            }]
+        },{
+            model: User,
+            attributes: ['first_name', 'last_name']
+          }
+        ]
+    });
+    return res.json(data) 
+  } catch (error) {
+    res.send(error)
+  }
+}
+
 
 const editOrderAdmin = async (req, res) => {
   const { id, state } = req.params
@@ -154,4 +156,5 @@ module.exports = {
   allOrders,
   ordersAdmin,
   editOrderAdmin,
+  ordersByState,
 };
