@@ -9,8 +9,11 @@ let HOST;
 if (!process.env.DATABASE_URL) HOST = "http://localhost:3000";
 else HOST = "https://henrygadgets.vercel.app";
 
+// The game
+
 //PROCESS PAYMENT
-router.post("/", async (req, res) => {
+router.post("/:id", async (req, res) => {
+  let { id } = req.params
   let preference = {
     items: [
       {
@@ -20,7 +23,7 @@ router.post("/", async (req, res) => {
       },
     ],
     back_urls: {
-      success: `${HOST}/`,
+      success: `${HOST}/sucess/${id}`,
       failure: `${HOST}/about`,
       pending: `${HOST}/feedback`,
     },
