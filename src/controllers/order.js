@@ -87,7 +87,6 @@ const deleteOrder = async (req, res) => {
 
 const ordersAdmin = async (req, res) => {
   try {
-      console.log(state)
       const data = await Order.findAll({
         attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
         include: [{
