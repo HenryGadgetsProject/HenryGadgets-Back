@@ -11,6 +11,7 @@ else HOST = "https://henrygadgets.vercel.app";
 
 //PROCESS PAYMENT
 router.post("/", async (req, res) => {
+  let { id } = req.params
   let preference = {
     items: [
       {
@@ -20,9 +21,9 @@ router.post("/", async (req, res) => {
       },
     ],
     back_urls: {
-      success: `${HOST}/`,
-      failure: `${HOST}/about`,
-      pending: `${HOST}/feedback`,
+      success: `${HOST}/success`,
+      failure: `${HOST}/`,
+      pending: `${HOST}/`,
     },
     auto_return: "approved",
   };

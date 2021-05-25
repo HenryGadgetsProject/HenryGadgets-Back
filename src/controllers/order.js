@@ -86,21 +86,52 @@ const deleteOrder = async (req, res) => {
 };
 
 const ordersAdmin = async (req, res) => {
-  const data = await Order.findAll({
-    attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
-    include: [{
-        model: OrderDetail,
-        attributes: ['id','quantity', 'unit_price'],
+  const state = req.params
+  if(!state) {
+    try {
+      const data = await Order.findAll({
+        attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
         include: [{
-            model: Product,
-            attributes: ['id', 'name', 'big_image', 'price'],
+            model: OrderDetail,
+            attributes: ['id','quantity', 'unit_price'],
+            include: [{
+                model: Product,
+                attributes: ['id', 'name', 'big_image', 'price'],
+            }]
+        },{
+            model: User,
+            attributes: ['first_name', 'last_name']
         }]
-    },{
-        model: User,
-        attributes: ['first_name', 'last_name']
-    }]
-  });
-  return res.json(data);
+      });
+      return res.json(data);
+    } catch (error) {
+      return res.send(error)
+    }
+  } else {
+    try {
+      const stateFiltered = await Order.findAll({
+        where: {
+          state: state
+        },
+        attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+          include: [{
+              model: OrderDetail,
+              attributes: ['id','quantity', 'unit_price'],
+              include: [{
+                  model: Product,
+                  attributes: ['id', 'name', 'big_image', 'price'],
+              }]
+          },{
+              model: User,
+              attributes: ['first_name', 'last_name']
+            }
+          ]
+      });
+      return res.json(stateFiltered)
+    } catch (error) {
+      res.send(error)
+    }
+  }
 }
 
 const editOrderAdmin = async (req, res) => {
