@@ -6,6 +6,7 @@ const {
   createUser,
   updateUser,
   deleteUser,
+  getOrderHistory,
 } = require("../controllers/user");
 const isAuthorize = require("../middlewares/isAuthorize")
 const router = Router();
@@ -19,7 +20,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", isAuthorize, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const userID = await getUserById(id);
@@ -29,7 +30,10 @@ router.get("/:id", isAuthorize, async (req, res) => {
   }
 });
 
-router.post("/", isAuthorize, async (req, res) => {
+router.get(":id/orders", getOrderHistory)
+
+
+router.post("/", async (req, res) => {
   try {
     const {
       id,

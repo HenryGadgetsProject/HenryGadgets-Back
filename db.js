@@ -71,6 +71,7 @@ const {
   Review,
   User,
   OrderDetail,
+  NewsletterOption
 } = sequelize.models;
 
 // Aca vendrian las relaciones

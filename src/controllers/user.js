@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 const { User } = require("../../db");
 const bcrypt = require('bcrypt');
 const auth = require("../auth");
+=======
+const { User, Order, OrderDetail, Product } = require("../../db");
+>>>>>>> 2f1ce42221a3bced1c52c3102d32ff784b473353
 
 const getAllUsers = async () => {
     try {
@@ -92,6 +96,7 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
     }
   };
 
+<<<<<<< HEAD
   const forcePassword = async (id, newPassword) => {
     
     try {
@@ -109,6 +114,33 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
       return e.message;
     }
   };
+=======
+  const getOrderHistory = async () => {
+    let id = req.params.id; 
+    try{
+        let data = await User.findOne({ 
+            where: { 
+                id: id 
+            },
+        include:[{
+            model: Order,
+            attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+            include: [{
+                model: OrderDetail,
+                attributes: ['id','quantity', 'unit_price'],
+                include: [{
+                    model: Product,
+                    attributes: ['id', 'name', 'big_image', 'price'],
+                }]
+            }]
+        }]})
+        return res.json(data.orders);
+    } catch (err) {        
+        return res.json(err);
+    }    
+  }
+
+>>>>>>> 2f1ce42221a3bced1c52c3102d32ff784b473353
 
 module.exports = {
     getAllUsers,
@@ -117,5 +149,9 @@ module.exports = {
     updateUser,
     getUserById,
     promoteUser,
+<<<<<<< HEAD
     forcePassword
+=======
+    getOrderHistory,
+>>>>>>> 2f1ce42221a3bced1c52c3102d32ff784b473353
 }
