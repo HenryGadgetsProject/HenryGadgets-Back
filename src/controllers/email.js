@@ -2,10 +2,11 @@ const nodemailer = require("nodemailer");
 const SMTPConnection = require("nodemailer/lib/smtp-connection");
 require("dotenv").config();
 const { user, pass } = process.env;
+const { Order } = require("../../db.js");
 
 const emailBuyConfirmation = async (req, res) => {
     const { products, client, orderId } = req.body
-    console.log(products)
+    const data = await Order.findByPk(orderId)
     let product
     if(!products) return res.status(500).json({ error: "product missing" })
     if(!Array.isArray(products)) return res.status(500).json({ error: "products should be and array" });
@@ -57,14 +58,26 @@ const emailBuyConfirmation = async (req, res) => {
     </head>
     <body>
     <div class="containergral">
-    <h1>Hola ${client.first_name} ${client.last_name}!, confirmamos la compra de su producto</h1>
-    <p>Confirmación de compra de su producto ! ! !</p>
+    <h1>Hola ${client.first_name} ${client.last_name}!</h1>
+    <p>Confirmación de orden ! ! !</p>
+    </hr>
+    <b>Tus datos de envio:</b>
+    <p>${data.country}, ${data.city}, ${data.street}</p>
+    <b>Telefono:</b>
+    <p>${data.phone_number}</p>
     </hr>
     <b>Tu lista de productos:</b>
     <div class="unorderlist">
-    <ul>
-    ${products.map((e) => `<p>${e.name}</p>`)}
-    </ul>
+      <div>
+        ${products.map((e) => 
+          `<p>
+            <img src=${e.big_image} alt=${e.name} borderRadius="8px width="20px" height="20px"/>
+            <span left="10px">${e.name}</span>
+            <span left="10px">${e.quantity}</span>
+            <span left="10px">${e.price}</span>
+          </p>`)}
+      </div>
+      <p>${data.total}</p>
     </div>
     </hr>
     <b>Gracias por confiar en nosotros!</b>
