@@ -77,7 +77,7 @@ const emailBuyConfirmation = async (req, res) => {
             <span left="10px">${e.price}</span>
           </p>`)}
       </div>
-      <p>${data.total}</p>
+      <p>${data.total_price}</p>
     </div>
     </hr>
     <b>Gracias por confiar en nosotros!</b>

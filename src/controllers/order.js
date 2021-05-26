@@ -5,6 +5,12 @@ const allOrders = async (req, res) => {
   return res.json(data);
 };
 
+const orderById = async (req, res) => {
+  const id = req.params.id
+  const data = await Order.findByPk(id);
+  return res.json(data)
+}
+
 const editOrder = async (req, res) => {
   try {
     const {
@@ -156,4 +162,5 @@ module.exports = {
   ordersAdmin,
   editOrderAdmin,
   ordersByState,
+  orderById,
 };
