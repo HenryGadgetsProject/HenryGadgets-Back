@@ -6,50 +6,30 @@ const users = [
       email: "soyadmin@admin.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      // country: "Argentina",
-      // city: "Buenos Aires",
-      // street: "avenida de Mayo",
-      // addressnumber: "1000",
-      // postcode: "1000",
     },
     {
       first_name: "Guille",
       last_name: "Bravo",
       is_admin: false,
-      email: "guillebravo@gmail.com",
+      email: "hollowblind095@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      // country: "Argentina",
-      // city: "Buenos Aires",
-      // street: "avenida de Mayo",
-      // addressnumber: "1000",
-      // postcode: "1000",
     },
     {
       first_name: "Eduardo",
       last_name: "Campili",
       is_admin: false,
-      email: "eduardocampili@gmail.com",
+      email: "eduardo.campili@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      // country: "Argentina",
-      // city: "Buenos Aires",
-      // street: "avenida de Mayo",
-      // addressnumber: "1000",
-      // postcode: "1000",
     },
     {
       first_name: "Alex",
       last_name: "Leon",
       is_admin: false,
-      email: "alexleon@gmail.com",
+      email: "alex81.dev@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      // country: "Argentina",
-      // city: "Buenos Aires",
-      // street: "avenida de Mayo",
-      // addressnumber: "1000",
-      // postcode: "1000",
     },
     {
       first_name: "Enzo", 
@@ -58,24 +38,14 @@ const users = [
       email: "marcocamparone@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      // country: "Argentina",
-      // city: "Buenos Aires",
-      // street: "avenida de Mayo",
-      // addressnumber: "1000",
-      // postcode: "1000",
     },
     {
       first_name: "Juan",
       last_name: "Felici",
       is_admin: false,
-      email: "juanfelici@gmail.com",
+      email: "juambif@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      // country: "Argentina",
-      // city: "Buenos Aires",
-      // street: "avenida de Mayo",
-      // addressnumber: "1000",
-      // postcode: "1000",
     },
     {
       first_name: "Leo",
@@ -84,11 +54,6 @@ const users = [
       email: "leorosales@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      // country: "Argentina",
-      // city: "Buenos Aires",
-      // street: "avenida de Mayo",
-      // addressnumber: "1000",
-      // postcode: "1000",
     },
   ]
 
