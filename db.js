@@ -63,7 +63,6 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 const {
- // Brand,
   Category,
   Image,
   Order,
@@ -71,19 +70,25 @@ const {
   Review,
   User,
   OrderDetail,
-  NewsletterOption
+  NewsletterOption,
+  Wishlist,
 } = sequelize.models;
 
 // Aca vendrian las relaciones
+User.hasMany(Order);
+User.hasMany(Review);
+User.hasMany(Wishlist);
+
+Wishlist.belongsTo(User);
+Wishlist.belongsToMany(Product, { through: 'wishlist_product' });
+
 Product.hasMany(Image);
 Product.hasMany(Review);
 Product.hasMany(OrderDetail);
 Product.belongsToMany(Category, { through: "products_categories" });
-//Product.belongsToMany(Brand, { through: 'product_brand' });
+Product.belongsToMany(Wishlist, { through: 'wishlist_product' });
 
 Category.belongsToMany(Product, { through: "products_categories" });
-
-//Brand.belongsToMany(Product, { through: 'product_brand' });
 
 Order.hasMany(OrderDetail);
 Order.belongsTo(User);
@@ -91,9 +96,6 @@ Order.belongsTo(User);
 OrderDetail.belongsTo(Order);
 OrderDetail.belongsTo(Product);
 OrderDetail.hasOne(Review);
-
-User.hasMany(Order);
-User.hasMany(Review);
 
 Review.belongsTo(User);
 Review.belongsTo(Product);

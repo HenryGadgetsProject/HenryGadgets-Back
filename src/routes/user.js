@@ -8,7 +8,14 @@ const {
   deleteUser,
   getOrderHistory,
 } = require("../controllers/user");
-const isAuthorize = require("../middlewares/isAuthorize")
+const { 
+  getWishlist,
+  postWishlist,
+  editWishlist,
+  deleteWishlist
+} = require("../controllers/wishlist");
+const isAuthorize = require("../middlewares/isAuthorize");
+
 const router = Router();
 
 router.get("/", async (req, res) => {
@@ -138,5 +145,10 @@ router.delete("/:id", async (req, res, next) => {
     res.status(400).send("No se pudo borrar el usuario")
   }
 })
+
+router.get("/wishlist/:userId", getWishlist);
+router.post("/wishlist/post/:userId/:listName", postWishlist);
+router.put("/wishlist/:wishlistId/:productId/:action", editWishlist);
+router.delete("/wishlist/delete/:wishlistId", deleteWishlist);
 
 module.exports = router;
