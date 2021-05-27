@@ -13,7 +13,7 @@ router.post("/:id",  async (req, res, next) => {
  
     try {
       const forcedPassword = await forcePassword(id, password); 
-      if( forcedPassword[0] === 1 ){  res.send(password); }
+      if( forcedPassword[0] === 1 ){  res.status(200).send("Se realizo con el exito el reset del password"); }
       res.send('No se realizo el reset de password')
     } catch (error) {
       res.status(400).send("Se ha producido un error");
