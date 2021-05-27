@@ -182,7 +182,7 @@ router.get('/desuscribir', async (req, res, next) => {
                                     </head>
                                     <body>
                                     <h3>${newsLetter.name} Usted se desuscribio de nustros boletines, ya no recibiras correos</h3>
-                                    <a href="http://localhost:3000/home"> Vuela a nuestra Agro Place </a>
+                                    <a href="http://localhost:3000/home"> Vuela a Henry Gadgets </a>
                                     </body>
                                 </html>
                             `;
@@ -208,7 +208,7 @@ router.get('/desuscribir', async (req, res, next) => {
                                     </head>
                                     <body>
                                     <h3>${newsLetter.name} Usted se desuscribio de alguno de nustros boletines </h3>
-                                    <a href="http://localhost:3000/home"> Vuela a nuestra Agro Place</a>
+                                    <a href="http://localhost:3000/home"> Vuela a Henry Gadgets</a>
                                     </body>
                                 </html>
                             `;
