@@ -13,13 +13,16 @@ const RegisterRouter = require('./register')
 const Payment = require('./payment')
 const MeRouter = require('./me');
 const PromoteRouter = require('./promote');
+const forcePassword = require('./forcePassword');
 const Email = require('./email');
-const ForcePassword = require('./forcePassword')
+const ReviewRouter = require('./reviews')
+
 
 const router = Router();
 
 // Configurar los routers
 // router.use('/', AuthenticationRouter)
+router.use('/reviews', ReviewRouter);
 router.use('/categories', CategoryRouter);
 router.use('/promote', PromoteRouter);
 router.use('/me', MeRouter);
@@ -28,10 +31,14 @@ router.use('/orders', OrderRouter);
 router.use('/products', ProductRouter);
 router.use('/users', UserRouter);
 router.use('/search', SearchRouter);
+router.use('/login', LoginRouter)
+router.use('/register', RegisterRouter)
+router.use('/payment', Payment)
+router.use('/forcepassword', forcePassword)
 router.use('/login', LoginRouter);
 router.use('/register', RegisterRouter);
 router.use('/payment', Payment);
 router.use('/email', Email);
-router.use('/forcepassword', ForcePassword);
+
 
 module.exports = router;

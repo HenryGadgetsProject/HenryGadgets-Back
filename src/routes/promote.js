@@ -5,19 +5,20 @@ const router = Router();
 
 
 router.post("/:id", async (req, res, next) => {
+  console.log(req.body);
+    const { is_admin }  = req.body
+    const { id } = req.params;
 
-  const { id } = req.params;
-  try {
-    const userPromoted = await promoteUser(
-      id
-    );
-    if (userPromoted[0] === 0) res.send("No se ha promocionado el usuario");
-    else if (userPromoted[0] === 1) res.send("Se promociono el usuario");
-    else res.send(userPromoted);
-  } catch (error) {
-    res.status(400).send(error, "Se ha producido un error");
-  }
-});
+    try {
+      const userPromoted = await promoteUser(
+        id, is_admin
+      ); 
+      res.send("Se realizo el cambio"); 
+    } catch (error) {
+      res.status(400).send(error, "Se ha producido un error");
+    }
+  });
+
 
 
 module.exports = router;

@@ -160,6 +160,6 @@ router.post('/:id/review', createReview)
 
 router.put('/:id/review', editReview)
 
-router.delete('/:id', deleteReview)
+router.delete('/:id/review/:id', deleteReview)
 
 module.exports = router;

@@ -1,4 +1,9 @@
+
+const bcrypt = require('bcrypt');
+const auth = require("../auth");
+
 const { User, Order, OrderDetail, Product } = require("../../db");
+
 
 const getAllUsers = async () => {
     try {
@@ -72,15 +77,37 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
     }
   };
 
-  const promoteUser = async (id) => {
+  const promoteUser = async (id, is_admin) => {
+    
     try {
-      const userPromoted = await User.update(
+      
+      const userPromoted = await User.update(   
         {
-            is_admin : true,
+            is_admin : !is_admin
         },
         { where: { id: id } }
+        
       );
+      console.log(userPromoted);
       return userPromoted;
+    } catch (e) {
+      return e.message;
+    }
+  };
+
+  const forcePassword = async (id, newPassword) => {
+    
+    try {
+      const hashPassword = bcrypt.hashSync(newPassword,parseInt(auth.rounds))
+
+      const forcedPassword = await User.update(   
+        {
+            password : hashPassword
+        },
+        { where: { id: id } }
+        
+      );
+      return forcedPassword;
     } catch (e) {
       return e.message;
     }
@@ -119,5 +146,6 @@ module.exports = {
     updateUser,
     getUserById,
     promoteUser,
+    forcePassword,
     getOrderHistory,
 }

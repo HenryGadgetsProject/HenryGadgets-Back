@@ -1,11 +1,11 @@
-const { Product, Category } = require("../../db.js");
+const { Product, Category, Review } = require("../../db.js");
 const { Sequelize } = require("sequelize");
 const { v4: uuidv4 } = require("uuid");
 
 const getAllProducts = async () => {
   try {
     return await Product.findAll({
-      include: [{ model: Category, attributes: ["id", "name"] }],
+      include: [{ model: Category, attributes: ["id", "name"] }, Review],
     });
   } catch (error) {
     return error.message;

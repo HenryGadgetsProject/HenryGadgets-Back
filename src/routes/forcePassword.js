@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { forcePassword } = require("../controllers/forcePassword");
+const { forcePassword } = require("../controllers/user");
 // const isAuthorize = require("../middlewares/isAuthorize")
 const router = Router();
 

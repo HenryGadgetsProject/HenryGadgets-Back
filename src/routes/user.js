@@ -49,11 +49,7 @@ router.post("/", async (req, res) => {
       email,
       password,
       // is_admin,
-      // country,
-      // city,
-      // street,
-      // addressnumber,
-      // postcode,
+
     } = req.body;
     if (
       !first_name ||
@@ -61,11 +57,7 @@ router.post("/", async (req, res) => {
       !email ||
       !password 
        // !is_admin ||
-      // !country ||
-      // !city ||
-      // !street ||
-      // !addressnumber ||
-      // !postcode
+
     )
       res.send("Informacion enviada inválida");
     else {
@@ -76,11 +68,6 @@ router.post("/", async (req, res) => {
         email,
         password,
         //  is_admin,
-        // country,
-        // city,
-        // street,
-        // addressnumber,
-        // postcode
       );
       if (typeof userCreated === "string"){
         res.status(400).send("Este usuario ya existe en la base de datos");
@@ -102,10 +89,6 @@ router.put("/:id", async (req, res, next) => {
     password,
     is_admin,
     // country,
-    // city,
-    // street,
-    // addressnumber,
-    // postcode,
   } = req.body;
 
   const { id } = req.params;
@@ -118,10 +101,6 @@ router.put("/:id", async (req, res, next) => {
       password,
       is_admin,
       // country,
-      // city,
-      // street,
-      // addressnumber,
-      // postcode
     );
     if (updatedUser[0] === 0) res.send("No se ha actualizado el usuario");
     else if (updatedUser[0] === 1)  res.send("Se actualizo el usuario");
