@@ -5,7 +5,7 @@ const router = Router();
 
 
 router.post("/:id", async (req, res, next) => {
-  console.log(req.body);
+
     const { is_admin }  = req.body
     const { id } = req.params;
 
