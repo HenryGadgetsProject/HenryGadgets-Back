@@ -62,28 +62,27 @@ const emailBuyConfirmation = async (req, res) => {
       <h1>Hola ${client.first_name} ${client.last_name}!</h1>
       <p>Confirmación de orden ! ! !</p>
       </hr>
-      <b>Tus datos de envio:</b>
-      <p>${data.country}, ${data.city}, ${data.street}</p>
-      <b>Telefono:</b>
-      <p>${data.phone_number}</p>
-      </hr>
       <b>Tu lista de productos:</b>
       <div class="unorderlist">
-        <div>
+        <ul>
           ${products.map((e) => 
-            `<p>
-              <img src=${e.big_image} alt=${e.name} borderRadius="8px width="20px" height="20px"/>
-              <span left="10px">${e.name}</span>
-              <span left="10px">${e.quantity}</span>
-              <span left="10px">${e.price}</span>
-            </p>`)}
-        </div>
-        <p>${data.total_price}</p>
+            `<li>
+              <span>${e.quantity} x ${e.name} por ${e.price}</span>
+            </li>`)}
+        </ul>
+        <p>Total: ${data.total_price}</p>
       </div>
       </hr>
+      <p>Vamos a enviarte tu pedido una vez que confirmemos el pago, que puede demorar hasta 24hs.</p>
+      <p>No te preocupes, te vamos a enviar un mensaje cuando esto suceda.</p>
+      <p>Datos de envio:<br>
+      ${client.first_name} ${client.last_name}<br>
+      ${data.street}<br>
+      ${client.country}, ${client.city}<br>
+      ${client.phone_number}</p><br>
       <b>Gracias por confiar en nosotros!</b>
       <div class="img-card">
-      <img src="https://i.imgur.com/To3EW78.png" alt="apus" border="0"/>
+      <img src="https://i.imgur.com/To3EW78.png" width="200px" height="200px" alt="apus" border="0"/>
       </div>
       </div>
       </body>
