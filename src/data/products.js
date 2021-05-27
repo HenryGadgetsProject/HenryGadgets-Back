@@ -10,7 +10,7 @@ const products = [
         stock: 30,
         categories: [4],
         orderDetId: [1, 2, 3 ,4],
-        wishId: [],
+        wishId: [4, 8],
         userId: 3,
     },
     {
@@ -24,7 +24,7 @@ const products = [
         stock: 120,
         categories: [4],
         orderDetId: [5, 6, 7],
-        wishId: [],
+        wishId: [4, 8],
         userId: 3,
     },
     {
@@ -38,7 +38,7 @@ const products = [
         stock: 120,
         categories: [4],
         orderDetId: [8, 9, 10],
-        wishId: [],
+        wishId: [4, 8],
         userId: 3,
     },
     {
@@ -52,7 +52,7 @@ const products = [
         stock: 10,
         categories: [4],
         orderDetId: [11, 12],
-        wishId: [],
+        wishId: [4, 8],
         userId: 3,
     },
     {
@@ -66,7 +66,7 @@ const products = [
         is_active: true,
         stock: 20,
         orderDetId: [13, 14, 15],
-        wishId: [],
+        wishId: [4, 8],
         userId: 3,
     },
     {
@@ -80,7 +80,7 @@ const products = [
         is_active: true,
         stock: 10,
         orderDetId: [16, 36, 37, 38],
-        wishId: [2],
+        wishId: [2, 5],
         userId: 3,
     },
     {
@@ -94,7 +94,7 @@ const products = [
         is_active: false,
         stock: 0,
         orderDetId: [17, 39, 40, 41],
-        wishId: [2],
+        wishId: [2, 5],
         userId: 3,
     },
     {
@@ -108,7 +108,7 @@ const products = [
         is_active: true,
         stock: 10,
         orderDetId: [18, 42, 43, 44],
-        wishId: [2],
+        wishId: [2, 5],
         userId: 3,
     },
     {
@@ -122,7 +122,7 @@ const products = [
         is_active: false,
         stock: 0,
         orderDetId: [19, 45, 46],
-        wishId: [2],
+        wishId: [2, 5],
         userId: 3,
     },
     {
@@ -136,7 +136,7 @@ const products = [
         is_active: true,
         stock: 120,
         orderDetId: [20, 47, 48],
-        wishId: [2],
+        wishId: [2, 5],
         userId: 3,
     },
     {
@@ -149,6 +149,9 @@ const products = [
         categories: [2],
         is_active: true,
         stock: 150,
+        orderDetId: [],
+        wishId: [5],
+        userId: 3,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e9541520",
@@ -161,7 +164,7 @@ const products = [
         is_active: true,
         stock: 450,
         orderDetId: [21, 49, 50],
-        wishId: [],
+        wishId: [5],
         userId: 2,
     },
     {
@@ -206,7 +209,7 @@ const products = [
         wishId: [5],
         userId: 2,
     },
-    {
+    {//16
         id: "70b9bcc3-3780-443b-8182-ef56e5468700",
         name: "Smart TV Tedge",
         price: "46200",
@@ -217,7 +220,7 @@ const products = [
         is_active: true,
         stock: 112,
         orderDetId: [25, 57, 58],
-        wishId: [5],
+        wishId: [8],
         userId: 2,
     },
     {
@@ -231,7 +234,7 @@ const products = [
         is_active: false,
         stock: 12,
         orderDetId: [26, 59],
-        wishId: [4, 8],
+        wishId: [8],
         userId: 4,
     },
     {
@@ -245,7 +248,7 @@ const products = [
         is_active: true,
         stock: 72,
         orderDetId: [27],
-        wishId: [4, 8],
+        wishId: [8],
         userId: 4,
     },
     {
@@ -259,7 +262,7 @@ const products = [
         is_active: true,
         stock: 52,
         orderDetId: [28],
-        wishId: [4, 8],
+        wishId: [8],
         userId: 4,
     },
     {
@@ -273,7 +276,7 @@ const products = [
         is_active: true,
         stock: 22,
         orderDetId: [29, 60],
-        wishId: [4, 8],
+        wishId: [8],
         userId: 4,
     },
     {
@@ -356,6 +359,9 @@ const products = [
         categories: [1],
         is_active: true,
         stock: 50,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468003",
@@ -367,6 +373,9 @@ const products = [
         categories: [1],
         is_active: true,
         stock: 150,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468005",
@@ -378,6 +387,9 @@ const products = [
         categories: [4],
         is_active: true,
         stock: 10,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468010",
@@ -389,6 +401,9 @@ const products = [
         categories: [4],
         is_active: true,
         stock: 10,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468011",
@@ -400,6 +415,9 @@ const products = [
         categories: [4],
         is_active: false,
         stock: 0,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468013",
@@ -411,6 +429,9 @@ const products = [
         categories: [4],
         is_active: false,
         stock: 0,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468019",
@@ -422,6 +443,9 @@ const products = [
         categories: [4],
         is_active: true,
         stock: 10,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468020",
@@ -433,6 +457,9 @@ const products = [
         categories: [4],
         is_active: true,
         stock: 3,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },  
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468021",
@@ -444,6 +471,9 @@ const products = [
         categories: [2],
         is_active: true,
         stock: 43,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },  
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468022",
@@ -455,6 +485,9 @@ const products = [
         categories: [2],
         is_active: true,
         stock: 143,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468030",
@@ -466,6 +499,9 @@ const products = [
         categories: [2],
         is_active: true,
         stock: 783,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },  
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468032",
@@ -477,6 +513,9 @@ const products = [
         categories: [2],
         is_active: true,
         stock: 13,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468033",
@@ -488,6 +527,9 @@ const products = [
         categories: [2],
         is_active: true,
         stock: 113,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468034",
@@ -499,6 +541,9 @@ const products = [
         categories: [2],
         is_active: false,
         stock: 0,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468035",
@@ -510,6 +555,9 @@ const products = [
         categories: [6],
         is_active: true,
         stock: 10,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468036",
@@ -521,6 +569,9 @@ const products = [
         categories: [6],
         is_active: true,
         stock: 10,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468037",
@@ -532,6 +583,9 @@ const products = [
         categories: [5],
         is_active: true,
         stock: 100,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468038",
@@ -543,6 +597,9 @@ const products = [
         categories: [5],
         is_active: true,
         stock: 80,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468039",
@@ -554,6 +611,9 @@ const products = [
         categories: [5],
         is_active: true,
         stock: 200,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468040",
@@ -565,6 +625,9 @@ const products = [
         categories: [3],
         is_active: false,
         stock: 0,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     },  
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468041",
@@ -576,6 +639,9 @@ const products = [
         categories: [3],
         is_active: true,
         stock: 3,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468042",
@@ -587,6 +653,9 @@ const products = [
         categories: [3],
         is_active: true,
         stock: 123,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,
     }, 
     {
         id: "70b9bcc3-3780-443b-8182-ef56e5468043",
@@ -598,6 +667,9 @@ const products = [
         categories: [3],
         is_active: true,
         stock: 13,
+        orderDetId: [],
+        wishId: [],
+        userId: 5,  
     },  
   
  
