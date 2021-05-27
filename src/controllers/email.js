@@ -70,6 +70,7 @@ const emailBuyConfirmation = async (req, res) => {
               <span>${e.quantity} x ${e.name} por ${e.price}</span>
             </li>`)}
         </ul>
+        <br>
         <p>Total: ${data.total_price}</p>
       </div>
       </hr>
@@ -78,8 +79,8 @@ const emailBuyConfirmation = async (req, res) => {
       <p>Datos de envio:<br>
       ${client.first_name} ${client.last_name}<br>
       ${data.street}<br>
-      ${client.country}, ${client.city}<br>
-      ${client.phone_number}</p><br>
+      ${data.country}, ${data.city}<br>
+      ${data.phone_number}</p><br>
       <b>Gracias por confiar en nosotros!</b>
       <div class="img-card">
       <img src="https://i.imgur.com/To3EW78.png" width="200px" height="200px" alt="apus" border="0"/>

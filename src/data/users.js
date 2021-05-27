@@ -14,6 +14,8 @@ const users = [
       email: "hollowblind095@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
+      orderId: [1, 16],
+      products: [11, 12, 13, 14, 15],
     },
     {
       first_name: "Eduardo",
@@ -22,6 +24,9 @@ const users = [
       email: "eduardo.campili@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
+      orderId: [18],
+      reviews: [],
+      products: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     },
     {
       first_name: "Alex",
@@ -30,6 +35,8 @@ const users = [
       email: "alex81.dev@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
+      orderId: [15, 29, 30],
+      products: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25],
     },
     {
       first_name: "Enzo", 
