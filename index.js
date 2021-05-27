@@ -75,6 +75,9 @@ conn.sync({ force: true }).then( async () => {
     })
   })
 })
+app.listen(PORT, () => {
+  console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+});
 
 
 // conn.sync({ force: true }).then(() => {
