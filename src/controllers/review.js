@@ -1,31 +1,63 @@
 const { Product, Review, } = require("../../db.js");
 
 const getReviews = async (req, res) => {
+    let { id } = req.params;
+  
+    if(!id) return res.json({error: "please, give us an id"})
+    try {
+      let data = await Review.findAll({
+        where:{
+          product_id:id
+        },
+        order: [
+          ['createdAt', 'DESC']
+        ],
+        include:[{
+          model: OrderDetail,
+          include: [{
+            model: Order,
+            attributes: ['user_id']
+          }]
+        }, {model: User}]
+      });
+      let usersCommented = await Review.findAll({
+        where: {
+          productId: id
+        },
+        attributes: ['user_id']
+      });
+  
+      let arrUsersCommented = usersCommented?.map(e => e.userId);
+  
+  
+      if(!data) return res.json({error: "there are not reviews for this product"})
+      return res.json({data, arrUsersCommented});
+    } catch (err) {
+      res.json(err);
+      return console.log(err);
+    }
+}
+
+const reviewAverage = async (req, res) => {
     const { id } = req.params;
-    if(!id) {
-        return res.json({error: "Id not received"})
-    } else {
-        try {
-            let data = await Product.findOne({
-                where: { id: id },
-                attributes:["id", "name"],
-                include: [{ model: Review}],
-            })            
-            // let data = await Review.findAll({
-            //     where:  {
-            //         productId: id
-            //     }
-            // });    
-            
-            if(!data)   {
-                return res.json({error: "there are not reviews for this product"})  
-            } else {
-                return res.json(data);
-            }
-        } catch (err) {
-            res.json(err);
-            console.log(err);
+
+    if(!id) return res.json({error: "please, give us an id"})
+    try {
+      let data = await Review.findAndCountAll({
+        where:{
+          product_id: id
         }
+      });
+
+      if(!data) return res.json({error: "there are not reviews for this product"});
+
+      let findSum = data.rows?.map(e => parseInt(e.rating));
+      let result = (findSum?.reduce((a,b) => a+b, 0)) / data.count;
+      
+      return res.json(result);
+    } catch (err) {
+      res.json(err);
+      return console.log(err);
     }
 }
 
@@ -92,7 +124,7 @@ const editReview = async (req, res) => {
 };
 
 const deleteReview = async (req, res) => {
-   // if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     let id = req.params.id;
     if(!id) return res.json({error: "please, give us an id"})
