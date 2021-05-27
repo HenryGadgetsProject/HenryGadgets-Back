@@ -88,7 +88,6 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
         { where: { id: id } }
         
       );
-      console.log(userPromoted);
       return userPromoted;
     } catch (e) {
       return e.message;
@@ -96,10 +95,8 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
   };
 
   const forcePassword = async (id, newPassword) => {
-    
     try {
       const hashPassword = bcrypt.hashSync(newPassword,parseInt(auth.rounds))
-      console.log(hashPassword);
       const forcedPassword = await User.update(   
         {
             password : hashPassword
@@ -107,7 +104,6 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
         { where: { id: id } }
         
       );
-      console.log(forcedPassword);
       return forcedPassword;
     } catch (e) {
       return e.message;
