@@ -26,17 +26,33 @@ const users = require("./src/data/users");
 const reviews = require("./src/data/reviews")
 const PORT = process.env.PORT || 3001;
 
+async function addProductInReview(idRe, product){
+    let producttr = await Product.findOne({
+      where: {
+        id: product.id
+      }
+    }).then(async (re)=> {
+        let result = await re.addReview([idRe])
+        return result  
+    })
+    return producttr
+}
+
 function catsBulk(products) {
   products.map((x) => assignCategories(x.id, x.categories[0], true));
+}
+async function reviewsBulk(reviews, product) {   
+  reviews.map((x,i) => addProductInReview(x.id, product[i]))
 }
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   User.bulkCreate(users).then(() => {
-    Review.bulkCreate(reviews).then(() => {
+    Review.bulkCreate(reviews).then((Truereviews) => {
       Category.bulkCreate(categories).then(() => {
         Product.bulkCreate(products).then(() => {
-          catsBulk(products);
+          catsBulk(products)
+          reviewsBulk(Truereviews, products);
         });
       })
     });

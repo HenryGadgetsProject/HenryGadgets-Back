@@ -3,15 +3,20 @@ const { Product, Review, } = require("../../db.js");
 const getReviews = async (req, res) => {
     const { id } = req.params;
     if(!id) {
-        return res.json({error: "Id not recived"})
+        return res.json({error: "Id not received"})
     } else {
         try {
-            let data = await Review.findAll({
-                where:  {
-                    product_id: id
-                }
-            });    
-            console.log(data)
+            let data = await Product.findOne({
+                where: { id: id },
+                attributes:["id", "name"],
+                include: [{ model: Review}],
+            })            
+            // let data = await Review.findAll({
+            //     where:  {
+            //         productId: id
+            //     }
+            // });    
+            
             if(!data)   {
                 return res.json({error: "there are not reviews for this product"})  
             } else {
@@ -25,10 +30,12 @@ const getReviews = async (req, res) => {
 }
 
 const createReview = async (req, res) => {
-    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+    console.log(req.body);
+    //if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     const product_id = req.params.id  
     const { description, rating, user_id, title } = req.body;
+    console.log(description, rating, user_id, title );
     try { 
         const addReview = await Review.findOrCreate({
             where: {
@@ -85,7 +92,7 @@ const editReview = async (req, res) => {
 };
 
 const deleteReview = async (req, res) => {
-    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+   // if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     let id = req.params.id;
     if(!id) return res.json({error: "please, give us an id"})

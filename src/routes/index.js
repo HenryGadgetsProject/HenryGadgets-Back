@@ -15,12 +15,14 @@ const MeRouter = require('./me');
 const PromoteRouter = require('./promote');
 const forcePassword = require('./forcePassword');
 const Email = require('./email');
+const ReviewRouter = require('./reviews')
 
 
 const router = Router();
 
 // Configurar los routers
 // router.use('/', AuthenticationRouter)
+router.use('/reviews', ReviewRouter);
 router.use('/categories', CategoryRouter);
 router.use('/promote', PromoteRouter);
 router.use('/me', MeRouter);
