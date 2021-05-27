@@ -1,4 +1,4 @@
-const { Product, Review, } = require("../../db.js");
+const { Product, Review, OrderDetail, Order, User } = require("../../db.js");
 
 const getReviews = async (req, res) => {
     let { id } = req.params;
@@ -7,8 +7,8 @@ const getReviews = async (req, res) => {
     try {
       let data = await Review.findAll({
         where:{
-          product_id:id
-        },
+          product_id: id
+        },  
         order: [
           ['createdAt', 'DESC']
         ],
@@ -22,12 +22,12 @@ const getReviews = async (req, res) => {
       });
       let usersCommented = await Review.findAll({
         where: {
-          productId: id
+          product_id: id
         },
         attributes: ['user_id']
       });
-  
-      let arrUsersCommented = usersCommented?.map(e => e.userId);
+      console.log(usersCommented)
+      let arrUsersCommented = usersCommented?.map(e => e.dataValues.user_id);
   
   
       if(!data) return res.json({error: "there are not reviews for this product"})

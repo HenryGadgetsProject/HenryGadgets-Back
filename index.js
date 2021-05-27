@@ -42,11 +42,11 @@ const addProductInReview = async (idRe, product) => {
     return producttr
 }
 
-// const assignOrders = async () => {
-//   for(let i = 0; i < users.length; i++) {
-//     users[i].setOrders(users[i].orderId)
-//   }
-// }
+const assignOrders = async () => {
+  for(let i = 0; i < users.length; i++) {
+    users[i].setOrders(users[i].orderId)
+  }
+}
 
 function catsBulk(products) {
   products.map((x) => assignCategories(x.id, x.categories[0], true));
@@ -76,15 +76,13 @@ conn.sync({ force: true }).then( async () => {
   })
 })
 app.listen(PORT, () => {
-  console.log(`%s listening at ${PORT}`); // eslint-disable-line no-console
+  console.log(`%s listening at ${PORT}`); 
 });
 
 
 // conn.sync({ force: true }).then(() => {
 //   app.listen(PORT, async function () {
 //     console.log(`%s listening at ${PORT}`);
-//     //console.log('USERSS', users)
-//     //console.log('PRODUCTS', products)
 
 //     //OrderDetail creation
 //     await OrderDetail.bulkCreate(orderDetails);
@@ -92,7 +90,6 @@ app.listen(PORT, () => {
 
 //     //Order creation and association
 //     for (let i = 0; i < orders.length; i++) {
-//       console.log('ENTREE SOY ORDERS')
 //       const findOrderDetail = await OrderDetail.findAll({
 //         where: {
 //           id: {
@@ -110,7 +107,6 @@ app.listen(PORT, () => {
 
 //     //Review creation
 //     for (let i = 0; i < reviews.length; i++) {
-//       console.log('ENTREE SOY REVIEWS')
 //       const myReview = await Review.create({
 //         rating: reviews[i].rating,
 //         description: reviews[i].description,
@@ -119,6 +115,7 @@ app.listen(PORT, () => {
 //       const findOrderDetail = await OrderDetail.findByPk(i + 1);
 //       findOrderDetail.setReview(myReview)
 //     }
+
 //     //Product creation and association
 //     for (let i = 0; i < products.length; i++) {
 //       console.log('ENTREE SOY PRODCUTS')
@@ -136,8 +133,8 @@ app.listen(PORT, () => {
 //           },
 //         },
 //       });
-//       //let rating = products[i].dataValues.rating.toString();
-//       console.log(products[i].name)
+
+//       //let rating = products[i].dataValues.rating.toString();       
 //       const [myProduct] = await Product.findOrCreate({
 //         where: {
 //           id: products[i].id,
@@ -153,7 +150,7 @@ app.listen(PORT, () => {
 //       await myProduct.setCategories(findCategory);
 //       await myProduct.setOrderDetails(findOrderDetail);
 //     }   
-//     console.log(users)
+
 //     // User creation and association
 //     for (let i = 0; i < users.length; i++) {
 //       console.log('ENTREE SOY USERS')
@@ -173,7 +170,6 @@ app.listen(PORT, () => {
 //         },
 //       });
 //       myWishlist.addProducts(wishProducts);
-//       console.log(users[i].name)
 //       const [myUser] = await User.findOrCreate({
 //         where: {
 //           first_name: users[i].first_name,
