@@ -2,9 +2,11 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
-const indexRouter = require('./src/routes')
-const db = require('./db')
-const cors = require('cors')
+const indexRouter = require('./src/routes');
+const db = require('./db');
+const cors = require('cors');
+const passport = require('passport');
+require('./src/passport')
 
 const REQUESTS =
   process.env.DATABASE_URL !== undefined
@@ -14,7 +16,8 @@ const REQUESTS =
 const app = express();
 app.use(cors());
 
-
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(cors());
 app.use(morgan('dev'));
 app.use(express.json());
@@ -22,7 +25,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
-
 
 //eliminar cuando hagamos deploy
 app.use((req, res, next) => {
@@ -32,6 +34,16 @@ app.use((req, res, next) => {
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
     next();
 });
+
+app.all('*', function (req, res, next) {
+    passport.authenticate('bearer', function (err, user) {
+      if (err) return next(err);
+      if (user) {
+        req.user = user;
+      }
+      return next();
+    })(req, res, next);
+  });
 
 
 // Control de Errores (Error catching endware)
