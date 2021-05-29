@@ -29,8 +29,6 @@ router.use('/orders', OrderRouter);
 router.use('/products', ProductRouter);
 router.use('/users', UserRouter);
 router.use('/search', SearchRouter);
-router.use('/login', LoginRouter)
-router.use('/register', RegisterRouter)
 router.use('/payment', Payment)
 router.use('/forcepassword', forcePassword)
 router.use('/auth', Signup)
