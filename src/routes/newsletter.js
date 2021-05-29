@@ -3,7 +3,6 @@ const enviarEmail = require('../email');
 const { Router } = require("express");
 
 const router = Router();
-
 //Inicia el proceso de suscripción, por el momento no maneja token
 router.post('/email', async (req, res, next) => {
 
@@ -258,7 +257,7 @@ router.get('/correo-masivo-de-prueba', async (req, res, next) => {
             await enviarEmail.enviar({
 
                 email: users[i].email,
-                name: users[i].firstName,
+                name: users[i].first_name,
                 subject: 'Suscripción Tech E-Commerce',
                 url,
                 archivo: 'layout-suscription'

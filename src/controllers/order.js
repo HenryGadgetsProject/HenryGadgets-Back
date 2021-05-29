@@ -104,7 +104,6 @@ const ordersAdmin = async (req, res) => {
             }]
         },{
             model: User,
-            attributes: ['first_name', 'last_name']
         }]
       });
       return res.json(data);

@@ -59,14 +59,23 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
 
   
   
-  const deleteUser = async (id) => {
-    try {
-      let userDeleted = await User.destroy({ where: { id: id } });
-      return userDeleted;
-    } catch (e) {
-      return e.message;
+const deleteUser = async (req, res) => {
+  const { id, status } = req.params;
+  const user = await User.findOne({ where: { id: id }});
+  
+  if (user) {
+    if (status === "active" || "disabled" || "banned") {
+      await user.update({ status: status });
+      res.status(200);
+    } else {
+      return res.json({error: "does not have a valid option"})
     }
-  };
+    return res.json(user);
+  } else {
+    res.status(400);
+    return res.json({ error: "that user cannot be find" });
+  }
+};
 
   const getUserById = async (id) => {
     try {

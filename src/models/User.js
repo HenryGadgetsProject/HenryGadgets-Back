@@ -35,6 +35,18 @@ module.exports = (sequelize) => {
         is_admin: {
             type: DT.BOOLEAN,
             defaultValue: false
+        },
+        googleId: {
+            type: DT.STRING,
+            unique: true,
+        },
+        facebookUser: {
+            type: DT.STRING,
+            unique: true,
+        },
+        status: {
+            type: DT.ENUM("active", "disabled", "banned"),
+            defaultValue: "active",
         }
     },
         {
