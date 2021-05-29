@@ -28,22 +28,23 @@ const orderDetails = require("./src/data/orderDetails");
 const orders = require("./src/data/orders");
 const wishlists = require("./src/data/wishlist");
 const { Op } = require('sequelize');
-const PORT = process.env.PORT || 3001;
+// const PORT = process.env.PORT || 3001;
+const PORT = 3001
 
 const addProductInReview = async (idRe, product) => {
-    let producttr = await Product.findOne({
-      where: {
-        id: product.id
-      }
-    }).then(async (re)=> {
-        let result = await re.addReview([idRe])
-        return result  
-    })
-    return producttr
+  let producttr = await Product.findOne({
+    where: {
+      id: product.id
+    }
+  }).then(async (re) => {
+    let result = await re.addReview([idRe])
+    return result
+  })
+  return producttr
 }
 
 const assignOrders = async () => {
-  for(let i = 0; i < users.length; i++) {
+  for (let i = 1; i < users.length + 1; i++) {
     users[i].setOrders(users[i].orderId)
   }
 }
@@ -54,8 +55,8 @@ function catsBulk(products) {
 // function orderDetailBulk(products) {
 //   products.map((x) => assignOrderDetails(x.id, x.orderDetId, true)) 
 // }
-async function reviewsBulk(reviews, product) {   
-  reviews.map((x,i) => addProductInReview(x.id, product[i]))
+async function reviewsBulk(reviews, product) {
+  reviews.map((x, i) => addProductInReview(x.id, product[i]))
 }
 
 // Syncing all the models at once.
@@ -150,7 +151,7 @@ conn.sync({ force: true }).then(() => {
       });
       await myProduct.setCategories(findCategory);
       await myProduct.setOrderDetails(findOrderDetail);
-    }   
+    }
 
     // User creation and association
     for (let i = 0; i < users.length; i++) {
@@ -197,10 +198,10 @@ conn.sync({ force: true }).then(() => {
       await findUser.setOrders(findOrder);
     }
 
-    for(let i = 0; i < reviews.length; i++){
+    for (let i = 0; i < reviews.length; i++) {
       const theOrderDetail = await OrderDetail.findOne({
         where: {
-            id: i+1
+          id: i + 1
         },
         include: [{
           model: Product,
@@ -213,10 +214,10 @@ conn.sync({ force: true }).then(() => {
           id: productReviewId
         }
       })
-      const theReview = await Review.findByPk(i+1)
+      const theReview = await Review.findByPk(i + 1)
       theReview.setProduct(theProduct)
     }
-    
+
     console.log('Products and categories pre charged');
   });
 });
