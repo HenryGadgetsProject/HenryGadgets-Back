@@ -21,12 +21,6 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
         last_name,
         email,
         password,
-        // is_admin,
-        // country,
-        // city,
-        // street,
-        // addressnumber,
-        // postcode
       });
       return user;
     } catch (error) {
@@ -43,11 +37,6 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
             email,
             password,
             is_admin,
-            // country,
-            // city,
-            // street,
-            // addressnumber,
-            // postcode
         },
         { where: { id: id } }
       );
@@ -59,14 +48,23 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
 
   
   
-  const deleteUser = async (id) => {
-    try {
-      let userDeleted = await User.destroy({ where: { id: id } });
-      return userDeleted;
-    } catch (e) {
-      return e.message;
+const deleteUser = async (req, res) => {
+  const { id, status } = req.params;
+  const user = await User.findOne({ where: { id: id }});
+  
+  if (user) {
+    if (status === "active" || "disabled" || "banned") {
+      await user.update({ status: status });
+      res.status(200);
+    } else {
+      return res.json({error: "does not have a valid option"})
     }
-  };
+    return res.json(user);
+  } else {
+    res.status(400);
+    return res.json({ error: "that user cannot be find" });
+  }
+};
 
   const getUserById = async (id) => {
     try {
@@ -78,9 +76,7 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
   };
 
   const promoteUser = async (id, is_admin) => {
-    
     try {
-      
       const userPromoted = await User.update(   
         {
             is_admin : !is_admin
