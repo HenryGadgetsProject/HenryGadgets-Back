@@ -9,13 +9,13 @@ const {
   assignCategories,
   deleteCategories,
   updateProduct,
-  getProductsByCatName
 } = require("../controllers/product");
 const {
   getReviews,
   createReview,
   editReview,
-  deleteReview
+  deleteReview,
+  getReviewsByUserId
 } = require("../controllers/review");
 const { v4: uuidv4 } = require("uuid");
 
@@ -161,5 +161,7 @@ router.post('/:id/review', createReview)
 router.put('/:id/review', editReview)
 
 router.delete('/:id/review/:id', deleteReview)
+
+router.get("/user/:userId", getReviewsByUserId);
 
 module.exports = router;
