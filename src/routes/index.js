@@ -8,15 +8,13 @@ const CartRouter = require('./cart');
 const ProductRouter = require('./product');
 const UserRouter = require('./user');
 const SearchRouter = require('./search');
-const LoginRouter = require('./login')
-const RegisterRouter = require('./register')
 const Payment = require('./payment')
 const MeRouter = require('./me');
 const PromoteRouter = require('./promote');
 const forcePassword = require('./forcePassword');
 const Email = require('./email');
-const ReviewRouter = require('./reviews')
-
+const ReviewRouter = require('./reviews');
+const Signup = require('./auth');
 
 const router = Router();
 
@@ -35,8 +33,7 @@ router.use('/login', LoginRouter)
 router.use('/register', RegisterRouter)
 router.use('/payment', Payment)
 router.use('/forcepassword', forcePassword)
-router.use('/login', LoginRouter);
-router.use('/register', RegisterRouter);
+router.use('/auth', Signup)
 router.use('/payment', Payment);
 router.use('/email', Email);
 

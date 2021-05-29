@@ -21,12 +21,6 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
         last_name,
         email,
         password,
-        // is_admin,
-        // country,
-        // city,
-        // street,
-        // addressnumber,
-        // postcode
       });
       return user;
     } catch (error) {
@@ -43,11 +37,6 @@ const createUser = async (id, first_name, last_name, email, password, is_admin, 
             email,
             password,
             is_admin,
-            // country,
-            // city,
-            // street,
-            // addressnumber,
-            // postcode
         },
         { where: { id: id } }
       );
@@ -87,9 +76,7 @@ const deleteUser = async (req, res) => {
   };
 
   const promoteUser = async (id, is_admin) => {
-    
     try {
-      
       const userPromoted = await User.update(   
         {
             is_admin : !is_admin
