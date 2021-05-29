@@ -23,7 +23,7 @@ router.post('/signin', async (req, res) => {
 router.post('/signup', async (req, res) => {
     const { email, password, first_name, last_name } = req.body
     try {
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({ where: { email }});
         if(existingUser) return res.status(400).json({ message: "User already exists." })
         const hashedPassword = await bcrypt.hash(password, 12)
 
@@ -40,7 +40,7 @@ router.post('/signup', async (req, res) => {
 router.post('/googleSignup', async (req, res) => {
     const { email, googleId, first_name, last_name } = req.body
     try {
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({ where: { email }});
         if(existingUser) return res.status(400).json({ message: "User already exists." })
 
         const result = await User.create({ email, googleId, first_name, last_name })
@@ -50,6 +50,20 @@ router.post('/googleSignup', async (req, res) => {
         res.status(200).json({ result, token })
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." })
+    }
+});
+
+router.post('/googleSignIn', async (req, res) => {
+    const { email } = req.body
+    try {
+        const existingUser = await User.findOne({ where: { email }});
+        if(!existingUser) return res.status(404).json({ message: "User doesn't exist."});
+        const isGoogleIdCorrect = await bcrypt.compare(password, existingUser.googleId);
+        if(!isGoogleIdCorrect) return res.status(400).json({ message: "Invalid credentials." });
+        const token = jwt.sign({ existingUser }, authConfig.secret, { expiresIn: authConfig.expires});
+        res.status(200).json({ result: existingUser, token });
+    } catch (error) {
+        res.status(500).json({ message: "Something went wrong." });
     }
 });
 
