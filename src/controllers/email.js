@@ -212,17 +212,7 @@ const emailThankYou = async (req, res) => {
 
 const passwordReset = async (req, res) => {
   try {
-      const { products, client, orderId } = req.body
-      const data = await Order.findByPk(orderId)
-      let product
-      if(!products) return res.status(500).json({ error: "product missing" })
-      if(!Array.isArray(products)) return res.status(500).json({ error: "products should be and array" });
-      if(!client.first_name || !client.last_name) return res.status(500).json({ error: "Client first name or last name missing"})
-      if(!client.email) return res.status(500).json({ error: "User mail missing"})
-  
-      if(products.length === 1) product = `${products[0].name}!`
-      if(products.length === 2) product = `${products[0].name} y ${products[1].name}!`
-      if(products.length > 2) product = `${products[0].name}, ${products[1].name} y mas !`
+      const { email } = req.body
   
       let transporter = nodemailer.createTransport({
           service: "Gmail",
@@ -265,7 +255,7 @@ const passwordReset = async (req, res) => {
       </head>
       <body>
       <div class="containergral">
-      <h1>Hola ${client.first_name} ${client.last_name}!</h1>
+      <h1>Reset your password!</h1>
       <p>Confirmación de orden ! ! !</p>
       </hr>
       <b>Tu lista de productos:</b>
@@ -313,4 +303,4 @@ const passwordReset = async (req, res) => {
     }
 }
 
-module.exports = {emailBuyConfirmation}
+module.exports = { emailBuyConfirmation, passwordReset, emailThankYou }
