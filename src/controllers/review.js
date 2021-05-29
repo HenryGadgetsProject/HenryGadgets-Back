@@ -38,6 +38,33 @@ const getReviews = async (req, res) => {
     }
 }
 
+const getReviewsByUserId = async (req, res) => {
+  let { userId } = req.params;
+
+  if (!userId) return res.json({ error: "please, give us an userId" })
+  try {
+    let data = await Review.findAll({
+      where: {
+        user_id: userId
+      },
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: OrderDetail,
+        include: [{
+          model: Order,
+          attributes: ['user_id']
+        }]
+      }, { model: User }]
+    });
+    return res.json({ data });
+  } catch (err) {
+    res.json(err);
+    return console.log(err);
+  }
+}
+
 const reviewAverage = async (req, res) => {
     const { id } = req.params;
 
@@ -141,10 +168,10 @@ const deleteReview = async (req, res) => {
     }
 };
 
-
 module.exports = {
     getReviews,
     createReview,
     editReview,
-    deleteReview
+    deleteReview,
+    getReviewsByUserId
 }

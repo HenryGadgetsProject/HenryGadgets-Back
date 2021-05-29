@@ -162,10 +162,9 @@ const emailThankYou = async (req, res) => {
       </head>
       <body>
       <div class="containergral">
-      <h1>Hola ${client.first_name} ${client.last_name}!</h1>
-      <p>Confirmación de orden ! ! !</p>
+      <h1>Gracias ${client.first_name} ${client.last_name} por comprar en Henry Gadgets!</h1>
       </hr>
-      <b>Tu lista de productos:</b>
+      <b>Tu pedido: #${orderId.id}</b>
       <div class="unorderlist">
         <ul>
           ${products.map((e) => 
