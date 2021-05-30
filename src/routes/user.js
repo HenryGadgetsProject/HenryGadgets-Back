@@ -5,7 +5,7 @@ const {
   getUserById,
   createUser,
   updateUser,
-  deleteUser,
+  changeUserStatus,
   getOrderHistory,
 } = require("../controllers/user");
 const { 
@@ -103,7 +103,7 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", deleteUser);
+router.put("/:id/:status", changeUserStatus);
 
 router.get("/wishlist/:userId", getWishlist);
 router.post("/wishlist/post/:userId/:listName", postWishlist);

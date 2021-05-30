@@ -45,7 +45,7 @@ const updateUser = async (id, first_name, last_name,  email, password, is_admin,
   }
 };
 
-const deleteUser = async (req, res) => {
+const changeUserStatus = async (req, res) => {
   const { id, status } = req.params;
   const user = await User.findOne({ where: { id: id }});
   
@@ -131,7 +131,7 @@ const getOrderHistory = async () => {
 module.exports = {
     getAllUsers,
     createUser,
-    deleteUser,
+    changeUserStatus,
     updateUser,
     getUserById,
     promoteUser,
