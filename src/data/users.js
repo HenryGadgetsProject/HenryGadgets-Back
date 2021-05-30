@@ -6,9 +6,9 @@ const users = [
       email: "soyadmin@admin.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
-      reviews: [1, 2, 17, 19],
+      reviews: [1, 2],
       products: [],
-      orderId: [2, 3],
+      orderId: [2, 3, 17, 19],
     },
     {
       first_name: "Guille",
