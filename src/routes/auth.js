@@ -23,7 +23,7 @@ router.post('/signin', async (req, res) => {
 router.post('/signup', async (req, res) => {
     const { email, password, first_name, last_name } = req.body
     try {
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({ where: { email }});
         if(existingUser) return res.status(400).json({ message: "User already exists." })
         const hashedPassword = await bcrypt.hash(password, 12)
 
@@ -40,7 +40,7 @@ router.post('/signup', async (req, res) => {
 router.post('/googleSignup', async (req, res) => {
     const { email, googleId, first_name, last_name } = req.body
     try {
-        const existingUser = await User.findOne({ email })
+        const existingUser = await User.findOne({ where: { email }});
         if(existingUser) return res.status(400).json({ message: "User already exists." })
 
         const result = await User.create({ email, googleId, first_name, last_name })
