@@ -136,10 +136,6 @@ const orderDetails = [
         unit_price: 34000,
     },
     {
-        quantity: 5,
-        unit_price: 80000,
-    },
-    {
         quantity: 6,
         unit_price: 67000,
     },

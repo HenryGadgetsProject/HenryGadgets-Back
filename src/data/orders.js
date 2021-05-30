@@ -116,12 +116,6 @@ const orders = [
     {
         state: 'cancelled',
         creationDate: '',
-        total_price: 15000,
-        orderDetId: [35],
-    },
-    {
-        state: 'cancelled',
-        creationDate: '',
         total_price: 90000,
         orderDetId: [36],
     },
@@ -159,13 +153,13 @@ const orders = [
         state: 'processing',
         creationDate: '',
         total_price: 15000,
-        orderDetId: [42],
+        orderDetId: [42, 35],
     },
     {
         state: 'created',
         creationDate: '',
         total_price: 9000,
-        orderDetId: [43, 58, 59, 60]
+        orderDetId: [43, 58, 59]
     },
     {
         state: 'created',

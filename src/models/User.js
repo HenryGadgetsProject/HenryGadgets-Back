@@ -30,7 +30,6 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DT.STRING,
-            allowNull: false,
         },
         is_admin: {
             type: DT.BOOLEAN,
@@ -43,6 +42,10 @@ module.exports = (sequelize) => {
         status: {
             type: DT.ENUM("active", "disabled", "banned"),
             defaultValue: "active",
+        },
+        photo: {
+            type: DT.STRING,
+            defaultValue: "https://images-ext-2.discordapp.net/external/r6IN2xCJUKtoWBmSBMOx_ZJeMHNxM4pxp4atCrC7TR8/https/i.imgur.com/7BQaVxj.png"
         }
     },
         {
