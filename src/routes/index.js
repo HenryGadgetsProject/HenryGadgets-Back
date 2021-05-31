@@ -14,6 +14,7 @@ const PromoteRouter = require('./promote');
 const forcePassword = require('./forcePassword');
 const Email = require('./email');
 const Signup = require('./auth');
+const Newsletter = require('./newsletter');
 
 const router = Router();
 
@@ -32,6 +33,7 @@ router.use('/forcepassword', forcePassword)
 router.use('/auth', Signup)
 router.use('/payment', Payment);
 router.use('/email', Email);
+router.use('/newsletter', Newsletter);
 
 
 module.exports = router;

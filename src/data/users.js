@@ -47,7 +47,7 @@ const users = [
       first_name: "Enzo", 
       last_name: "Perez",
       is_admin: false,
-      email: "marcocamparone@gmail.com",
+      email: "mcamparone@gmail.com",
       password:
         "$2b$10$NvTinNrPRyFN3gojHaaD4OjhKdqi.IqovVh.p1L3YsrCdfu6o2TIO",
       orderId: [6, 7, 8, 26, 27],
