@@ -1,9 +1,15 @@
-const { Order, User, OrderDetail } = require("../../db");
+const { Order, User, OrderDetail, Product } = require("../../db");
 
 const allOrders = async (req, res) => {
   const data = await Order.findAll({where: {state: "cart"}});
   return res.json(data);
 };
+
+const orderById = async (req, res) => {
+  const id = req.params.id
+  const data = await Order.findByPk(id);
+  return res.json(data)
+}
 
 const editOrder = async (req, res) => {
   try {
@@ -24,7 +30,7 @@ const editOrder = async (req, res) => {
     });
 
     order.state = state;
-    order.totalPrice = total_price;
+    order.total_price = total_price;
     order.country = country;
     order.street = street;
     order.city = city;
@@ -85,31 +91,66 @@ const deleteOrder = async (req, res) => {
   }
 };
 
-const ordersAdmin = async () => {
-  const data = await Order.findAll({
-    attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
-    include: [{
-        model: OrderDetail,
-        attributes: ['id','quantity', 'unit_price'],
+const ordersAdmin = async (req, res) => {
+  try {
+      const data = await Order.findAll({
+        attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
         include: [{
-            model: Product,
-            attributes: ['id', 'name', 'big_image', 'unit_price'],
+            model: OrderDetail,
+            attributes: ['id','quantity', 'unit_price'],
+            include: [{
+                model: Product,
+                attributes: ['id', 'name', 'big_image', 'price'],
+            }]
+        },{
+            model: User
         }]
-    },{
-        model: User,
-        attributes: ['first_name', 'last_name']
-    }]
-  });
-  return res.json(data);
+      });
+      return res.json(data);
+  } catch (error) {
+    res.send(error)
+  }
 }
 
-const editOrderAdmin = async () => {
-  const id = req.params.id
-  const newState = req.query.state
-  const data = await Order.findByPk(id)
-  data.state = newState
-  await data.save()
-  return res.json(data);
+const ordersByState = async (req, res) => {
+  const state = req.params
+  try {
+    const data = await Order.findAll({
+      where: {
+        state: state.state
+      },
+      attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+        include: [{
+            model: OrderDetail,
+            attributes: ['id','quantity', 'unit_price'],
+            include: [{
+                model: Product,
+                attributes: ['id', 'name', 'big_image', 'price'],
+            }]
+        },{
+            model: User,
+            attributes: ['first_name', 'last_name']
+          }
+        ]
+    });
+    return res.json(data) 
+  } catch (error) {
+    res.send(error)
+  }
+}
+
+
+const editOrderAdmin = async (req, res) => {
+  const { id, state } = req.params
+  try {
+    const newState = state
+    const data = await Order.findByPk(id)
+    data.state = newState
+    await data.save()
+    return res.json(data);
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 module.exports = {
@@ -119,4 +160,6 @@ module.exports = {
   allOrders,
   ordersAdmin,
   editOrderAdmin,
+  ordersByState,
+  orderById,
 };

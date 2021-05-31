@@ -30,31 +30,22 @@ module.exports = (sequelize) => {
         },
         password: {
             type: DT.STRING,
-            allowNull: false,
         },
-        // country:    {
-        //     allowNull: true,
-        //     type: DT.STRING,
-        // },
-        // city: {
-        //     allowNull: true,
-        //     type: DT.STRING,
-        // },
-        // street: {
-        //     allowNull: true,
-        //     type: DT.STRING,
-        // },
-        // addressnumber: {
-        //     allowNull: true,
-        //     type: DT.INTEGER,
-        // },
-        // postcode: {
-        //     allowNull: true,
-        //     type: DT.INTEGER,
-        // },
         is_admin: {
             type: DT.BOOLEAN,
             defaultValue: false
+        },
+        googleId: {
+            type: DT.STRING,
+            unique: true,
+        },
+        status: {
+            type: DT.ENUM("active", "disabled", "banned"),
+            defaultValue: "active",
+        },
+        photo: {
+            type: DT.STRING,
+            defaultValue: "https://images-ext-2.discordapp.net/external/r6IN2xCJUKtoWBmSBMOx_ZJeMHNxM4pxp4atCrC7TR8/https/i.imgur.com/7BQaVxj.png"
         }
     },
         {

@@ -1,34 +1,100 @@
-const { Product, Review, } = require("../../db.js");
+const { Product, Review, OrderDetail, Order, User } = require("../../db.js");
 
 const getReviews = async (req, res) => {
+    let { id } = req.params;
+  
+    if(!id) return res.json({error: "please, give us an id"})
+    try {
+      let data = await Review.findAll({
+        where:{
+          product_id: id
+        },  
+        order: [
+          ['createdAt', 'DESC']
+        ],
+        include:[{
+          model: OrderDetail,
+          include: [{
+            model: Order,
+            attributes: ['user_id']
+          }]
+        }, {model: User}]
+      });
+      let usersCommented = await Review.findAll({
+        where: {
+          product_id: id
+        },
+        attributes: ['user_id']
+      });
+      console.log(usersCommented)
+      let arrUsersCommented = usersCommented?.map(e => e.dataValues.user_id);
+  
+  
+      if(!data) return res.json({error: "there are not reviews for this product"})
+      return res.json({data, arrUsersCommented});
+    } catch (err) {
+      res.json(err);
+      return console.log(err);
+    }
+}
+
+const getReviewsByUserId = async (req, res) => {
+  let { userId } = req.params;
+
+  if (!userId) return res.json({ error: "please, give us an userId" })
+  try {
+    let data = await Review.findAll({
+      where: {
+        user_id: userId
+      },
+      order: [
+        ['createdAt', 'DESC']
+      ],
+      include: [{
+        model: OrderDetail,
+        include: [{
+          model: Order,
+          attributes: ['user_id']
+        }]
+      }, { model: User }]
+    });
+    return res.json({ data });
+  } catch (err) {
+    res.json(err);
+    return console.log(err);
+  }
+}
+
+const reviewAverage = async (req, res) => {
     const { id } = req.params;
-    if(!id) {
-        return res.json({error: "Id not recived"})
-    } else {
-        try {
-            let data = await Review.findAll({
-                where:  {
-                    product_id: id
-                }
-            });    
-            console.log(data)
-            if(!data)   {
-                return res.json({error: "there are not reviews for this product"})  
-            } else {
-                return res.json(data);
-            }
-        } catch (err) {
-            res.json(err);
-            console.log(err);
+
+    if(!id) return res.json({error: "please, give us an id"})
+    try {
+      let data = await Review.findAndCountAll({
+        where:{
+          product_id: id
         }
+      });
+
+      if(!data) return res.json({error: "there are not reviews for this product"});
+
+      let findSum = data.rows?.map(e => parseInt(e.rating));
+      let result = (findSum?.reduce((a,b) => a+b, 0)) / data.count;
+      
+      return res.json(result);
+    } catch (err) {
+      res.json(err);
+      return console.log(err);
     }
 }
 
 const createReview = async (req, res) => {
-    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+    console.log(req.body);
+    //if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     const product_id = req.params.id  
     const { description, rating, user_id, title } = req.body;
+    console.log(description, rating, user_id, title );
     try { 
         const addReview = await Review.findOrCreate({
             where: {
@@ -102,10 +168,10 @@ const deleteReview = async (req, res) => {
     }
 };
 
-
 module.exports = {
     getReviews,
     createReview,
     editReview,
-    deleteReview
+    deleteReview,
+    getReviewsByUserId
 }

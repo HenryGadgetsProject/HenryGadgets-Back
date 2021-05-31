@@ -15,7 +15,7 @@ const categories = [
     {
         id: 3,
         name: "Cámaras",
-        photo: "https://i.imgur.com/gYq38Js.jpg",
+        photo: "https://i.imgur.com/VjIc6uI.jpg",
         description: "esta es la descripción de Cámaras"
     },
     {

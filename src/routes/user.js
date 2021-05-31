@@ -5,10 +5,17 @@ const {
   getUserById,
   createUser,
   updateUser,
-  deleteUser,
+  changeUserStatus,
   getOrderHistory,
 } = require("../controllers/user");
-const isAuthorize = require("../middlewares/isAuthorize")
+const { 
+  getWishlist,
+  postWishlist,
+  editWishlist,
+  deleteWishlist
+} = require("../controllers/wishlist");
+const isAuthorize = require("../middlewares/isAuthorize");
+
 const router = Router();
 
 router.get("/", async (req, res) => {
@@ -20,7 +27,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", isAuthorize, async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const userID = await getUserById(id);
@@ -33,7 +40,7 @@ router.get("/:id", isAuthorize, async (req, res) => {
 router.get(":id/orders", getOrderHistory)
 
 
-router.post("/", isAuthorize, async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const {
       id,
@@ -41,24 +48,12 @@ router.post("/", isAuthorize, async (req, res) => {
       last_name,
       email,
       password,
-      // is_admin,
-      // country,
-      // city,
-      // street,
-      // addressnumber,
-      // postcode,
     } = req.body;
     if (
       !first_name ||
       !last_name ||
       !email ||
       !password 
-       // !is_admin ||
-      // !country ||
-      // !city ||
-      // !street ||
-      // !addressnumber ||
-      // !postcode
     )
       res.send("Informacion enviada inválida");
     else {
@@ -68,12 +63,6 @@ router.post("/", isAuthorize, async (req, res) => {
         last_name,
         email,
         password,
-        //  is_admin,
-        // country,
-        // city,
-        // street,
-        // addressnumber,
-        // postcode
       );
       if (typeof userCreated === "string"){
         res.status(400).send("Este usuario ya existe en la base de datos");
@@ -94,11 +83,6 @@ router.put("/:id", async (req, res, next) => {
     email,
     password,
     is_admin,
-    // country,
-    // city,
-    // street,
-    // addressnumber,
-    // postcode,
   } = req.body;
 
   const { id } = req.params;
@@ -110,11 +94,6 @@ router.put("/:id", async (req, res, next) => {
       email,
       password,
       is_admin,
-      // country,
-      // city,
-      // street,
-      // addressnumber,
-      // postcode
     );
     if (updatedUser[0] === 0) res.send("No se ha actualizado el usuario");
     else if (updatedUser[0] === 1)  res.send("Se actualizo el usuario");
@@ -124,19 +103,11 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
-router.delete("/:id", async (req, res, next) => {
-  const { id } = req.params;
-  try {
-    const deletedUser = await deleteUser(id);
+router.put("/:id/:status", changeUserStatus);
 
-    if(!deletedUser){
-      return res.status(400).send("El usuario que intenta eliminar, no existe")}
-      else{
-        return res.status(201).send("El usuario ha sido eliminado con exito");
-      }
-  } catch (error) {
-    res.status(400).send("No se pudo borrar el usuario")
-  }
-})
+router.get("/wishlist/:userId", getWishlist);
+router.post("/wishlist/post/:userId/:listName", postWishlist);
+router.put("/wishlist/:wishlistId/:productId/:action", editWishlist);
+router.delete("/wishlist/delete/:wishlistId", deleteWishlist);
 
 module.exports = router;
