@@ -89,12 +89,10 @@ const reviewAverage = async (req, res) => {
 }
 
 const createReview = async (req, res) => {
-    console.log(req.body);
     //if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
-
     const product_id = req.params.id  
     const { description, rating, user_id, title } = req.body;
-    console.log(description, rating, user_id, title );
+ 
     try { 
         const addReview = await Review.findOrCreate({
             where: {
@@ -127,7 +125,7 @@ const createReview = async (req, res) => {
 };
 
 const editReview = async (req, res) => {
-    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+   // if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     let id = req.params.id;
     let {title, rating, description} = req.body;
@@ -151,13 +149,13 @@ const editReview = async (req, res) => {
 };
 
 const deleteReview = async (req, res) => {
-    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+ //   if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     let id = req.params.id;
     if(!id) return res.json({error: "please, give us an id"})
     try {
         let data = await Review.findByPk(id);
-  
+
         if(!data) return res.json({error: "the review does not exist"})
   
         data.destroy()

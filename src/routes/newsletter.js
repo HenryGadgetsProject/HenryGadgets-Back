@@ -77,47 +77,19 @@ router.get("/suscripcion", async (req, res, next) => {
           },
         }
       );
-
-      const html = `
-                            <html>
-                                <head>
-                                    <title>Suscription</title>
-                                </head>
-                                <body>
-                                <h3>${newsLetter.name} Te suscribiste con exito a nuestro Newsletter!</h3>
-                                <a href="http://localhost:3000"> para terminar hace click aca</a>
-                                </body>
-                            </html>
-                        `;
-
-      res.send(html);
+      return res.json({
+        message: `Te suscribiste con exito a nuestro Newsletter! Muchas gracias!`,
+      });
     } else {
-      const html = `
-                            <html>
-                                <head>
-                                    <title>Error</title>
-                                </head>
-                                <body>
-                                Usuario no válido
-                                </body>
-                            </html>
-                        `;
-
-      res.send(html);
+      return res.json({
+        message: "El email ya está en nuestra base de datos",
+      });
     }
   } catch (error) {
-    const html = `
-                        <html>
-                            <head>
-                                <title>Error</title>
-                            </head>
-                            <body>
-                            ${Error}
-                            </body>
-                        </html>
-                    `;
-
-    res.send(html);
+    return res.json({
+      newsLetter: {},
+      message: error.message,
+    });
   }
 });
 
@@ -154,19 +126,9 @@ router.get("/desuscribir", async (req, res, next) => {
             },
           }
         );
-
-        const html = `
-                                <html>
-                                    <head>
-                                        <title>Desuscripción total</title>
-                                    </head>
-                                    <body>
-                                    <a href="http://localhost:3000/home"> Vuela a Henry Gadgets </a>
-                                    </body>
-                                </html>
-                            `;
-
-        res.send(html);
+        return res.json({
+          message: `Tu suscripcion ha sido dada de baja!. :(`,
+        });
       } else {
         await NewsletterOption.update(
           {
@@ -180,34 +142,14 @@ router.get("/desuscribir", async (req, res, next) => {
             },
           }
         );
-
-        const html = `
-                                <html>
-                                    <head>
-                                        <title>Desuscripción parcial</title>
-                                    </head>
-                                    <body>
-                                    <h3>${newsLetter.name} Tu suscripcion a nuestro Newsletter fue dada de baja! :(</h3>
-                                    <a href="http://localhost:3000/home"> Vuela a Henry Gadgets</a>
-                                    </body>
-                                </html>
-                            `;
-
-        res.send(html);
+        return res.json({
+          message: `Tu suscripcion ha sido dada de baja!. :(`,
+        });
       }
     } else {
-      const html = `
-                            <html>
-                                <head>
-                                    <title>Error</title>
-                                </head>
-                                <body>
-                                Usuario no válido
-                                </body>
-                            </html>
-                        `;
-
-      res.send(html);
+      return res.status(500).json({
+        message: `Ha ocurrido un error inesperado!`,
+      });
     }
   } catch (error) {
     return res.json({

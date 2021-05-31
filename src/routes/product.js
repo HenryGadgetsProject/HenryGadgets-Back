@@ -158,7 +158,7 @@ router.get('/:id/review', getReviews)
 
 router.post('/:id/review', createReview)
 
-router.put('/:id/review', editReview)
+router.put('/:id/review/:id', editReview)
 
 router.delete('/:id/review/:id', deleteReview)
 
