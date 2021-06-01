@@ -81,6 +81,9 @@ User.hasMany(Order);
 User.hasMany(Review);
 User.hasMany(Wishlist);
 
+
+
+
 Wishlist.belongsTo(User);
 Wishlist.belongsToMany(Product, { through: 'wishlist_product' });
 

@@ -443,10 +443,10 @@ h3 {
 a.es-button,
 button.es-button {
     border-style: solid;
-    border-color: #ffa73b;
+    border-color: #c00404;
     border-width: 15px 25px 15px 25px;
     display: inline-block;
-    background: #ffa73b;
+    background: #c00404;
     border-radius: 2px;
     font-size: 20px;
     font-family: helvetica, 'helvetica neue', arial, verdana, sans-serif;

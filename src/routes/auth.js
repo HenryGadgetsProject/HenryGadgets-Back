@@ -24,8 +24,8 @@ router.post('/signup', async (req, res) => {
     const { email, password, first_name, last_name } = req.body
     try {
         const existingUser = await User.findOne({ where: { email }});
-        if(existingUser) return res.status(400).json({ message: "User already exists." });
-        const hashedPassword = await bcrypt.hash(password, 12);
+        if(existingUser) return res.status(400).json({ message: "User already exists." })
+        const hashedPassword = await bcrypt.hash(password, 12)
 
         const result = await User.create({ email, password: hashedPassword, first_name, last_name });
         
@@ -49,15 +49,13 @@ router.post('/googleSignin', async (req, res) => {
     }
     try {
         const existingUser = await User.findOne({ where: { email }});
-        if(existingUser) {
-            const updatedUser = await existingUser.update(user);
-            const token = jwt.sign({ user: updatedUser }, authConfig.secret, { expiresIn: authConfig.expires });
-            return res.status(200).json({ updatedUser, token });
-        } else {
-            const result = await User.create(user);
-            const token = jwt.sign({ user: result }, authConfig.secret, { expiresIn: authConfig.expires });
-            res.status(200).json({ result, token });
-        }
+        if(existingUser) return res.status(400).json({ message: "User already exists." })
+
+        const result = await User.create({ email, googleId, first_name, last_name })
+        
+        const token = jwt.sign({ user: result }, authConfig.secret, { expiresIn: authConfig.expires });
+
+        res.status(200).json({ result, token })
     } catch (error) {
         res.status(500).json({ message: "Something went wrong." });
     }

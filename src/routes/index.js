@@ -15,6 +15,7 @@ const forcePassword = require('./forcePassword');
 const Email = require('./email');
 const Signup = require('./auth');
 const Branch = require('./branch');
+const Newsletter = require('./newsletter');
 
 const router = Router();
 
@@ -34,6 +35,6 @@ router.use('/auth', Signup);
 router.use('/payment', Payment);
 router.use('/email', Email);
 router.use('/branch', Branch);
-
+router.use('/newsletter', Newsletter);
 
 module.exports = router;
