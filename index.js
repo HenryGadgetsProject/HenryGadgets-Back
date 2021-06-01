@@ -29,58 +29,7 @@ const orders = require("./src/data/orders");
 const wishlists = require("./src/data/wishlist");
 const branches = require("./src/data/branches");
 const { Op } = require('sequelize');
-//const PORT = process.env.PORT || 3001;
-const PORT = 3001;
-
-// const addProductInReview = async (idRe, product) => {
-//     let producttr = await Product.findOne({
-//       where: {
-//         id: product.id
-//       }
-//     }).then(async (re)=> {
-//         let result = await re.addReview([idRe])
-//         return result  
-//     })
-//     return producttr
-// }
-
-// const assignOrders = async () => {
-//   for(let i = 0; i < users.length; i++) {
-//     users[i].setOrders(users[i].orderId)
-//   }
-// }
-
-// function catsBulk(products) {
-//   products.map((x) => assignCategories(x.id, x.categories[0], true));
-// }
-// // function orderDetailBulk(products) {
-// //   products.map((x) => assignOrderDetails(x.id, x.orderDetId, true)) 
-// // }
-// async function reviewsBulk(reviews, product) {   
-//   reviews.map((x,i) => addProductInReview(x.id, product[i]))
-// }
-
-// // Syncing all the models at once.
-// conn.sync({ force: true }).then( async () => {
-//   User.bulkCreate(users).then(() => {
-//     OrderDetail.bulkCreate(orderDetails).then(() => {
-//       Review.bulkCreate(reviews).then((Truereviews) => {
-//         Category.bulkCreate(categories).then(() => {
-//           Product.bulkCreate(products).then(() => {
-//              Order.bulkCreate(orders).then(() => {
-//                catsBulk(products)
-//                reviewsBulk(Truereviews, products);
-//             })
-//           })
-//         })
-//       })
-//     })
-//   })
-// })
-// app.listen(PORT, () => {
-//   console.log(`%s listening at ${PORT}`); 
-// });
-
+const PORT = process.env.PORT || 3001;
 
 conn.sync({ force: true }).then(() => {
   app.listen(PORT, async function () {
