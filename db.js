@@ -63,6 +63,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 const {
+  Branch,
   Category,
   Image,
   Order,
@@ -71,6 +72,7 @@ const {
   User,
   OrderDetail,
   NewsletterOption,
+  Offer,
   Wishlist,
 } = sequelize.models;
 

@@ -9,7 +9,7 @@ const categories = [
     {
         id: 2,
         name: "Celulares",
-        photo: "https://i.imgur.com/gYq38Js.jpg",
+        photo: "https://i.imgur.com/6hQ6d0f.jpg",
         description: "Esta es la descripción de Celulares"
     },
     {
@@ -21,7 +21,7 @@ const categories = [
     {
         id: 4,
         name: "Consolas",
-        photo: "https://i.imgur.com/n89EVdj.jpg",
+        photo: "https://i.imgur.com/rEePIYL.jpg",
         description: "esta es la descripción de Consolas"
     },
     {
@@ -33,7 +33,7 @@ const categories = [
     {
         id: 6,
         name: "Televisores",
-        photo: "https://i2.wp.com/gadgetur.com/wp-content/uploads/2021/04/630386.jpg?fit=1920%2C1080&ssl=1",
+        photo: "https://i.imgur.com/oprfrNv.jpg",
         description: "esta es la descripción de Televisores"
     },
 ]

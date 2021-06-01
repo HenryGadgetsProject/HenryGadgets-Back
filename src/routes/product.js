@@ -15,7 +15,8 @@ const {
   createReview,
   editReview,
   deleteReview,
-  getReviewsByUserId
+  getReviewsByUserId,
+  reviewAverage,
 } = require("../controllers/review");
 const { v4: uuidv4 } = require("uuid");
 
@@ -155,6 +156,8 @@ router.delete("/:prodId/category/:catId", async (req, res) => {
 // ********************************************************
 
 router.get('/:id/review', getReviews)
+
+router.get('/:id/review/rating', reviewAverage)
 
 router.post('/:id/review', createReview)
 
