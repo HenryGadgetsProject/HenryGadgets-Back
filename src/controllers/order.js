@@ -36,7 +36,6 @@ const editOrder = async (req, res) => {
     order.city = city;
     order.phone_number = phone_number
     await order.save();
-
     res.send(order);
   } catch (error) {
     console.log("error", error);
@@ -153,6 +152,27 @@ const editOrderAdmin = async (req, res) => {
   }
 }
 
+const discountStock = async (req, res) => {
+  const { id } = req.params
+  let productArray = []
+  try{
+      let productsFound = await OrderDetail.findAll({
+          where: {
+              order_id: id
+          },
+      })
+      for (let i = 0; i < productsFound.length ;i++) {
+        let product = await Product.findByPk(productsFound[i].dataValues.product_id)
+        product.stock = product.stock - productsFound[i].dataValues.quantity
+        await product.save()
+        productArray.push(product)
+      }
+      return res.json(productArray)
+  } catch (error) {
+      console.log(error)
+  }
+}
+
 module.exports = {
   deleteOrder,
   addOrder,
@@ -162,4 +182,5 @@ module.exports = {
   editOrderAdmin,
   ordersByState,
   orderById,
+  discountStock,
 };

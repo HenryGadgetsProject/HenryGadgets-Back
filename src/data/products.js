@@ -120,7 +120,7 @@ const products = [
         description: "Teclado Mecánico",
         categories: [1],
         is_active: false,
-        stock: 0,
+        stock: 30,
         orderDetId: [19, 45, 46],
         wishId: [2, 5],
         userId: 3,

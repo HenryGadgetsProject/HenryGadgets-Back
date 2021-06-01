@@ -8,12 +8,13 @@ const CartRouter = require('./cart');
 const ProductRouter = require('./product');
 const UserRouter = require('./user');
 const SearchRouter = require('./search');
-const Payment = require('./payment')
+const Payment = require('./payment');
 const MeRouter = require('./me');
 const PromoteRouter = require('./promote');
 const forcePassword = require('./forcePassword');
 const Email = require('./email');
 const Signup = require('./auth');
+const Branch = require('./branch');
 const Newsletter = require('./newsletter');
 
 const router = Router();
@@ -28,12 +29,12 @@ router.use('/orders', OrderRouter);
 router.use('/products', ProductRouter);
 router.use('/users', UserRouter);
 router.use('/search', SearchRouter);
-router.use('/payment', Payment)
-router.use('/forcepassword', forcePassword)
-router.use('/auth', Signup)
+router.use('/payment', Payment);
+router.use('/forcepassword', forcePassword);
+router.use('/auth', Signup);
 router.use('/payment', Payment);
 router.use('/email', Email);
+router.use('/branch', Branch);
 router.use('/newsletter', Newsletter);
-
 
 module.exports = router;

@@ -18,7 +18,7 @@
 //                       `=---='
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
-const { conn, Category, Product, User, Review, Order, OrderDetail, Wishlist } = require("./db");
+const { conn, Category, Product, User, Review, Order, OrderDetail, Wishlist, Branch } = require("./db");
 const { assignCategories } = require("./src/controllers/product");
 const categories = require("./src/data/categories");
 const products = require("./src/data/products");
@@ -27,6 +27,7 @@ const reviews = require("./src/data/reviews");
 const orderDetails = require("./src/data/orderDetails");
 const orders = require("./src/data/orders");
 const wishlists = require("./src/data/wishlist");
+const branches = require("./src/data/branches");
 const { Op } = require('sequelize');
 const PORT = process.env.PORT || 3001;
 //const PORT = 3001;
@@ -88,6 +89,7 @@ conn.sync({ force: true }).then(() => {
     //OrderDetail creation
     await OrderDetail.bulkCreate(orderDetails);
     await Category.bulkCreate(categories);
+    await Branch.bulkCreate(branches);
 
     //Order creation and association
     for (let i = 0; i < orders.length; i++) {
