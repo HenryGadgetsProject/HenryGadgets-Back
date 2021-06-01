@@ -63,6 +63,7 @@ let capsEntries = entries.map((entry) => [
 sequelize.models = Object.fromEntries(capsEntries);
 
 const {
+  Branch,
   Category,
   Image,
   Order,
@@ -71,6 +72,7 @@ const {
   User,
   OrderDetail,
   NewsletterOption,
+  Offer,
   Wishlist,
 } = sequelize.models;
 
@@ -78,6 +80,9 @@ const {
 User.hasMany(Order);
 User.hasMany(Review);
 User.hasMany(Wishlist);
+
+
+
 
 Wishlist.belongsTo(User);
 Wishlist.belongsToMany(Product, { through: 'wishlist_product' });

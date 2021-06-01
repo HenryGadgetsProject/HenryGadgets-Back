@@ -46,6 +46,10 @@ module.exports = (sequelize) => {
         photo: {
             type: DT.STRING,
             defaultValue: "https://images-ext-2.discordapp.net/external/r6IN2xCJUKtoWBmSBMOx_ZJeMHNxM4pxp4atCrC7TR8/https/i.imgur.com/7BQaVxj.png"
+        },
+        nlsuscribe: {
+            type: DT.BOOLEAN,
+            allowNull: true,
         }
     },
         {

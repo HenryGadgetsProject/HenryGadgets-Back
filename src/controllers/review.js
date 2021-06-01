@@ -76,7 +76,7 @@ const reviewAverage = async (req, res) => {
         }
       });
 
-      if(!data) return res.json({error: "there are not reviews for this product"});
+      if(!data) return res.json({error: "there are no reviews for this product"});
 
       let findSum = data.rows?.map(e => parseInt(e.rating));
       let result = (findSum?.reduce((a,b) => a+b, 0)) / data.count;
@@ -90,7 +90,7 @@ const reviewAverage = async (req, res) => {
 
 const createReview = async (req, res) => {
     console.log(req.body);
-    //if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
+    if(!req.user.id) return res.status(501).json({err: 'Unauthorized'})
 
     const product_id = req.params.id  
     const { description, rating, user_id, title } = req.body;
@@ -169,9 +169,10 @@ const deleteReview = async (req, res) => {
 };
 
 module.exports = {
-    getReviews,
-    createReview,
-    editReview,
-    deleteReview,
-    getReviewsByUserId
+  getReviews,
+  createReview,
+  editReview,
+  deleteReview,
+  getReviewsByUserId,
+  reviewAverage
 }

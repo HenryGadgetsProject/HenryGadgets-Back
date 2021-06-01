@@ -22,7 +22,7 @@ let transporter = nodemailer.createTransport({
 
 const generarHTML = (archivo, opciones={}) => {
 
-    const html = pug.renderFile(`${__dirname}/../views/emails/${archivo}.pug`, opciones);
+    const html = pug.renderFile(`${__dirname}/emails/${archivo}.pug`, opciones);
 
     return juice(html);
 
