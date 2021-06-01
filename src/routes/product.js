@@ -49,43 +49,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // CREATE A PRODUCT
-router.post("/", async (req, res, next) => {
-  const id = uuidv4();
-
-  const {
-    name,
-    price,
-    rating,
-    big_image,
-    description,
-    is_active,
-    stock,
-    categories,
-  } = req.body;
-
-  if (!req.body) {
-    res
-      .status(400)
-      .send("No hay información suficiente para crear su nuevo producto");
-  }
-
-  try {
-    const createdProduct = await createProduct(
-      id,
-      name,
-      price,
-      rating,
-      big_image,
-      description,
-      is_active,
-      stock,
-      categories
-    );
-    res.status(201).send(createdProduct);
-  } catch (err) {
-    res.send(error);
-  }
-});
+router.post("/", createProduct)
 
 // UPDATE A PRODUCT
 router.put("/:id", async (req, res, next) => {

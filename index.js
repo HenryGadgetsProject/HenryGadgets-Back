@@ -29,8 +29,8 @@ const orders = require("./src/data/orders");
 const wishlists = require("./src/data/wishlist");
 const branches = require("./src/data/branches");
 const { Op } = require('sequelize');
-const PORT = process.env.PORT || 3001;
-//const PORT = 3001;
+//const PORT = process.env.PORT || 3001;
+const PORT = 3001;
 
 // const addProductInReview = async (idRe, product) => {
 //     let producttr = await Product.findOne({

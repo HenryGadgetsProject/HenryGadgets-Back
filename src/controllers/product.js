@@ -58,19 +58,19 @@ const getProductsByCatName = async (catName) => {
     return error.message;
   }
 };
-const createProduct = async (
-  id,
-  name,
-  price,
-  big_image,
-  description,
-  is_active,
-  stock,
-  categories
-) => {
-  if (!name) {
-    return res.status(500).json("Not enough Data in Body");
-  }
+
+const createProduct = async (req, res) => {
+  const id = uuidv4();
+  const {
+    name,
+    price,
+    rating,
+    big_image,
+    description,
+    is_active,
+    stock,
+    categories,
+  } = req.body;
   try {
     const categoriesDB = await Category.findAll({
       where: {
@@ -82,6 +82,7 @@ const createProduct = async (
     let newProduct = await Product.create({
       id,
       name,
+      rating,
       price,
       big_image,
       description,
@@ -91,9 +92,10 @@ const createProduct = async (
     const newProdCat = await newProduct.addCategory(categoriesDB);
     const catNew = categoriesDB.map((c) => c.dataValues);
     newProduct = { ...newProduct.dataValues, categories: catNew };
-    return newProduct;
-  } catch (error) {
-    return error.message;
+    
+    return res.status(200).json(newProduct);
+  } catch (err) {
+    res.send(error);
   }
 };
 
