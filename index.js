@@ -19,7 +19,6 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
 const { conn, Category, Product, User, Review, Order, OrderDetail, Wishlist, Branch } = require("./db");
-const { assignCategories } = require("./src/controllers/product");
 const categories = require("./src/data/categories");
 const products = require("./src/data/products");
 const users = require("./src/data/users");
@@ -113,7 +112,7 @@ conn.sync({ force: true }).then(() => {
           },
         },
       });
-      const myWishlist = await Wishlist.create({ name: 'lista' + (i + 1) });
+      const myWishlist = await Wishlist.create({ name: 'lista' });
       const wishProducts = await Product.findAll({
         where: {
           id: {
@@ -132,7 +131,7 @@ conn.sync({ force: true }).then(() => {
         },
       });
       await myUser.addReviews(findReview);
-      await myUser.addWishlists(myWishlist);
+      await myUser.setWishlist(myWishlist);
     }
 
     // Other Associations

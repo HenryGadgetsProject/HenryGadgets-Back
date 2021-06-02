@@ -12,7 +12,7 @@ const sendOffersNotification = async () => {
             }
         });
         if(wishlist) {
-            if(user.nlsuscribe) {
+            if(user.nlsuscribe === true) {
                 try {
                     await enviarEmail.enviar({
                         email: user.email,

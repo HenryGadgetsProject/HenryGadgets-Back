@@ -125,7 +125,7 @@ router.get('/:id/review/rating', reviewAverage)
 
 router.post('/:id/review', createReview)
 
-router.put('/:id/review', editReview)
+router.put('/review/:id/', editReview)
 
 router.delete('/review/:id', deleteReview)
 

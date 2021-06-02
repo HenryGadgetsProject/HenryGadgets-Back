@@ -10,9 +10,9 @@ const {
 } = require("../controllers/user");
 const { 
   getWishlist,
-  postWishlist,
-  editWishlist,
-  deleteWishlist
+  deleteWishlist,
+  addProduct,
+  deleteItem,
 } = require("../controllers/wishlist");
 const isAuthorize = require("../middlewares/isAuthorize");
 
@@ -105,9 +105,11 @@ router.put("/:id", async (req, res, next) => {
 
 router.put("/:id/:status", changeUserStatus);
 
+router.put("/suscribe/:id");
+
 router.get("/wishlist/:userId", getWishlist);
-router.post("/wishlist/post/:userId/:listName", postWishlist);
-router.put("/wishlist/:wishlistId/:productId/:action", editWishlist);
-router.delete("/wishlist/delete/:wishlistId", deleteWishlist);
+router.post("/wishlist/:userId/:prodId", addProduct);
+router.delete("/wishlist/:userId", deleteWishlist);
+router.delete("/wishlist/:userId/:prodId",deleteItem);
 
 module.exports = router;
