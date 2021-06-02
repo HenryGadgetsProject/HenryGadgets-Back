@@ -138,7 +138,6 @@ const ordersByState = async (req, res) => {
   }
 }
 
-
 const editOrderAdmin = async (req, res) => {
   const { id, state } = req.params
   try {

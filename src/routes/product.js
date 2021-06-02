@@ -127,7 +127,7 @@ router.post('/:id/review', createReview)
 
 router.put('/:id/review', editReview)
 
-router.delete('/:id/review/:id', deleteReview)
+router.delete('/review/:id', deleteReview)
 
 router.get("/user/:userId", getReviewsByUserId);
 

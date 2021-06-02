@@ -1,15 +1,10 @@
 const { DataTypes, INTEGER } = require('sequelize');
 const DT = DataTypes;
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
-    // defino el modelo
     sequelize.define('product', {
         id: {
             type: DT.UUID,
-            // type: INTEGER,
-            // defaultValue: DT.UUIDV4,
-            // autoIncrement: true,
             primaryKey: true,
             allowNull: false,
         },
@@ -41,9 +36,10 @@ module.exports = (sequelize) => {
         },
         big_image: {
             type: DT.STRING,
-            // validate: {
-            //     isUrl: true
-            // }
+        },
+        discount: {
+            type: DT.FLOAT,
+            allowNull: true,
         }
     },
         {

@@ -1,20 +1,20 @@
 const { Wishlist, Product, User } = require('../../db');
 
 const getWishlist = async (req, res) => {
-    let id = req.params;
+    const {userId} = req.params;
 
     try {
         let data = await User.findOne({
-        where: {
-            id: id,
-        },
-        attributes: ['id', 'first_name', 'last_name'],
-        include: {
+          where: {
+            id: userId,
+          },
+          attributes: ['id', 'first_name', 'last_name'],
+          include: {
             model: Wishlist,
             attributes: ['id', 'name'],
             include: {
-            model: Product,
-            attributes: [
+              model: Product,
+              attributes: [
                 'id',
                 'name',
                 'price',
@@ -22,19 +22,19 @@ const getWishlist = async (req, res) => {
                 'big_image',
                 'rating',
                 'stock',
-            ],
-            through: {
+              ],
+              through: {
                 attributes: [],
+              },
             },
-            },
-        },
+          },
         });
-
+    
         return res.json(data);
-    } catch (err) {
+      } catch (err) {
         res.json(err);
         return console.log(err);
-    }
+      }
 }
 
 const postWishlist = async (req, res) => {
@@ -88,7 +88,6 @@ const editWishlist = async (req, res) => {
             },
         },
         });
-
         result.push(wishlist);
         result.push(204);
     } else {
