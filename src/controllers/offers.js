@@ -2,7 +2,7 @@ const { Category, Product, Offer } = require("../../db");
 const {sendOffersNotification} = require('./email');
 
 const setOffers = async (req, res) => {
-    let { target, targetId, discount, duration } = req.body
+    let { target, targetName, discount, duration } = req.body
     duration = duration * 60 * 60 * 1000;
     discount = (discount / 100);
     let productsToUpdate = [];
@@ -13,20 +13,20 @@ const setOffers = async (req, res) => {
                 include: {
                     model: Category,
                     where: {
-                        id: targetId
+                        name: targetName
                     }
                 }
             });
             prod.forEach(element => {
-                productsToUpdate.push(element.id);
+                productsToUpdate.push(element.name);
             });
             break;
 
         case "product":
-            productsToUpdate.push(targetId);
+            productsToUpdate.push(targetName);
             break;
 
-        default:
+        default:    
             return "please check the target field"
     }
 
@@ -34,7 +34,7 @@ const setOffers = async (req, res) => {
 
     let offert = await Offer.create({
         target,
-        targetId,
+        targetName,
         discount,
         duration,
         active: true
@@ -53,7 +53,7 @@ const defineOffert = async (discount, productsToUpdate, offertId) => {
         discount
     },
     {where: {
-        id: productsToUpdate
+        name: productsToUpdate
     }})
 
     if(offertId !== 0) {
