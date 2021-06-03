@@ -1,7 +1,7 @@
 const orders = [
     {
         state: 'completed',
-        creationDate: '2021-06-01',
+        creationDate: '2021-05-31',
         total_price: 3000,
         orderDetId: [1, 46],
     },
@@ -49,7 +49,7 @@ const orders = [
     },
     {
         state: 'completed',
-        creationDate: '2021-05-12',
+        creationDate: '2021-01-12',
         total_price: 30000,
         orderDetId: [22, 23],
     },
@@ -84,8 +84,8 @@ const orders = [
         orderDetId: [27, 30],
     },
     {
-        state: 'completed',
-        creationDate: '2021-05-11',
+        state: 'cancelled',
+        creationDate: '2021-02-11',
         total_price: 140000,
         orderDetId: [4],
     },
@@ -115,13 +115,13 @@ const orders = [
     },
     {
         state: 'completed',
-        creationDate: '2021-05-11',
+        creationDate: '2021-02-11',
         total_price: 9000,
         orderDetId: [36],
     },
     {
         state: 'completed',
-        creationDate: '2021-05-11',
+        creationDate: '2021-02-11',
         total_price: 150000,
         orderDetId: [37, 55],
     },
@@ -138,14 +138,14 @@ const orders = [
         orderDetId: [39],
     },
     {//25
-        state: 'completed',
-        creationDate: '2021-05-05',
+        state: 'cancelled',
+        creationDate: '2021-03-05',
         total_price: 100000,
         orderDetId: [40, 56, 57],
     },
     {
-        state: 'completed',
-        creationDate: '2021-05-04',
+        state: 'cancelled',
+        creationDate: '2021-03-04',
         total_price: 300000,
         orderDetId: [41],
     },
@@ -162,8 +162,8 @@ const orders = [
         orderDetId: [43, 58, 59]
     },
     {
-        state: 'completed',
-        creationDate: '2021-05-03',
+        state: 'cancelled',
+        creationDate: '2021-04-03',
         total_price: 1000000,
         orderDetId: [44],
     },
