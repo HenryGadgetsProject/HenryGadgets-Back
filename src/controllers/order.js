@@ -105,7 +105,6 @@ const ordersAdmin = async (req, res) => {
             model: User
         }]
       });
-      console.log(data);
       return res.json(data);
   } catch (error) {
     res.send(error)

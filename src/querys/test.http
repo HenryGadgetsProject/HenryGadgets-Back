@@ -1,9 +1,0 @@
-GET https://fakestoreapi.com/products/categories
-################################################################
-GET http://localhost:3001/products
-
-#########################
-GET http://localhost:3001/categories
-
-#########################
-POST http://localhost:3001/products
