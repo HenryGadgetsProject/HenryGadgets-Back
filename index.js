@@ -51,7 +51,8 @@ conn.sync({ force: true }).then(() => {
 
       const myOrder = await Order.create({
         state: orders[i].state,
-        total_price: orders[i].total_price
+        total_price: orders[i].total_price,
+        created_at: orders[i].creationDate
       });
       await myOrder.setOrderDetails(findOrderDetail);
     }
@@ -85,7 +86,7 @@ conn.sync({ force: true }).then(() => {
         },
       });
 
-      //let rating = products[i].dataValues.rating.toString();       
+      //let rating = products[i].dataValues.rating.toString();
       const [myProduct] = await Product.findOrCreate({
         where: {
           id: products[i].id,
@@ -100,7 +101,7 @@ conn.sync({ force: true }).then(() => {
       });
       await myProduct.setCategories(findCategory);
       await myProduct.setOrderDetails(findOrderDetail);
-    }   
+    }
 
     // User creation and association
     for (let i = 0; i < users.length; i++) {
@@ -166,7 +167,7 @@ conn.sync({ force: true }).then(() => {
       const theReview = await Review.findByPk(i+1)
       theReview.setProduct(theProduct)
     }
-    
+
     console.log('Products and categories pre charged');
   });
 });
