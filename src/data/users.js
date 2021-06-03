@@ -20,6 +20,7 @@ const users = [
       orderId: [1, 16, 20, 21],
       reviews: [3, 4],
       products: ["70b9bcc3-3780-443b-8182-ef56e9546345", "70b9bcc3-3780-443b-8182-ef56e9541520", "70b9bcc3-3780-443b-8182-ef56e5468701", "70b9bcc3-3780-443b-8182-ef56e5468711", "70b9bcc3-3780-443b-8182-ef56e5468791"],
+      nlsuscribe: true,
     },
     {
       first_name: "Eduardo",
@@ -64,6 +65,7 @@ const users = [
       orderId: [9, 10, 11, 12],
       products: [],
       reviews: [11, 12],
+      nlsuscribe: true,
     },
     {
       first_name: "Leo",
