@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const SMTPConnection = require("nodemailer/lib/smtp-connection");
 require("dotenv").config();
 const { user, pass } = process.env;
-const { Order } = require("../../db.js");
+const { Order, User, Wishlist } = require("../../db.js");
 
 const emailBuyConfirmation = async (req, res) => {
   try {
@@ -60,22 +60,14 @@ const emailBuyConfirmation = async (req, res) => {
       <body>
       <div class="containergral">
       <h1>Hola ${client.first_name} ${client.last_name}!</h1>
-      <p>Confirmación de orden ! ! !</p>
+      <p>Confirmación de pago ! ! !</p>
       </hr>
-      <b>Tu lista de productos:</b>
-      <div class="unorderlist">
-        <ul>
-          ${products.map((e) => 
-            `<li>
-              <span>${e.quantity} x ${e.name} por ${e.price}</span>
-            </li>`)}
-        </ul>
-        <br>
-        <p>Total: ${data.total_price}</p>
-      </div>
+      <b>Tu pedido: #${orderId.id}</b>
       </hr>
-      <p>Vamos a enviarte tu pedido una vez que confirmemos el pago, que puede demorar hasta 24hs.</p>
-      <p>No te preocupes, te vamos a enviar un mensaje cuando esto suceda.</p>
+      <p>Gracias por comprar en Henry Gadgets.</p>
+      <p>Una vez que recibas tus productos podras dejar tu opionon sobre ellos.</p>
+      <p>Te vamos a notificar una vez que los productos sean despachados a tu ubicacion.</p>
+      <hr>
       <p>Datos de envio:<br>
       ${client.first_name} ${client.last_name}<br>
       ${data.street}<br>
@@ -93,7 +85,7 @@ const emailBuyConfirmation = async (req, res) => {
     let mailOptions = {
       from: "Henry Gadgets <henrygadgetsofficial@gmail.com>",
       to: client.email,
-      subject: `Has comprado ${product}`,
+      subject: `Confirmación de pago ! ! !`,
       html: htmlCreator,
     };
   
@@ -164,7 +156,6 @@ const emailThankYou = async (req, res) => {
       <div class="containergral">
       <h1>Gracias ${client.first_name} ${client.last_name} por comprar en Henry Gadgets!</h1>
       </hr>
-      <b>Tu pedido: #${orderId.id}</b>
       <div class="unorderlist">
         <ul>
           ${products.map((e) => 
@@ -173,8 +164,8 @@ const emailThankYou = async (req, res) => {
             </li>`)}
         </ul>
         <br>
-        <p>Total: ${data.total_price}</p>
       </div>
+      <p>Total: ${data.total_price}</p>
       </hr>
       <p>Vamos a enviarte tu pedido una vez que confirmemos el pago, que puede demorar hasta 24hs.</p>
       <p>No te preocupes, te vamos a enviar un mensaje cuando esto suceda.</p>
@@ -185,7 +176,7 @@ const emailThankYou = async (req, res) => {
       ${data.phone_number}</p><br>
       <b>Gracias por confiar en nosotros!</b>
       <div class="img-card">
-      <img src="https://i.imgur.com/To3EW78.png" width="200px" height="200px" alt="apus" border="0"/>
+      <img src="https://i.imgur.com/khqsGzc.png" width="200px" height="200px" alt="apus" border="0"/>
       </div>
       </div>
       </body>
@@ -195,7 +186,7 @@ const emailThankYou = async (req, res) => {
     let mailOptions = {
       from: "Henry Gadgets <henrygadgetsofficial@gmail.com>",
       to: client.email,
-      subject: `Has comprado ${product}`,
+      subject: `Tu pedido fue recibido`,
       html: htmlCreator,
     };
   
@@ -278,7 +269,7 @@ const passwordReset = async (req, res) => {
       ${data.phone_number}</p><br>
       <b>Gracias por confiar en nosotros!</b>
       <div class="img-card">
-      <img src="https://i.imgur.com/To3EW78.png" width="200px" height="200px" alt="apus" border="0"/>
+      <img src="https://i.imgur.com/khqsGzc.png" width="200px" height="200px" alt="apus" border="0"/>
       </div>
       </div>
       </body>
@@ -302,4 +293,89 @@ const passwordReset = async (req, res) => {
     }
 }
 
-module.exports = { emailBuyConfirmation, passwordReset, emailThankYou }
+const sendOffersNotification = async (req, res) => {
+  let transporter = nodemailer.createTransport({
+    service: "Gmail",
+    host: 'smtp.gmail.com',
+    post: 587,
+    secure: false,
+    auth: {
+        user: user,
+        pass: pass
+    },
+});
+  const users = await User.findAll();
+
+  users.forEach(async (user) => {
+    try {
+      const wishlists = await Wishlist.findAll({
+          where: {
+              user_id: user.id
+          }
+      });
+      if(wishlists) {
+        if(user.nlsuscribe === true) {
+          let htmlCreator = `
+          <html>
+          <head>
+          <style type="text/css">
+          .containergral {
+            align-content: center;
+            justify-content: center;
+            padding: 30px;
+            position: relative;
+            background: #EFEFEF;
+          }
+          h1 {
+            color: #FF1744;
+          }
+          .unorderlist {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background: #F7F7F7;
+            color: #FF1744;
+          }
+          .img-card {
+            margin-left: 25%;
+            margin-top: 20px    
+          }
+          </style>
+          </head>
+          <body style="height: 100%; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';">
+              <div style="height: 100%; padding: 2rem; background-image: url('https://i.imgur.com/hRRqwnC.png'); background-size: 100%;">
+                  <div style="border-radius: 2em;text-align: -webkit-center;background: rgba(0,0,0,.5);;z-index: 1;position: relative;color: #ffffff;padding: 1.6rem;">
+                      <h1 font-size: 3rem;margin: 0;">Henry Gadgets!</h1>
+                      <p style="color: #FF1744; font-size: 1.5rem;">Hi ${user.first_name}!</p>
+                      <div style="margin: 1rem 0 1rem 0; background: #FF1744; padding: .3rem;border-radius: 20rem;">
+                          <span style="font-size: 1.8rem;color: #ffffff;">Nuevos productos en oferta!</span>
+                          <p style="font-size: 1.3rem;color: #ffffff;">Visita <a href="https://henrygadgets.vercel.app/">Henry Gadgets</a> para ver todas las ofertas...</p>
+                      </div>
+                  </div>
+              </div>
+          </body>
+          </html>
+          `
+
+          let mailOptions = {
+            from: "Henry Gadgets <henrygadgetsofficial@gmail.com>",
+            to: user.email,
+            subject: `Nuevos descuentos ${user.first_name}!!!`,
+            html: htmlCreator,
+          }; 
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) return res.status(500).send(error.message);
+    
+            res.status(200).json({ answer: req.body });
+          });
+        }
+      }
+    } catch (error) {
+        console.log(error)
+    }
+  })
+}
+
+module.exports = { emailBuyConfirmation, passwordReset, emailThankYou, sendOffersNotification }

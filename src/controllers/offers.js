@@ -1,5 +1,5 @@
 const { Category, Product, Offer } = require("../../db");
-const sendOffersNotification = require('../handlers/sendOffersNotification');
+const {sendOffersNotification} = require('./email');
 
 const setOffers = async (req, res) => {
     let { target, targetId, discount, duration } = req.body
@@ -33,7 +33,7 @@ const setOffers = async (req, res) => {
     let update = defineOffert(discount, productsToUpdate, 0);
 
     let offert = await Offer.create({
-        targetm,
+        target,
         targetId,
         discount,
         duration,
@@ -45,10 +45,10 @@ const setOffers = async (req, res) => {
     let restore = setTimeout(defineOffert, duration, 0, productsToUpdate, offert.id)
 
     sendOffersNotification()
-    return "todo OK"
+    res.send({ message: "OK" })
 }
 
-const defineOffert = async () => {
+const defineOffert = async (discount, productsToUpdate, offertId) => {
     let update = await Product.update({
         discount
     },
@@ -67,7 +67,7 @@ const defineOffert = async () => {
         console.log(`offert #${offertId} has finished`)
     }
 
-    return res.json(update)
+    return update
 }
 
 const getOffers = async (req, res) => {

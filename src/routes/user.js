@@ -7,6 +7,7 @@ const {
   updateUser,
   changeUserStatus,
   getOrderHistory,
+  editSuscribe,
 } = require("../controllers/user");
 const { 
   getWishlist,
@@ -104,8 +105,7 @@ router.put("/:id", async (req, res, next) => {
 });
 
 router.put("/:id/:status", changeUserStatus);
-
-router.put("/suscribe/:id");
+router.put("/suscribe/nletter/:id", editSuscribe);
 
 router.get("/wishlist/:userId", getWishlist);
 router.post("/wishlist/:userId/:prodId", addProduct);

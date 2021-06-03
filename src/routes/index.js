@@ -16,6 +16,7 @@ const Email = require('./email');
 const Signup = require('./auth');
 const Branch = require('./branch');
 const Newsletter = require('./newsletter');
+const Offers = require('./offers')
 
 const router = Router();
 
@@ -36,5 +37,6 @@ router.use('/payment', Payment);
 router.use('/email', Email);
 router.use('/branch', Branch);
 router.use('/newsletter', Newsletter);
+router.use('/offer', Offers)
 
 module.exports = router;
