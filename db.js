@@ -18,7 +18,7 @@ if (process.env.DATABASE_URL !== undefined) {
         require: true,
         rejectUnauthorized: false,
       },
-    },  
+    },
   });
 } else {
   console.log("LOCAL ENVIROMENT");
@@ -28,12 +28,6 @@ if (process.env.DATABASE_URL !== undefined) {
       dialect: "postgres",
       logging: false,
       protocol: "postgres",
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      },
     }
   );
 }

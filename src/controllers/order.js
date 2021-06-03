@@ -93,7 +93,7 @@ const deleteOrder = async (req, res) => {
 const ordersAdmin = async (req, res) => {
   try {
       const data = await Order.findAll({
-        attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+        attributes: ['id', 'state','created_at', 'total_price'],
         include: [{
             model: OrderDetail,
             attributes: ['id','quantity', 'unit_price'],
@@ -105,6 +105,7 @@ const ordersAdmin = async (req, res) => {
             model: User
         }]
       });
+      console.log(data);
       return res.json(data);
   } catch (error) {
     res.send(error)
@@ -132,7 +133,7 @@ const ordersByState = async (req, res) => {
           }
         ]
     });
-    return res.json(data) 
+    return res.json(data)
   } catch (error) {
     res.send(error)
   }
