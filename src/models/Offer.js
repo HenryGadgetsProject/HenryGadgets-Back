@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
             type: DT.STRING,
             allowNull: false,
         },
-        targetId: {
+        targetName: {
             type: DT.STRING,
             allowNull: false,
         },

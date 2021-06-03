@@ -8,6 +8,7 @@ const emailBuyConfirmation = async (req, res) => {
   try {
       const { products, client, orderId } = req.body
       const data = await Order.findByPk(orderId)
+      console.log(data)
       let product
       if(!products) return res.status(500).json({ error: "product missing" })
       if(!Array.isArray(products)) return res.status(500).json({ error: "products should be and array" });
@@ -52,7 +53,6 @@ const emailBuyConfirmation = async (req, res) => {
           color: #FF1744;
         }
       .img-card {
-          margin-left: 25%;
           margin-top: 20px    
       }
       </style>
@@ -63,7 +63,7 @@ const emailBuyConfirmation = async (req, res) => {
       <p>Confirmación de pago ! ! !</p>
       </hr>
       <b>Tu pedido: #${data.id}</b>
-      <b>Total: ${data.total_price}
+      <b>Total: $ ${data.total_price}
       </hr>
       <p>Gracias por comprar en Henry Gadgets.</p>
       <p>Una vez que recibas tus productos podras dejar tu opionon sobre ellos.</p>
@@ -76,24 +76,25 @@ const emailBuyConfirmation = async (req, res) => {
       ${data.phone_number}</p><br>
       <b>Gracias por confiar en nosotros!</b>
       <div class="img-card">
-      <img src="https://i.imgur.com/To3EW78.png" width="200px" height="200px" alt="apus" border="0"/>
+      <img src="https://i.imgur.com/khqsGzc.png" width="80%" height="80%" alt="HG" border="0"/>
       </div>
       </div>
       </body>
       </html>
       `;
-  
     let mailOptions = {
       from: "Henry Gadgets <henrygadgetsofficial@gmail.com>",
       to: client.email,
       subject: `Confirmación de pago ! ! !`,
       html: htmlCreator,
     };
-  
+    
     transporter.sendMail(mailOptions, (error, info) => {
-      if (error) return res.status(500).send(error.message);
-  
-      res.status(200).json({ answer: req.body });
+      if (error) {
+        return res.status(500).send(error.message);
+      } else {
+        res.status(200).json({ answer: req.body });
+      }
     });
     } catch (error) {
       res.send(error)
@@ -103,6 +104,8 @@ const emailBuyConfirmation = async (req, res) => {
 const emailThankYou = async (req, res) => {
   try {
       const { products, client } = req.body
+      console.log(products)
+      console.log(client)
       let product
       if(!products) return res.status(500).json({ error: "product missing" })
       if(!Array.isArray(products)) return res.status(500).json({ error: "products should be and array" });
@@ -112,7 +115,11 @@ const emailThankYou = async (req, res) => {
       if(products.length === 1) product = `${products[0].name}!`
       if(products.length === 2) product = `${products[0].name} y ${products[1].name}!`
       if(products.length > 2) product = `${products[0].name}, ${products[1].name} y mas !`
-  
+      let total = 0
+      for(let i = 0; i < products.length;i++) {
+        total += products[i].price * products[i].quantity
+      }
+
       let transporter = nodemailer.createTransport({
           service: "Gmail",
           host: 'smtp.gmail.com',
@@ -147,7 +154,6 @@ const emailThankYou = async (req, res) => {
           color: #FF1744;
         }
       .img-card {
-          margin-left: 25%;
           margin-top: 20px    
       }
       </style>
@@ -160,18 +166,18 @@ const emailThankYou = async (req, res) => {
         <ul>
           ${products.map((e) => 
             `<li>
-              <span>${e.quantity} x ${e.name} por ${e.price}</span>
+              <span>${e.quantity}  x  ${e.name}  por  $ ${e.price}</span>
             </li>`)}
         </ul>
         <br>
       </div>
-      <p>Total: ${data.total_price}</p>
+      <p>Total: $ ${total}</p>
       </hr>
       <p>Vamos a enviarte tu pedido una vez que confirmemos el pago, que puede demorar hasta 24hs.</p>
       <p>No te preocupes, te vamos a enviar un mensaje cuando esto suceda.</p>
       <b>Gracias por confiar en nosotros!</b>
       <div class="img-card">
-      <img src="https://i.imgur.com/khqsGzc.png" width="200px" height="200px" alt="apus" border="0"/>
+      <img src="https://i.imgur.com/khqsGzc.png" width="80%" height="80%" alt="HG" border="0"/>
       </div>
       </div>
       </body>
