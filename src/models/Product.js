@@ -39,7 +39,7 @@ module.exports = (sequelize) => {
         },
         discount: {
             type: DT.FLOAT,
-            allowNull: true,
+            defaultValue: 0,            
         }
     },
         {
