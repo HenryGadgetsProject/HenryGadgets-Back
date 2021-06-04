@@ -29,6 +29,7 @@ const wishlists = require("./src/data/wishlist");
 const branches = require("./src/data/branches");
 const { Op } = require('sequelize');
 const PORT = process.env.PORT || 3001;
+//const PORT = 3001;
 
 conn.sync({ force: true }).then(() => {
   app.listen(PORT, async function () {
@@ -129,6 +130,7 @@ conn.sync({ force: true }).then(() => {
           is_admin: users[i].is_admin,
           email: users[i].email,
           password: users[i].password,
+          nlsuscribe: users[i].nlsuscribe
         },
       });
       await myUser.addReviews(findReview);
