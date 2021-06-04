@@ -450,7 +450,7 @@ const sendStockNotification = async (req, res) => {
                       <p style="color: #FF1744; font-size: 1.5rem;">Hola ${user.first_name}!</p>
                       <div style="margin: 1rem 0 1rem 0; background: #FF1744; padding: .3rem;border-radius: 20rem;">
                           <span style="font-size: 1.8rem;color: #ffffff;">${product.name} en stock!</span>
-                          <p style="font-size: 1.3rem;color: #ffffff;">Compralo ya <a href="https://henrygadgets.vercel.app/product/${product.id}">Henry Gadgets!!</a></p>
+                          <p style="font-size: 1.3rem;color: #ffffff;">Compralo ya <a href="https://henrygadgets.vercel.app">Henry Gadgets!!</a></p>
                       </div>
                   </div>
               </div>
