@@ -118,7 +118,7 @@ const ordersByState = async (req, res) => {
       where: {
         state: state.state
       },
-      attributes: ['id', 'state','created_at', 'updated_at', 'total_price'],
+      attributes: ['id', 'state','created_at', 'total_price'],
         include: [{
             model: OrderDetail,
             attributes: ['id','quantity', 'unit_price'],

@@ -1,5 +1,5 @@
 const { Category, Product, Offer } = require("../../db");
-const {sendOffersNotification} = require('./email');
+const { sendOffersNotification } = require('./email');
 
 const setOffers = async (req, res) => {
     let { target, targetName, discount, duration } = req.body
@@ -26,7 +26,7 @@ const setOffers = async (req, res) => {
             productsToUpdate.push(targetName);
             break;
 
-        default:    
+        default:
             return "please check the target field"
     }
 
@@ -52,14 +52,16 @@ const defineOffert = async (discount, productsToUpdate, offertId) => {
     let update = await Product.update({
         discount
     },
-    {where: {
-        name: productsToUpdate
-    }})
+        {
+            where: {
+                name: productsToUpdate
+            }
+        })
 
-    if(offertId !== 0) {
+    if (offertId !== 0) {
         await Offer.update({
-            active: false 
-        },{
+            active: false
+        }, {
             where: {
                 id: offertId,
             }
@@ -73,9 +75,10 @@ const defineOffert = async (discount, productsToUpdate, offertId) => {
 const getOffers = async (req, res) => {
     const { active } = req.params
     try {
-        if(active) {
+        if (active) {
             offerts = await Offer.findall({
-                where: {active,
+                where: {
+                    active,
                 }
             });
         } else {
@@ -87,4 +90,19 @@ const getOffers = async (req, res) => {
     }
 }
 
-module.exports = { setOffers, getOffers }
+const deleteOffers = async (req, res) => {
+    const { id } = req.params
+    try {
+        if (id) {
+            offerts = await Offer.findOne({
+                where: { id: id }
+            });
+            await offerts.destroy()
+        }
+        return res.send('se elimino la oferta');
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+module.exports = { setOffers, getOffers, deleteOffers }
