@@ -45,7 +45,7 @@ const setOffers = async (req, res) => {
     let restore = setTimeout(defineOffert, duration, 0, productsToUpdate, offert.id)
 
     sendOffersNotification()
-    res.send({ message: "OK" })
+    res.send(offert)
 }
 
 const defineOffert = async (discount, productsToUpdate, offertId) => {
@@ -92,13 +92,32 @@ const getOffers = async (req, res) => {
 
 const deleteOffers = async (req, res) => {
     const { id } = req.params
+    let productsToUpdate = []
+    const discount = 0
     try {
-        if (id) {
-            offerts = await Offer.findOne({
-                where: { id: id }
-            });
-            await offerts.destroy()
-        }
+        offerts = await Offer.findOne({
+            where: { id: id }
+        });
+        let prod = await Product.findAll({
+            include: {
+                model: Category,
+                where: {
+                    name: offerts.targetName
+                }
+            }
+        });
+        prod.forEach(element => {
+            productsToUpdate.push(element.name);
+        });
+        let update = await Product.update({
+            discount
+        },
+        {
+            where: {
+                name: productsToUpdate
+            }
+        })
+        await offerts.destroy()
         return res.send('se elimino la oferta');
     } catch (error) {
         res.send(error)
