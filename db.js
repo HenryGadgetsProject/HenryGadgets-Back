@@ -18,7 +18,7 @@ if (process.env.DATABASE_URL !== undefined) {
         require: true,
         rejectUnauthorized: false,
       },
-    },  
+    },
   });
 } else {
   console.log("LOCAL ENVIROMENT");
@@ -28,12 +28,6 @@ if (process.env.DATABASE_URL !== undefined) {
       dialect: "postgres",
       logging: false,
       protocol: "postgres",
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      },
     }
   );
 }
@@ -79,10 +73,7 @@ const {
 // Aca vendrian las relaciones
 User.hasMany(Order);
 User.hasMany(Review);
-User.hasMany(Wishlist);
-
-
-
+User.hasOne(Wishlist);
 
 Wishlist.belongsTo(User);
 Wishlist.belongsToMany(Product, { through: 'wishlist_product' });

@@ -39,7 +39,6 @@ router.post('/signup', async (req, res) => {
 
 router.post('/googleSignin', async (req, res) => {
     const { email, googleId, first_name, last_name, photo } = req.body
-    console.log(req.body)
     const user = {
         first_name,
         last_name,

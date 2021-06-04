@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const DT = DataTypes;
 
-
 module.exports = (sequelize) => {
     const User = sequelize.define('user', {
         id: {
@@ -49,7 +48,6 @@ module.exports = (sequelize) => {
         },
         nlsuscribe: {
             type: DT.BOOLEAN,
-            allowNull: true,
         }
     },
         {

@@ -24,8 +24,8 @@ const branches = [
         name: "Palermo",
         address: "Honduras 5602",
         atention: "Lunes a Sabado de 10:00 a 20:00",
-        latitud: -34.5841813,
-        longitud: -58.400044
+        latitud: -34.58399818774959,
+        longitud: -58.43652084393079
     },
     {
         name: "Bogota",

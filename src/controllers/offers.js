@@ -1,8 +1,8 @@
 const { Category, Product, Offer } = require("../../db");
-const sendOffersNotification = require('../handlers/sendOffersNotification');
+const { sendOffersNotification } = require('./email');
 
 const setOffers = async (req, res) => {
-    let { target, targetId, discount, duration } = req.body
+    let { target, targetName, discount, duration } = req.body
     duration = duration * 60 * 60 * 1000;
     discount = (discount / 100);
     let productsToUpdate = [];
@@ -13,17 +13,17 @@ const setOffers = async (req, res) => {
                 include: {
                     model: Category,
                     where: {
-                        id: targetId
+                        name: targetName
                     }
                 }
             });
             prod.forEach(element => {
-                productsToUpdate.push(element.id);
+                productsToUpdate.push(element.name);
             });
             break;
 
         case "product":
-            productsToUpdate.push(targetId);
+            productsToUpdate.push(targetName);
             break;
 
         default:
@@ -33,8 +33,8 @@ const setOffers = async (req, res) => {
     let update = defineOffert(discount, productsToUpdate, 0);
 
     let offert = await Offer.create({
-        targetm,
-        targetId,
+        target,
+        targetName,
         discount,
         duration,
         active: true
@@ -45,21 +45,23 @@ const setOffers = async (req, res) => {
     let restore = setTimeout(defineOffert, duration, 0, productsToUpdate, offert.id)
 
     sendOffersNotification()
-    return "todo OK"
+    res.send(offert)
 }
 
-const defineOffert = async () => {
+const defineOffert = async (discount, productsToUpdate, offertId) => {
     let update = await Product.update({
         discount
     },
-    {where: {
-        id: productsToUpdate
-    }})
+        {
+            where: {
+                name: productsToUpdate
+            }
+        })
 
-    if(offertId !== 0) {
+    if (offertId !== 0) {
         await Offer.update({
-            active: false 
-        },{
+            active: false
+        }, {
             where: {
                 id: offertId,
             }
@@ -67,15 +69,16 @@ const defineOffert = async () => {
         console.log(`offert #${offertId} has finished`)
     }
 
-    return res.json(update)
+    return update
 }
 
 const getOffers = async (req, res) => {
     const { active } = req.params
     try {
-        if(active) {
+        if (active) {
             offerts = await Offer.findall({
-                where: {active,
+                where: {
+                    active,
                 }
             });
         } else {
@@ -87,4 +90,38 @@ const getOffers = async (req, res) => {
     }
 }
 
-module.exports = { setOffers, getOffers }
+const deleteOffers = async (req, res) => {
+    const { id } = req.params
+    let productsToUpdate = []
+    const discount = 0
+    try {
+        offerts = await Offer.findOne({
+            where: { id: id }
+        });
+        let prod = await Product.findAll({
+            include: {
+                model: Category,
+                where: {
+                    name: offerts.targetName
+                }
+            }
+        });
+        prod.forEach(element => {
+            productsToUpdate.push(element.name);
+        });
+        let update = await Product.update({
+            discount
+        },
+        {
+            where: {
+                name: productsToUpdate
+            }
+        })
+        await offerts.destroy()
+        return res.send('se elimino la oferta');
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+module.exports = { setOffers, getOffers, deleteOffers }

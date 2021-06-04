@@ -19,7 +19,6 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const app = require("./app");
 const { conn, Category, Product, User, Review, Order, OrderDetail, Wishlist, Branch } = require("./db");
-const { assignCategories } = require("./src/controllers/product");
 const categories = require("./src/data/categories");
 const products = require("./src/data/products");
 const users = require("./src/data/users");
@@ -30,6 +29,7 @@ const wishlists = require("./src/data/wishlist");
 const branches = require("./src/data/branches");
 const { Op } = require('sequelize');
 const PORT = process.env.PORT || 3001;
+//const PORT = 3001;
 
 conn.sync({ force: true }).then(() => {
   app.listen(PORT, async function () {
@@ -52,7 +52,8 @@ conn.sync({ force: true }).then(() => {
 
       const myOrder = await Order.create({
         state: orders[i].state,
-        total_price: orders[i].total_price
+        total_price: orders[i].total_price,
+        created_at: orders[i].creationDate
       });
       await myOrder.setOrderDetails(findOrderDetail);
     }
@@ -86,7 +87,7 @@ conn.sync({ force: true }).then(() => {
         },
       });
 
-      //let rating = products[i].dataValues.rating.toString();       
+      //let rating = products[i].dataValues.rating.toString();
       const [myProduct] = await Product.findOrCreate({
         where: {
           id: products[i].id,
@@ -101,7 +102,7 @@ conn.sync({ force: true }).then(() => {
       });
       await myProduct.setCategories(findCategory);
       await myProduct.setOrderDetails(findOrderDetail);
-    }   
+    }
 
     // User creation and association
     for (let i = 0; i < users.length; i++) {
@@ -113,7 +114,7 @@ conn.sync({ force: true }).then(() => {
           },
         },
       });
-      const myWishlist = await Wishlist.create({ name: 'lista' + (i + 1) });
+      const myWishlist = await Wishlist.create({ name: 'lista' });
       const wishProducts = await Product.findAll({
         where: {
           id: {
@@ -129,10 +130,11 @@ conn.sync({ force: true }).then(() => {
           is_admin: users[i].is_admin,
           email: users[i].email,
           password: users[i].password,
+          nlsuscribe: users[i].nlsuscribe
         },
       });
       await myUser.addReviews(findReview);
-      await myUser.addWishlists(myWishlist);
+      await myUser.setWishlist(myWishlist);
     }
 
     // Other Associations
@@ -167,7 +169,7 @@ conn.sync({ force: true }).then(() => {
       const theReview = await Review.findByPk(i+1)
       theReview.setProduct(theProduct)
     }
-    
+
     console.log('Products and categories pre charged');
   });
 });

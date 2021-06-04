@@ -130,57 +130,49 @@ const deleteCategories = async (prodId, catId) => {
   });
 };
 
-const updateProduct = async (
-  id,
-  name,
-  price,
-  big_image,
-  description,
-  is_active,
-  stock,
-  categories
-) => {
+const updateProduct = async (req, res) => {
+  const { id } = req.params;
+  const {
+    name,
+    price,
+    stock,
+    description,
+    is_active,
+    big_image,
+    categories
+  } = req.body;
   try {
-    const productUpdated = await Product.update(
-      {
-        name,
-        price,
-        big_image,
-        description,
-        is_active,
-        stock,
-      },
-      { where: { id } }
-    );
-    let prod = Product.findOne({
-      where: { id: id },
-    });
-
-    if (categories.length > 1) {
-      let cat = [];
-      for (var i = 0; i < categories.length; i++) {
-        let aux = await Category.findOne({
-          where: { id: categories[i] },
-        });
-        Promise.all([aux]).then(([aux]) => {
-          cat.push(aux);
-        });
+    let prod = Product.update({
+      name,
+      price,
+      stock,
+      description,
+      is_active,
+      big_image,
+    }, {
+      where: {
+        id: id
       }
-      Promise.all([prod, cat]).then(([prod, cat]) => {
-        prod.setCategories(cat);
-        return prod;
-      });
-    } else {
-      cat = Category.findOne({
-        where: { id: categories[0] },
-      });
-      Promise.all([prod, cat]).then(([prod, cat]) => {
-        prod.setCategories(cat);
-        return prod;
-      });
-    }
+    });
+    // for(let i = 0; i < categories.length; i++) {
+    //   const category = await Category.findOne({
+    //     where: {
+    //       id: categories[i].id
+    //     }
+    //   })
+    //   await prod.setCategory(category)
+    // }
+    let product = Product.findOne({
+      where: {
+        id: id,
+      },
+      include: {
+        model: Category
+      }
+    })
+    return res.send(product)
   } catch (e) {
-    return e.message;
+    return console.log(e);
   }
 };
 

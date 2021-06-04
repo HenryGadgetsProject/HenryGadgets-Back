@@ -128,6 +128,23 @@ const getOrderHistory = async () => {
   }    
 }
 
+const editSuscribe = async (req, res) => {
+  const { id } = req.params
+  try {
+    const data = await User.findByPk(id)
+    if(data.nlsuscribe === false) {
+      data.nlsuscribe = true;
+      await data.save()
+    } else {
+      data.nlsuscribe = false
+      await data.save()
+    }
+    return res.json(data.nlsuscribe);
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
     getAllUsers,
     createUser,
@@ -137,4 +154,5 @@ module.exports = {
     promoteUser,
     forcePassword,
     getOrderHistory,
+    editSuscribe,
 }
