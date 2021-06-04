@@ -52,36 +52,7 @@ router.get("/:id", async (req, res) => {
 router.post("/", createProduct)
 
 // UPDATE A PRODUCT
-router.put("/:id", async (req, res, next) => {
-  const { id } = req.params;
-  const {
-    name,
-    price,
-    stock,
-    description,
-    rating,
-    is_active,
-    big_image,
-    categories
-  } = req.body;
-
-  try {
-    const updatedProduct = await updateProduct(
-      id,
-      name,
-      price,
-      rating,
-      big_image,
-      description,
-      is_active,
-      stock,
-      categories
-    );
-    return res.send(updatedProduct);
-  } catch (error) {
-    res.send(error);
-  }
-});
+router.put("/:id", updateProduct);
 
 // REMOVE A PRODUCT
 router.delete("/:id", async (req, res, next) => {
