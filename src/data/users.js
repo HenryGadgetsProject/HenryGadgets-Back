@@ -1,6 +1,6 @@
 const users = [
     {
-      first_name: "Soy",
+      first_name: "Admin",
       last_name: "Admin",
       is_admin: true,
       email: "soyadmin@admin.com",

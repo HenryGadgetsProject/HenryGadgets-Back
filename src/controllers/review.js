@@ -27,7 +27,6 @@ const getReviews = async (req, res) => {
       },
       attributes: ['user_id']
     });
-    console.log(usersCommented)
     let arrUsersCommented = usersCommented?.map(e => e.dataValues.user_id);
 
 
@@ -122,9 +121,6 @@ const createReview = async (req, res) => {
 };
 
 const editReview = async (req, res) => {
-
-  console.log('en el back entra', req.body)
-
   let id = req.params.id;
   let { title, rating, description, product, user } = req.body;
 

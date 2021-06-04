@@ -2,7 +2,7 @@ const nodemailer = require("nodemailer");
 const SMTPConnection = require("nodemailer/lib/smtp-connection");
 require("dotenv").config();
 const { user, pass } = process.env;
-const { Order, User, Wishlist } = require("../../db.js");
+const { Order, User, Wishlist, Product } = require("../../db.js");
 
 const emailBuyConfirmation = async (req, res) => {
   try {
@@ -393,28 +393,28 @@ const sendStockNotification = async (req, res) => {
   });
   const users = await User.findAll();
   const product = await Product.findByPk(id);
-
+  
   users.forEach(async (user) => {
     try {
-      let wishlists = await Wishlist.findOne({
-        where: {
-          user_id: userId
-        }, include: {
-          model: Product,
-          attributes: [
-            'id',
-            'name',
-            'price',
-            'description',
-            'big_image',
-            'rating',
-            'stock',
-          ]
-        }
-      })
-      const productFound = wishlists.products.filter(prod => prod.id === id)
-      if(productFound) {
-        if(user.nlsuscribe === true) {
+      if(user.nlsuscribe === true) {
+        let wishlists = await Wishlist.findOne({
+          where: {
+            user_id: user.id
+          }, include: {
+            model: Product,
+            attributes: [
+              'id',
+              'name',
+              'price',
+              'description',
+              'big_image',
+              'rating',
+              'stock',
+            ]
+          }
+        })
+        const productFound = wishlists.products.filter(prod => prod.id === id)
+        if(productFound.length > 0) {
           let htmlCreator = `
           <html>
           <head>
@@ -450,7 +450,7 @@ const sendStockNotification = async (req, res) => {
                       <p style="color: #FF1744; font-size: 1.5rem;">Hola ${user.first_name}!</p>
                       <div style="margin: 1rem 0 1rem 0; background: #FF1744; padding: .3rem;border-radius: 20rem;">
                           <span style="font-size: 1.8rem;color: #ffffff;">${product.name} en stock!</span>
-                          <p style="font-size: 1.3rem;color: #ffffff;">Visita <a href="https://henrygadgets.vercel.app/">Henry Gadgets</a>...</p>
+                          <p style="font-size: 1.3rem;color: #ffffff;">Compralo ya <a href="https://henrygadgets.vercel.app/product/${product.id}">Henry Gadgets!!</a></p>
                       </div>
                   </div>
               </div>

@@ -48,7 +48,6 @@ module.exports = (sequelize) => {
         },
         nlsuscribe: {
             type: DT.BOOLEAN,
-            allowNull: true,
         }
     },
         {

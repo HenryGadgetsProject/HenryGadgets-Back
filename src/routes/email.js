@@ -8,6 +8,6 @@ router.use(bodyParser.json());
 router.post("/buy-confirmation", emailBuyConfirmation);
 router.post("/buy-thanks", emailThankYou);
 //router.post("/passwordReset", passwordReset);
-router.post("/stock", sendStockNotification);
+router.post("/stock/:id", sendStockNotification);
 
 module.exports = router
