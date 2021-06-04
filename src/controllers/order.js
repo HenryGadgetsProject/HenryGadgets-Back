@@ -93,7 +93,7 @@ const deleteOrder = async (req, res) => {
 const ordersAdmin = async (req, res) => {
   try {
       const data = await Order.findAll({
-        attributes: ['id', 'state', 'total_price'],
+        attributes: ['id', 'state', 'total_price', 'created_at'],
         include: [{
             model: OrderDetail,
             attributes: ['id','quantity', 'unit_price'],
@@ -118,7 +118,7 @@ const ordersByState = async (req, res) => {
       where: {
         state: state.state
       },
-      attributes: ['id', 'state', 'total_price'],
+      attributes: ['id', 'state', 'total_price', 'created_at'],
         include: [{
             model: OrderDetail,
             attributes: ['id','quantity', 'unit_price'],
